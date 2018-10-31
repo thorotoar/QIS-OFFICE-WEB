@@ -6,9 +6,15 @@ use Illuminate\Http\Request;
 
 class TestNavigationController extends Controller
 {
-    public function index(){
-        return view('welcomeq');
+
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
+
+//    public function index(){
+//        return view('welcomeq');
+//    }
 
     public function home(){
         return view('user.homeu');
@@ -48,10 +54,6 @@ class TestNavigationController extends Controller
 
     public function viewtd(){
         return view('user.dokumen.hometd');
-    }
-
-    public function index_admin(){
-        return view('admin.homea');
     }
 
     public function viewsma(){

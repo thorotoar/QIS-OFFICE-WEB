@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcomeq');
 });
 
 Route::get('/test', function () {
@@ -22,7 +22,7 @@ Route::get('/test', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 //Route::group(['namespace'=>'users', 'prefix'=>'/'], function (){
 //    Route::get('/homeu', 'TestNavigationController@home');
@@ -38,7 +38,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 //});
 
 Route::get('/loginq', 'TestNavigationController@index');
-Route::get('/homeu', 'TestNavigationController@home');
+
+//Route::get('/homeu', 'TestNavigationController@home')->name('home-pegawai');
 Route::get('/homesm', 'TestNavigationController@viewsm');
 Route::get('/hometsm', 'TestNavigationController@viewtsm');
 Route::get('/homesk', 'TestNavigationController@viewsk');
@@ -50,6 +51,24 @@ Route::get('/homed', 'TestNavigationController@viewd');
 Route::get('/hometd', 'TestNavigationController@viewtd');
 
 
-Route::get('/homea', 'TestNavigationController@index_admin');
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admin'], function (){
+
+    Route::get('/', [
+        'uses' => 'AdminController@index',
+        'as' => 'home-admin'
+    ]);
+
+});
+
+Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => 'pegawai'], function (){
+
+    Route::get('/', [
+        'uses' => 'PegawaiController@index',
+        'as' => 'home-pegawai'
+    ]);
+
+});
+
+//Route::get('/homea', 'AdminController@index')->name('home-admin');
 Route::get('/homesma', 'TestNavigationController@viewsma');
 Route::get('/homeska', 'TestNavigationController@viewska');

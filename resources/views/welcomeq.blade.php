@@ -44,12 +44,26 @@
                     <div class="login-content card">
                         <div class="login-form">
                             <h4><img src="{{asset ('images/logo-v3.png')}}" alt="homepage" class="dark-logo" /></h4>
-                            <form method="post" action="{{url('/loginq')}}">
-                                <div class="form-group">
-                                    <input id="email" type="email" class="form-control" name="email" value="" placeholder="Email"  required autofocus>
+                            <form method="POST" action="{{ route('login') }}">
+                                {{ csrf_field() }}
+
+                                <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+                                    <input id="username" type="text" class="form-control" name="username" value="" placeholder="Username"  required autofocus>
+
+                                    @if ($errors->has('username'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('username') }}</strong>
+                                    </span>
+                                    @endif
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                     <input id="password" type="password" class="form-control" name="password" placeholder="Password" required>
+
+                                    @if ($errors->has('password'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                    @endif
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-flat">Masuk</button>
                             </form>

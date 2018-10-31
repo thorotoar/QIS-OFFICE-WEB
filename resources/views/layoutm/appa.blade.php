@@ -80,7 +80,14 @@
                             <ul class="dropdown-user">
                                 <li><a href="#"><i class="ti-user"></i> Profile</a></li>
                                 <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
-                                <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                                <li><a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();""><i class="fa fa-power-off"></i> Logout</a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
                             </ul>
                         </div>
                     </li>
