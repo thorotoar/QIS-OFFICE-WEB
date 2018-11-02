@@ -30,7 +30,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/admin';
 
     /**
      * Create a new controller instance.
@@ -58,7 +58,7 @@ class LoginController extends Controller
 
         //mengeksekusi proses
         try {
-            //mencari user berdasarkan username yang diinputkan, firstOrFail = mengambil data paling pertama seandainya ada data yang sama
+            //mencari pegawai berdasarkan username yang diinputkan, firstOrFail = mengambil data paling pertama seandainya ada data yang sama
             $user = User::where('username',$request->username)->firstOrFail();
             //!Hash = decript Password
             if(!Hash::check($request->password, $user->password)) {
@@ -68,11 +68,11 @@ class LoginController extends Controller
             }
             Auth::login($user);
             $role = Auth::user()->type;
-            if($role == 'pegawai'){
-                return redirect()->route('home-pegawai')->with('signed','You`re now signed in as Pegawai.');
-            }
             if($role == 'admin'){
                 return redirect()->route('home-admin')->with('signed','You`re now signed in as Admin.');
+            }
+            if($role == 'pegawai'){
+                return redirect()->route('home-pegawai')->with('signed','You`re now signed in as Pegawai.');
             }
         }
         catch (ModelNotFoundException $e) {
@@ -89,11 +89,11 @@ class LoginController extends Controller
 //
 //        $this->clearLoginAttempts($request);
 //
-//        if ($this->guard()->user()->role->name=='admin'){
+//        if ($this->guard()->pegawai()->role->name=='admin'){
 //
 //            return redirect(route('home-admin'));
 //        }
-//        elseif ($this->guard()->user()->role->name=='pegawai'){
+//        elseif ($this->guard()->pegawai()->role->name=='pegawai'){
 //
 //            return redirect(route('home-pegawai'));
 //        }
@@ -114,6 +114,11 @@ class LoginController extends Controller
 
         $request->session()->invalidate();
 
-        return redirect('/loginq');
+        return redirect('/');
+    }
+
+    protected function guard()
+    {
+        return Auth::guard();
     }
 }

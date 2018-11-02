@@ -1,4 +1,4 @@
-@extends('layoutm.appa')
+@extends('layout-master.app-admin')
 @section('title', 'QIS Admin | Surat Masuk')
 
 @section('content')

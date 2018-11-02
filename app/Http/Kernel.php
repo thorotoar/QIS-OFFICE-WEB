@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'admin' => \App\Http\Middleware\Auth\AdminAuth::class,
         'pegawai' => \App\Http\Middleware\Auth\PegawaiAuth::class,
+        'unauthorized'=> \App\Http\Middleware\Auth\Unauthorized::class,
     ];
 }

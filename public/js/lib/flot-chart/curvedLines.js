@@ -335,7 +335,7 @@ ____________________________________________________
 					fpDist = (maxX - minX) / (500 * 100);
 					//x range / (estimated pixel length of placeholder * factor)
 				} else {
-					//use user defined value
+					//use pegawai defined value
 					fpDist = Number(curvedLinesOptions.fitPointDist);
 				}
 

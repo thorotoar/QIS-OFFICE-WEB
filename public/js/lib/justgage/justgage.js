@@ -1174,7 +1174,7 @@ function onCreateElementNsReady(func) {
 /**  Get IE version  */
 // ----------------------------------------------------------
 // A short snippet for detecting versions of IE in JavaScript
-// without resorting to user-agent sniffing
+// without resorting to pegawai-agent sniffing
 // ----------------------------------------------------------
 // If you're not in IE (or IE version is less than 5) then:
 // ie === undefined

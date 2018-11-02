@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('welcomeq');
-});
+})->middleware('unauthorized');
 
 Route::get('/test', function () {
     return view('welcomeq');
@@ -22,7 +22,7 @@ Route::get('/test', function () {
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 
 //Route::group(['namespace'=>'users', 'prefix'=>'/'], function (){
 //    Route::get('/homeu', 'TestNavigationController@home');
@@ -58,6 +58,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
         'as' => 'home-admin'
     ]);
 
+    Route::get('/surat-masuk', [
+        'uses' => 'AdminController@viewsma',
+        'as' => 'surat-masuk-admin'
+    ]);
+
+    Route::get('/surat-keluar', [
+        'uses' => 'AdminController@viewska',
+        'as' => 'surat-keluar-admin'
+    ]);
+
 });
 
 Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => 'pegawai'], function (){
@@ -67,8 +77,16 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
         'as' => 'home-pegawai'
     ]);
 
-});
+    Route::get('/surat-masuk', [
+        'uses' => 'PegawaiController@viewsmp',
+        'as' => 'surat-masuk-pegawai'
+    ]);
 
-//Route::get('/homea', 'AdminController@index')->name('home-admin');
-Route::get('/homesma', 'TestNavigationController@viewsma');
-Route::get('/homeska', 'TestNavigationController@viewska');
+    Route::get('/surat-keluar', [
+        'uses' => 'PegawaiController@viewskp',
+        'as' => 'surat-keluar-pegawai'
+    ]);
+
+
+
+});

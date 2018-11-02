@@ -42,7 +42,7 @@
         <nav class="navbar top-navbar navbar-expand-md navbar-light">
             <!-- Logo -->
             <div class="navbar-header">
-                <a class="navbar-brand" href="{{url('/homeu')}}">
+                <a class="navbar-brand" href="{{route('home-pegawai')}}">
                     <!-- Logo icon -->
                     <b><img src="{{asset('images/logo1.png')}}" alt="homepage" class="dark-logo" /></b>
                     <!--End Logo icon -->
@@ -75,7 +75,7 @@
                     <!--</li>-->
                     <!-- Profile -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/users/5.jpg" alt="user" class="profile-pic" /></a>
+                        <a class="nav-link dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset('images/users/5.jpg')}}" alt="user" class="profile-pic" /></a>
                         <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                             <ul class="dropdown-user">
                                 <li><a href="#"><i class="ti-user"></i> Profile</a></li>
@@ -104,15 +104,15 @@
                 <ul id="sidebarnav">
                     <li class="nav-devider"></li>
                     <li class="nav-label">Home</li>
-                    <li> <a href="home.html" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span></a>
+                    <li> <a href="{{route('home-pegawai')}}" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span></a>
                         <ul aria-expanded="false" class="collapse">
                         </ul>
                     </li>
                     <li class="nav-label">Work</li>
                     <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-file-text"></i><span class="hide-menu">Kelola Surat</span></a>
                         <ul aria-expanded="false" class="collapse">
-                            <li><a href="{{url('/homesm')}}">Surat Masuk</a></li>
-                            <li><a href="{{url('/homesk')}}">Surat Keluar</a></li>
+                            <li><a href="{{route('surat-masuk-pegawai')}}">Surat Masuk</a></li>
+                            <li><a href="{{route('surat-keluar-pegawai')}}">Surat Keluar</a></li>
                         </ul>
                     </li>
                     <li>

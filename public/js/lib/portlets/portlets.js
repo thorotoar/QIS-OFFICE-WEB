@@ -943,7 +943,7 @@ $(function () {
 
         /**
          * Set url. This url will be used to load data when Reload button is clicked
-         * or user calls .load() method without url parameter
+         * or pegawai calls .load() method without url parameter
          *
          * @param {string} url
          * @returns {LobiPanel}
@@ -1745,11 +1745,11 @@ $(function () {
                          // and apply them when you reload the browser
         constrain: 'document', // 'parent', 'document', 'window'
         unpin: {
-            icon: 'glyphicon glyphicon-move', //You can user glyphicons if you do not want to use font-awesome
+            icon: 'glyphicon glyphicon-move', //You can pegawai glyphicons if you do not want to use font-awesome
             tooltip: 'Unpin'               //tooltip text, If you want to disable tooltip, set it to false
         },
         reload: {
-            icon: 'glyphicon glyphicon-refresh', //You can user glyphicons if you do not want to use font-awesome
+            icon: 'glyphicon glyphicon-refresh', //You can pegawai glyphicons if you do not want to use font-awesome
             tooltip: 'Reload'           //tooltip text, If you want to disable tooltip, set it to false
         },
         minimize: {
@@ -1763,7 +1763,7 @@ $(function () {
             tooltip: 'Fullscreen'       //tooltip text, If you want to disable tooltip, set it to false
         },
         close: {
-            icon: 'glyphicon glyphicon-remove', //You can user glyphicons if you do not want to use font-awesome
+            icon: 'glyphicon glyphicon-remove', //You can pegawai glyphicons if you do not want to use font-awesome
             tooltip: 'Close'            //tooltip text, If you want to disable tooltip, set it to false
         },
         editTitle: {

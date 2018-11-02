@@ -42,7 +42,7 @@
         <nav class="navbar top-navbar navbar-expand-md navbar-light">
             <!-- Logo -->
             <div class="navbar-header">
-                <a class="navbar-brand" href="home.html">
+                <a class="navbar-brand" href="{{route('home-admin')}}">
                     <!-- Logo icon -->
                     <b><img src="{{asset('/images/logo1.png')}}" alt="homepage" class="dark-logo" /></b>
                     <!--End Logo icon -->
@@ -105,12 +105,12 @@
                 <ul id="sidebarnav">
                     <li class="nav-devider"></li>
                     <li class="nav-label">Home</li>
-                    <li> <a href="{{url('/homea')}}" aria-expanded="true"><i aria-selected="true" class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</a></li>
+                    <li> <a href="{{route('home-admin')}}" aria-expanded="true"><i aria-selected="true" class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</a></li>
                     <li class="nav-label">Work</li>
                     <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-file-text"></i><span class="hide-menu">Kelola Surat</span></a>
                         <ul aria-expanded="false" class="collapse">
-                            <li><a href="{{url('/homesma')}}">Surat Masuk</a></li>
-                            <li><a href="{{url('/homeska')}}">Surat Keluar</a></li>
+                            <li><a href="{{route('surat-masuk-admin')}}">Surat Masuk</a></li>
+                            <li><a href="{{route('surat-keluar-admin')}}">Surat Keluar</a></li>
                         </ul>
                     </li>
                     <li>
@@ -124,6 +124,12 @@
                     </li>
                     <li>
                         <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-archive"></i><span class="hide-menu">Kelola Dokumen</span></a>
+                    </li>
+                    <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-file-text"></i><span class="hide-menu">Master Setup</span></a>
+                        <ul aria-expanded="false" class="collapse">
+                            <li><a href="">User Admin</a></li>
+                            <li><a href="">User Pegawai</a></li>
+                        </ul>
                     </li>
                 </ul>
             </nav>

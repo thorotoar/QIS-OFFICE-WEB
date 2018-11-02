@@ -4,9 +4,9 @@ namespace App\Http\Middleware\Auth;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Response;
 
-class AdminAuth
+class Unauthorized
+
 {
     /**
      * Handle an incoming request.
@@ -17,10 +17,18 @@ class AdminAuth
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user() && $request->user()->type != 'admin')
-        {
-            return new Response(view('pegawai.unauthorized')->with('role', 'PEGAWAI'));
+        if(!auth()->guest()){
+            if ($request->user() && $request->user()->type == 'admin')
+            {
+                return redirect()->route('home-admin');
+            }
+            else if($request->user() && $request->user()->type == 'pegawai'){
+                return redirect()->route('home-pegawai');
+            }
         }
+
+
+
         return $next($request);
     }
 }

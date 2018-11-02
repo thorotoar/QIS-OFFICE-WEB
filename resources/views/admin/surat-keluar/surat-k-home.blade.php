@@ -1,5 +1,5 @@
-@extends('layoutm.appu')
-@section('title', 'QIS Office | Surat Keluar')
+@extends('layout-master.app-admin')
+@section('title', 'QIS Admin | Surat Keluar')
 
 @section('content')
     <!-- Page wrapper  -->
@@ -7,11 +7,11 @@
         <!-- Bread crumb -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
-                <h3 class="text-primary">Surat Keluar</h3> </div>
+                <h3 class="text-primary">Surat Masuk</h3> </div>
             <div class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                    <li class="breadcrumb-item active">Surat Keluar</li>
+                    <li class="breadcrumb-item active">Surat Masuk</li>
                 </ol>
             </div>
         </div>
@@ -24,18 +24,30 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Daftar Surat Keluar</h4>
-                            <a class="btn btn-primary btn-flat" href="{{url('/hometsk')}}">
-                                <i class="fa fa-plus"></i>&nbsp;Tambah Surat Keluar</a>
+                            <div class="dropdown">
+                                <button class="btn btn-primary btn-flat dropdown-toggle" type="button" data-toggle="dropdown">Tambah Surat Keluar&nbsp;
+                                    <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Surat Pemberitahuan</a></li>
+                                    <li><a href="#">Surat Penagihan</a></li>
+                                    <li><a href="#">Surat Peringatan</a></li>
+                                    <li><a href="#">Surat Pengajuan Dana</a></li>
+                                    <li><a href="#">Surat Pengangkatan</a></li>
+                                    <li><a href="#">Surat Keterangan Pengalaman</a></li>
+                                    <li><a href="#">Surat Keputusan Instruktur</a></li>
+                                    <li><a href="#">Surat Keputusan Penyusun Sylabus</a></li>
+                                    <li><a href="#">Surat Keputusan Penyusun RPP</a></li>
+                                </ul>
+                            </div>
                             <div class="table-responsive m-t-40">
                                 <table id="myTable" class="table table-bordered table-striped" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Nomor Surat</th>
-                                        <th>Tanggal Surat</th>
-                                        <th>Ditujukan</th>
-                                        <th>Prihal</th>
-                                        <th>Kategori</th>
+                                        <th>Diterima</th>
+                                        <th>Asal</th>
+                                        <th>Jenis Surat</th>
                                         <th></th>
                                     </tr>
                                     </thead>
@@ -45,17 +57,19 @@
                                         <th>123</th>
                                         <th>12 Juli 2018</th>
                                         <th>PT. Siap Techno</th>
-                                        <th>Penerimaan Dana</th>
-                                        <th>Penting</th>
+                                        <th>Surat Penagihan</th>
                                         <th>
                                             <div class="table-data-feature">
-                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Send">
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Lihat">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Kirim">
                                                     <i class="fa fa-send"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Edit">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Hapus">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
@@ -69,17 +83,19 @@
                                         <th>122</th>
                                         <th>12 Juli 2018</th>
                                         <th>PT. Siap Techno</th>
-                                        <th>Penerimaan Dana</th>
-                                        <th>Penting</th>
+                                        <th>Surat Penagihan</th>
                                         <th>
                                             <div class="table-data-feature">
-                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Send">
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Lihat">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Kirim">
                                                     <i class="fa fa-send"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Edit">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Hapus">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
@@ -93,17 +109,19 @@
                                         <th>133</th>
                                         <th>12 Juli 2018</th>
                                         <th>PT. Siap Techno</th>
-                                        <th>Penerimaan Dana</th>
-                                        <th>Penting</th>
+                                        <th>Surat Penagihan</th>
                                         <th>
                                             <div class="table-data-feature">
-                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Send">
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Lihat">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Kirim">
                                                     <i class="fa fa-send"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Edit">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Hapus">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
@@ -117,17 +135,19 @@
                                         <th>121</th>
                                         <th>12 Juli 2018</th>
                                         <th>PT. Siap Techno</th>
-                                        <th>Penerimaan Dana</th>
-                                        <th>Penting</th>
+                                        <th>Surat Penagihan</th>
                                         <th>
                                             <div class="table-data-feature">
-                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Send">
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Lihat">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Kirim">
                                                     <i class="fa fa-send"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Edit">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Hapus">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
@@ -141,17 +161,19 @@
                                         <th>223</th>
                                         <th>12 Juli 2018</th>
                                         <th>PT. Siap Techno</th>
-                                        <th>Penerimaan Dana</th>
-                                        <th>Penting</th>
+                                        <th>Surat Penagihan</th>
                                         <th>
                                             <div class="table-data-feature">
-                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Send">
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Lihat">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Kirim">
                                                     <i class="fa fa-send"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Edit">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Hapus">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
@@ -165,17 +187,19 @@
                                         <th>333</th>
                                         <th>12 Juli 2018</th>
                                         <th>PT. Siap Techno</th>
-                                        <th>Penerimaan Dana</th>
-                                        <th>Penting</th>
+                                        <th>Surat Penagihan</th>
                                         <th>
                                             <div class="table-data-feature">
-                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Send">
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Lihat">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Kirim">
                                                     <i class="fa fa-send"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Edit">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Hapus">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
@@ -189,17 +213,19 @@
                                         <th>234</th>
                                         <th>12 Juli 2018</th>
                                         <th>PT. Siap Techno</th>
-                                        <th>Penerimaan Dana</th>
-                                        <th>Penting</th>
+                                        <th>Surat Penagihan</th>
                                         <th>
                                             <div class="table-data-feature">
-                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Send">
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Lihat">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Kirim">
                                                     <i class="fa fa-send"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Edit">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Hapus">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
@@ -213,17 +239,19 @@
                                         <th>333</th>
                                         <th>12 Juli 2018</th>
                                         <th>PT. Siap Techno</th>
-                                        <th>Penerimaan Dana</th>
-                                        <th>Penting</th>
+                                        <th>Surat Penagihan</th>
                                         <th>
                                             <div class="table-data-feature">
-                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Send">
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Lihat">
+                                                    <i class="fa fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Kirim">
                                                     <i class="fa fa-send"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Edit">
                                                     <i class="fa fa-edit"></i>
                                                 </button>
-                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Hapus">
                                                     <i class="fa fa-trash"></i>
                                                 </button>
                                                 <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
@@ -240,6 +268,12 @@
                 </div>
             </div>
             <!-- End PAge Content -->
+            <div class="row">
+                <h1>TinyMCE Quick Start Guide</h1>
+                <form method="post">
+                    <textarea id="mytextarea">Hello, World!</textarea>
+                </form>
+            </div>
         </div>
         <!-- End Container fluid  -->
         <!-- footer -->

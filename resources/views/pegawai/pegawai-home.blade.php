@@ -1,4 +1,4 @@
-@extends('layoutm.appu')
+@extends('layout-master.app-pegawai')
 @section('title', 'QIS Office | Home')
 
 @section('content')

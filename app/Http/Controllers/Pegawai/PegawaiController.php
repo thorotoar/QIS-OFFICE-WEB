@@ -13,6 +13,14 @@ class PegawaiController extends Controller
     }
 
     public function index(){
-        return view('user.homeu');
+        return view('pegawai.pegawai-home');
+    }
+
+    public function viewsmp(){
+        return view('pegawai.surat-masuk.surat-m-home');
+    }
+
+    public function viewskp(){
+        return view('pegawai.surat-keluar.surat-k-home');
     }
 }

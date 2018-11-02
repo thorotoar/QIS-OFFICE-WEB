@@ -276,7 +276,7 @@
   sidebar.prototype.windowResize = function() {
     var _this = this;
 
-    // if user currently changed size of sidebar, stop change it
+    // if pegawai currently changed size of sidebar, stop change it
     if(!_this.options.changed) {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(function() {
