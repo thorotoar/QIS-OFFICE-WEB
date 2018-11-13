@@ -14,13 +14,15 @@ class userSeeder extends Seeder
     public function run()
     {
         $faker = Factory::create('id_ID');
+        $type = ['admin','pegawai'];
+        $username = ['admin','pegawai'];
 
         for ($c = 0; $c < 2; $c++){
             $user = user::create([
-                'username' => $faker->userName,
-                'email' => $faker->unique()->safeEmail,
+                'username' => array_random($username),
+                //'email' => $faker->unique()->safeEmail,
                 'password' => bcrypt('secret'),
-                'type' => 'admin',
+                'type' => array_random($type),
                 'remember_token' => str_random(10),
             ]);
         }

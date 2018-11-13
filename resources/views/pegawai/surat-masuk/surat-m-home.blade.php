@@ -1,5 +1,5 @@
 @extends('layout-master.app-pegawai')
-@section('title', 'QIS Office | Surat Masuk')
+@section('title', 'QIS OFFICE | SURAT MASUK')
 
 @section('content')
     <!-- Page wrapper  -->
@@ -23,8 +23,8 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Daftar Surat Masuk</h4>
-                            <a class="btn btn-primary btn-flat" href="{{url('/hometsm')}}">
+                            <h4 class="card-title">Daftar Surat Masuk</h4><hr>
+                            <a class="btn btn-primary btn-flat" href="{{route('tambah-s-m-p')}}">
                                 <i class="fa fa-plus"></i>&nbsp;Tambah Surat Masuk</a>
                             <div class="table-responsive m-t-40">
                                 <table id="myTable" class="table table-bordered table-striped" cellspacing="0" width="100%">
@@ -242,9 +242,6 @@
             <!-- End PAge Content -->
         </div>
         <!-- End Container fluid  -->
-        <!-- footer -->
-        <footer class="footer"> © 2018 All rights reserved. Template designed by <a href="https://colorlib.com">Colorlib</a></footer>
-        <!-- End footer -->
     </div>
     <!-- End Page wrapper  -->
 @endsection

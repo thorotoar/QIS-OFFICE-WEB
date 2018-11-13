@@ -6,5 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class PesertaQIS extends Model
 {
-    //
+    //"$table" pengenalan table
+    protected $table = 'peserta_q_i_s';
+
+    //"$primaryKey" kolom pengenalan primary key tabel
+    protected $primaryKey = 'id';
+
+    //"$guarded" kolom yang tidak dapat diisi secara manual
+    protected $guarded = ['id'];
+
+    public function lembaga_qis()
+    {
+        return $this->belongsTo(Lembaga::class, 'lembaga_id');
+    }
 }

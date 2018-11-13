@@ -1,5 +1,5 @@
 @extends('layout-master.app-admin')
-@section('title', 'QIS Admin | Surat Keluar')
+@section('title', 'QIS ADMIN | SURAT KELUAR')
 
 @section('content')
     <!-- Page wrapper  -->
@@ -7,11 +7,11 @@
         <!-- Bread crumb -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
-                <h3 class="text-primary">Surat Masuk</h3> </div>
+                <h3 class="text-primary">Surat Keluar</h3> </div>
             <div class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                    <li class="breadcrumb-item active">Surat Masuk</li>
+                    <li class="breadcrumb-item active">Surat Keluar</li>
                 </ol>
             </div>
         </div>
@@ -276,9 +276,6 @@
             </div>
         </div>
         <!-- End Container fluid  -->
-        <!-- footer -->
-        <footer class="footer"> © 2018 All rights reserved. Template designed by <a href="https://colorlib.com">Colorlib</a></footer>
-        <!-- End footer -->
     </div>
     <!-- End Page wrapper  -->
 @endsection

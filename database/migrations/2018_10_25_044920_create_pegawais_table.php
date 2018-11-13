@@ -18,6 +18,7 @@ class CreatePegawaisTable extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('nik');
+            $table->string('foto');
             $table->string('nama');
             $table->string('alamat');
             $table->string('tempat_lahir');
@@ -42,7 +43,7 @@ class CreatePegawaisTable extends Migration
             $table->string('pasangan');
             $table->string('pekerjaan_pasangan');
             $table->date('tgl_masuk');
-            $table->date('no_sk');
+            $table->string('no_sk');
             $table->integer('jabatan_id')->unsigned();
             $table->foreign('jabatan_id')->references('id')->on('jabatans');
             $table->timestamps();

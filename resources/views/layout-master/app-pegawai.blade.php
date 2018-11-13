@@ -78,11 +78,10 @@
                         <a class="nav-link dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset('images/users/5.jpg')}}" alt="user" class="profile-pic" /></a>
                         <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                             <ul class="dropdown-user">
-                                <li><a href="#"><i class="ti-user"></i> Profile</a></li>
-                                <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
+                                <li><a href="#"><i class="ti-key"></i> Change Password</a></li>
                                 <li><a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();""><i class="fa fa-power-off"></i> Logout</a>
+                                    document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> Logout</a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         {{ csrf_field() }}
@@ -119,7 +118,7 @@
                         <a class="has-arrow  " href={{url('/homepd')}}" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Kelola Peserta Didik</span></a>
                     </li>
                     <li>
-                        <a class="has-arrow  " href="{{url('/homep')}}" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Kelola Pegawai</span></a>
+                        <a class="has-arrow  " href="{{route('d-pegawai')}}" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Kelola Pegawai</span></a>
                     </li>
                     <li>
                         <a class="has-arrow  " href="{{url('/homek')}}" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Kelola Kurikulum</span></a>
@@ -135,9 +134,8 @@
     </div>
     <!-- End Left Sidebar  -->
     @yield('content')
-
     <!-- footer -->
-    <footer class="footer"> © 2018 QIS OFFICE Surabaya</footer>
+    <footer class="footer"> © 2018 Quali International Surabaya | OFFICE</footer>
     <!-- End footer -->
 </div>
 <!-- End Wrapper -->

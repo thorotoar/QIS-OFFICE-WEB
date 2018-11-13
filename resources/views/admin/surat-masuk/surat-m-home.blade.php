@@ -1,5 +1,5 @@
 @extends('layout-master.app-admin')
-@section('title', 'QIS Admin | Surat Masuk')
+@section('title', 'QIS ADMIN | SURAT MASUK')
 
 @section('content')
     <!-- Page wrapper  -->
@@ -266,9 +266,6 @@
             <!-- End PAge Content -->
         </div>
         <!-- End Container fluid  -->
-        <!-- footer -->
-        <footer class="footer"> © 2018 All rights reserved. Template designed by <a href="https://colorlib.com">Colorlib</a></footer>
-        <!-- End footer -->
     </div>
     <!-- End Page wrapper  -->
 @endsection

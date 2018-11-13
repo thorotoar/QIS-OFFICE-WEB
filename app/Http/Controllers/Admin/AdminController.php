@@ -23,4 +23,17 @@ class AdminController extends Controller
     public function viewska(){
         return view('admin.surat-keluar.surat-k-home');
     }
+
+    public function view_um(){
+    return view('admin.user-management.m-a-home');
+}
+
+    public function tambah_um(){
+        return view('admin.user-management.m-a-tambah');
+    }
+
+    public function tambahuser(Request $request)
+    {
+        dd($request->all());
+    }
 }

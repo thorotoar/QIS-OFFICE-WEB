@@ -27,8 +27,6 @@ class Unauthorized
             }
         }
 
-
-
         return $next($request);
     }
 }

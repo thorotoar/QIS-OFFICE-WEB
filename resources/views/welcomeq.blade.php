@@ -72,8 +72,10 @@
                 </div>
             </div>
         </div>
+        <!-- footer -->
+        <footer class="footer"> © 2018 Quali International Surabaya | OFFICE Website</footer>
+        <!-- End footer -->
     </div>
-
 </div>
 
 <!-- All Jquery -->

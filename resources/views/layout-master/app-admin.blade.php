@@ -78,8 +78,7 @@
                         <a class="nav-link dropdown-toggle text-muted  " href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset('images/users/5.jpg')}}" alt="user" class="profile-pic" /></a>
                         <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                             <ul class="dropdown-user">
-                                <li><a href="#"><i class="ti-user"></i> Profile</a></li>
-                                <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
+                                <li><a href="#"><i class="ti-key"></i> Change Password</a></li>
                                 <li><a href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();""><i class="fa fa-power-off"></i> Logout</a>
@@ -127,8 +126,9 @@
                     </li>
                     <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-file-text"></i><span class="hide-menu">Master Setup</span></a>
                         <ul aria-expanded="false" class="collapse">
-                            <li><a href="">User Admin</a></li>
-                            <li><a href="">User Pegawai</a></li>
+                            <li><a href="{{route('um-home')}}">User</a></li>
+                            <li><a href="{{route('jm-home')}}">Jabatan</a></li>
+                            <li><a href="{{route('jsm-home')}}">Jenis Surat</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -139,6 +139,9 @@
     </div>
     <!-- End Left Sidebar  -->
     @yield('content')
+    <!-- footer -->
+    <footer class="footer"> © 2018 Quali International Surabaya | OFFICE</footer>
+    <!-- End footer -->
 </div>
 <!-- End Wrapper -->
 <!-- All Jquery -->

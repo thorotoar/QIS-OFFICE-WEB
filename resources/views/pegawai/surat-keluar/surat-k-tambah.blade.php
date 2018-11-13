@@ -1,5 +1,5 @@
 @extends('layout-master.app-pegawai')
-@section('title', 'QIS Office | Tambah Surat Keluar')
+@section('title', 'QIS OFFICE | SURAT KELUAR')
 
 @section('content')
     <!-- Page wrapper  -->
@@ -7,11 +7,11 @@
         <!-- Bread crumb -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
-                <h3 class="text-primary">Input Surat Keluar</h3> </div>
+                <h3 class="text-primary">Surat Keluar</h3> </div>
             <div class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">Surat Keluar</a></li>
-                    <li class="breadcrumb-item active">Buat Surat Keluar</li>
+                    <li class="breadcrumb-item"><a href="javascript:void(0)">Tambah Surat Keluar</a></li>
+                    <li class="breadcrumb-item active">Surat Keluar</li>
                 </ol>
             </div>
         </div>
@@ -71,9 +71,6 @@
             <!-- End PAge Content -->
         </div>
         <!-- End Container fluid  -->
-        <!-- footer -->
-        <footer class="footer"> © 2018 QIS Surabaya</footer>
-        <!-- End footer -->
     </div>
     <!-- End Page wrapper  -->
 @endsection
