@@ -63,6 +63,7 @@
                 margin-bottom: 30px;
             }
         </style>
+        <script src="https:https://cloud.tinymce.com/stable/tinymce.min.js"></script>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -91,5 +92,32 @@
                 </div>
             </div>
         </div>
+        <div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Pembuka</label>
+                        <textarea class="form-control" id="mytextarea" data-value="qawqwqwqwqwq"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
+
+    <script src="{{asset('/tinymce/tinymce.min.js')}}"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: [
+                "adylist autolink list link image charmap print preview hr anchor pagebreak",
+                "searchplace wordcount visualblocks code fullscreen",
+                "insertdatetime media nonbreaking save table contextmenu directionality",
+                "emotions template paste textcolor colorpicker textpattern"
+            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignmentleft alignmentceter alignmentright " +
+            "alignmentjustify | bullist numlist outdent indent | link image media"
+        });
+    </script>
+
 </html>
+

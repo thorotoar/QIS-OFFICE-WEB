@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Faker\Factory;
 use App\Jenjang;
 
 class jenjangSeeder extends Seeder
@@ -12,12 +13,64 @@ class jenjangSeeder extends Seeder
      */
     public function run()
     {
-        $jenjang_g = ['D3', 'S1', 'S2'];
+        $faker = Factory::create('id_ID');
 
-        for ($c = 0; $c < 3; $c++){
+        for ($c = 0; $c < 13; $c++){
             $jenjang = Jenjang::create([
-                'nama_jenjang' => array_random($jenjang_g),
+                'nama_jenjang' => $faker->sentence('3', 'true'),
             ]);
         }
+
+        Jenjang::find(1)->update([
+            'nama_jenjang' => 'Paket A',
+        ]);
+
+        Jenjang::find(2)->update([
+            'nama_jenjang' => 'Paket B',
+        ]);
+
+        Jenjang::find(3)->update([
+            'nama_jenjang' => 'Paket C',
+        ]);
+
+        Jenjang::find(4)->update([
+            'nama_jenjang' => 'D1',
+        ]);
+
+        Jenjang::find(5)->update([
+            'nama_jenjang' => 'D2',
+        ]);
+
+        Jenjang::find(6)->update([
+            'nama_jenjang' => 'D3',
+        ]);
+
+        Jenjang::find(7)->update([
+            'nama_jenjang' => 'D4',
+        ]);
+
+        Jenjang::find(8)->update([
+            'nama_jenjang' => 'S1',
+        ]);
+
+        Jenjang::find(9)->update([
+            'nama_jenjang' => 'S2',
+        ]);
+
+        Jenjang::find(10)->update([
+            'nama_jenjang' => 'S3',
+        ]);
+
+        Jenjang::find(11)->update([
+            'nama_jenjang' => 'Non Formal',
+        ]);
+
+        Jenjang::find(12)->update([
+            'nama_jenjang' => 'Informal',
+        ]);
+
+        Jenjang::find(13)->update([
+            'nama_jenjang' => 'Lainnya',
+        ]);
     }
 }

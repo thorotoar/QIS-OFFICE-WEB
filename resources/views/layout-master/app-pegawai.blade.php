@@ -24,8 +24,8 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
     <!--[if lt IE 9]>
-    <script src="{{asset('https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')}}"></script>
-    <script src="{{asset('https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')}}"></script>
+    <script src="https:https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https:https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
 
@@ -178,6 +178,23 @@
 
 {{--dropzone--}}
 <script src="{{asset('js/lib/dropzone/dropzone.js')}}"></script>
+
+{{--textarea--}}
+<script src="{{asset('tinymce/tinymce.min.js')}}"></script>
+<script>
+    tinymce.init({
+        selector: '#textarea',
+        plugins: [
+            "autolink link image charmap print preview hr anchor pagebreak",
+            "wordcount visualblocks code fullscreen",
+            "insertdatetime media nonbreaking save table contextmenu directionality",
+            "template paste textcolor colorpicker textpattern"
+        ],
+        toolbar: "insertfile undo redo | styleselect | bold italic | alignmentleft alignmentceter alignmentright " +
+        "alignmentjustify | bullist numlist outdent indent | link image media"
+    });
+</script>
+
 </body>
 
 </html>

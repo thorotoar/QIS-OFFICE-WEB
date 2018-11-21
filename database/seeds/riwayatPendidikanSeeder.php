@@ -28,5 +28,33 @@ class riwayatPendidikanSeeder extends Seeder
                 'thn_lulus' => $faker->dateTimeThisDecade,
             ]);
         }
+
+        RiwayatPendidikan::find(1)->update([
+            'pegawai_id' => '1',
+        ]);
+
+        RiwayatPendidikan::find(2)->update([
+            'pegawai_id' => '2',
+        ]);
+
+        RiwayatPendidikan::find(3)->update([
+            'pegawai_id' => '3',
+        ]);
+
+        RiwayatPendidikan::find(4)->update([
+            'pegawai_id' => '4',
+        ]);
+
+        RiwayatPendidikan::find(5)->update([
+            'pegawai_id' => '5',
+        ]);
+
+        RiwayatPendidikan::find(6)->update([
+            'pegawai_id' => '6',
+        ]);
+
+        RiwayatPendidikan::find(7)->update([
+            'pegawai_id' => '7',
+        ]);
     }
 }

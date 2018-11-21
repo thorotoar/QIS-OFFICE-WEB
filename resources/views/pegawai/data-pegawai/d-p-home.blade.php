@@ -18,6 +18,34 @@
         <!-- End Bread crumb -->
         <!-- Container fluid  -->
         <div class="container-fluid">
+            @if(session()->has('pegawai'))
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert alert-info alert-dismissible fade show">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {{session()->get('pegawai')}}
+                        </div>
+                    </div>
+                </div>
+            @elseif(session()->has('destroy'))
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert alert-info alert-dismissible fade show">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {{session()->get('destroy')}}
+                        </div>
+                    </div>
+                </div>
+            @elseif(session()->has('pendidikan'))
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert alert-info alert-dismissible fade show">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {{session()->get('pendidikan')}}
+                        </div>
+                    </div>
+                </div>
+            @endif
             <!-- Start Page Content -->
             <div class="row">
                 <div class="col-12">
@@ -41,26 +69,29 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($pegawai as $value)
+                                    @foreach($pegawai_view as $value)
                                         <tr>
-                                            <th>{{ $value->id }}</th>
-                                            <th>{{ $value->foto }}</th>
-                                            <th>{{ $value->nik }}</th>
-                                            <th>{{ $value->nama }}</th>
-                                            <th>{{ $value->kelamin }}</th>
-                                            <th>{{ $value->tempat_lahir }}, {{ $value->tgl_lahir }}</th>
-                                            <th>{{ $value->jabatan->nama_jabatan }}</th>
+                                            <th>{{ $value->pegawai->id }}</th>
+                                            <th>{{ $value->pegawai->foto }}</th>
+                                            <th>{{ $value->pegawai->nik }}</th>
+                                            <th>{{ $value->pegawai->nama }}</th>
+                                            <th>{{ $value->pegawai->kelamin }}</th>
+                                            <th>{{ $value->pegawai->tempat_lahir }}, {{ $value->pegawai->tgl_lahir }}</th>
+                                            <th>{{ $value->pegawai->jabatan->nama_jabatan }}</th>
                                             <th>
                                                 <div class="table-data-feature">
+                                                    <form class="form-group pull-left" action="{{route('h-d-p-pegawai',['id'=>$value->id])}}" method="post">
+                                                        {{csrf_field()}}
+                                                        <button type="submit" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </form>&nbsp;
                                                     <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Send">
                                                         <i class="fa fa-send"></i>
                                                     </button>
-                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                    <a href="{{route('d-p-edit', $value->pegawai->id)}}" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Edit">
                                                         <i class="fa fa-edit"></i>
-                                                    </button>
-                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
+                                                    </a>
                                                     <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
                                                         <i class="fa fa-print"></i>
                                                     </button>

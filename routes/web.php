@@ -16,7 +16,7 @@ Route::get('/', function () {
 })->middleware('unauthorized');
 
 Route::get('/test', function () {
-    return view('welcomeq');
+    return view('test');
 });
 
 
@@ -76,7 +76,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
             'as' => 'jm-tambah-selesai'
         ]);
 
-        Route::get('/manajemen-jabatan-edit/{id}/edit', [
+        Route::get('/jabatan-edit/{id}/edit', [
             'uses' => 'JabatanController@edit',
             'as' => 'jm-edit'
         ]);
@@ -114,45 +114,91 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
         'as' => 'home-pegawai'
     ]);
 
-    Route::get('/surat-masuk', [
-        'uses' => 'PegawaiController@viewsmp',
-        'as' => 'surat-masuk-pegawai'
-    ]);
+    Route::group(['prefix' => 'surat-masuk'], function (){
 
-    Route::get('/tambah-surat-masuk', [
-        'uses' => 'PegawaiController@tambahsmp',
-        'as' => 'tambah-s-m-p'
-    ]);
+        Route::get('/', [
+            'uses' => 'PegawaiController@viewsmp',
+            'as' => 'surat-masuk-pegawai'
+        ]);
 
-    Route::get('/surat-keluar', [
-        'uses' => 'PegawaiController@viewskp',
-        'as' => 'surat-keluar-pegawai'
-    ]);
+        Route::get('/tambah-surat-masuk', [
+            'uses' => 'PegawaiController@tambahsmp',
+            'as' => 'tambah-s-m-p'
+        ]);
 
-    Route::get('/tambah-surat-keluar', [
-        'uses' => 'PegawaiController@tambahskp',
-        'as' => 'tambah-s-k-p'
-    ]);
+    });
 
-    Route::get('/data-pegawai', [
-        'uses' => 'PegawaiController@view_dp',
-        'as' => 'd-pegawai'
-    ]);
+    Route::group(['prefix' => 'surat-keluar'], function (){
 
-    Route::get('/tambah-data-pegawai', [
-        'uses' => 'PegawaiController@tambah_dp',
-        'as' => 'd-p-tambah'
-    ]);
+        Route::get('/', [
+            'uses' => 'PegawaiController@viewskp',
+            'as' => 'surat-keluar-pegawai'
+        ]);
 
-    Route::get('/tambah-data-pegawai-riwayat-pendidikan', [
-        'uses' => 'PegawaiController@tambah_dpr',
-        'as' => 'd-p-tambah-r'
-    ]);
+        Route::get('/tambah-surat-keluar', [
+            'uses' => 'PegawaiController@tambahskp',
+            'as' => 'tambah-s-k-p'
+        ]);
 
-    Route::get('/tambah-data-pegawai-selesai', [
-        'uses' => 'PegawaiController@tambah_dpd',
-        'as' => 'd-p-done'
-    ]);
+    });
+
+    Route::group(['prefix' => 'data-pegawai'], function (){
+
+        Route::get('/', [
+            'uses' => 'DataPegawaiController@index',
+            'as' => 'd-pegawai'
+        ]);
+
+        Route::get('/tambah-pegawai', [
+            'uses' => 'DataPegawaiController@create',
+            'as' => 'd-p-tambah'
+        ]);
+
+        Route::post('/tambah-pegawai', [
+            'uses' => 'DataPegawaiController@store',
+            'as' => 't-d-pegawai'
+        ]);
+
+        Route::get('/{pegawai}/edit-pegawai', [
+            'uses' => 'DataPegawaiController@edit',
+            'as' => 'd-p-edit'
+        ]);
+
+        Route::post('/{pegawai}/update-pegawai', [
+            'uses' => 'DataPegawaiController@update',
+            'as' => 'u-d-pegawai'
+        ]);
+
+        Route::get('/tambah-pendidikan-pegawai', [
+            'uses' => 'DataPegawaiController@create_r',
+            'as' => 'd-p-tambah-r'
+        ]);
+
+        Route::post('/tambah-pendidikan-pegawai', [
+            'uses' => 'DataPegawaiController@store_r',
+            'as' => 't-d-p-pegawai'
+        ]);
+
+        Route::get('/{pegawai}/edit-pendidikan', [
+            'uses' => 'DataPegawaiController@edit_r',
+            'as' => 'd-p-edit-r'
+        ]);
+
+        Route::post('/{pegawai}/update-pendidikan', [
+            'uses' => 'DataPegawaiController@update_r',
+            'as' => 'u-d-p-pegawai'
+        ]);
+
+        Route::post('/{id}/hapus', [
+            'uses' => 'DataPegawaiController@destroy',
+            'as' => 'h-d-p-pegawai'
+        ]);
+
+        Route::get('/data-pegawai-berhasil-ditambahkan', [
+            'uses' => 'DataPegawaiController@tambah_dpd',
+            'as' => 'd-p-done'
+        ]);
+    });
 
 //    Route::group(['prefix' => 'data-pegawai', 'namespace' => 'Data-Pegawai', 'middleware' => 'pegawai'], function (){
 //        Route::resource('/proses-tambah-data-pegawai-selesai',[

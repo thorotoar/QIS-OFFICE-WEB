@@ -23,6 +23,12 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
+                            @if(session()->has('sukses'))
+                                <div class="alert alert-info alert-dismissible fade show">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    {{session()->get('sukses')}}.
+                                </div>
+                            @endif
                             <h4 class="card-title">Daftar Jabatan</h4>
                             <a class="btn btn-primary btn-flat" href="{{route('jm-tambah')}}">
                                 <i class="fa fa-plus"></i>&nbsp;Tambah Jabatan</a>
@@ -39,7 +45,7 @@
                                     @foreach($jabatan as $value)
                                         <tr>
                                             <th>{{ $value->id }}</th>
-                                            <th>{{ $value->nama_jabatan }}</th>
+                                            <th>{{ ucfirst($value->nama_jabatan) }}</th>
                                             <th>
                                                 <div class="table-data-feature">
                                                     <form class="form-group pull-left" action="{{route('jm-hapus',['id'=>$value->id])}}" method="post">
@@ -49,9 +55,9 @@
                                                             <i class="fa fa-trash"></i>
                                                         </button>
                                                     </form>&nbsp;
-                                                    <a href="{{route('jm-lihat',['id'=>$value->id])}}" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Read">
-                                                        <i class="fa fa-eye"></i>
-                                                    </a>
+                                                    {{--<a href="{{route('jm-lihat',['id'=>$value->id])}}" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Read">--}}
+                                                        {{--<i class="fa fa-eye"></i>--}}
+                                                    {{--</a>--}}
                                                     <a href="{{route('jm-edit',['id'=>$value->id])}}" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Edit">
                                                         <i class="fa fa-edit"></i>
                                                     </a>

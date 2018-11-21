@@ -12,10 +12,16 @@ class kewarganegaraanSeeder extends Seeder
      */
     public function run()
     {
-        for ($c = 0; $c < 5; $c++){
+        $faker=\Faker\Factory::create('id_ID');
+
+        for ($c = 0; $c < 195; $c++){
             $kewarganegaraan = Kewarganegaraan::create([
-                'nama_negara' => 'Indonesia',
+                'nama_negara' => $faker->country,
             ]);
         }
+
+//        $kewarganegaraan = Kewarganegaraan::create([
+//            'nama_negara' => $faker->country,
+//        ]);
     }
 }

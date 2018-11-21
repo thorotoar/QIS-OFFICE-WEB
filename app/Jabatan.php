@@ -21,4 +21,9 @@ class Jabatan extends Model
     {
         return $this->hasMany(Pegawai::class);
     }
+
+    public function getJabatanAttributes($value)
+    {
+        return $this->attributes['nama_jabatan'] = ucfirst($value);
+    }
 }

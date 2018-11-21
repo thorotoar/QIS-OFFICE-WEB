@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Faker\Factory;
 use App\Jabatan;
 
 class jabatanSeeder extends Seeder
@@ -12,12 +13,20 @@ class jabatanSeeder extends Seeder
      */
     public function run()
     {
-        $jabatan_g = ['pemimpin', 'instruktur'];
+        $faker = Factory::create('id_ID');
 
         for ($c = 0; $c < 2; $c++){
             $jabatan = Jabatan::create([
-                'nama_jabatan' => array_random($jabatan_g),
+                'nama_jabatan' => $faker->sentence('1', 'true'),
             ]);
         }
+
+        Jabatan::find(1)->update([
+            'nama_jabatan' => 'Pemimpin',
+        ]);
+
+        Jabatan::find(2)->update([
+            'nama_jabatan' => 'Instruktur',
+        ]);
     }
 }

@@ -19,9 +19,9 @@ class CreateRiwayatPendidikansTable extends Migration
             $table->foreign('pegawai_id')->references('id')->on('pegawais')->onDelete('cascade');
             $table->integer('jenjang_id')->unsigned();
             $table->foreign('jenjang_id')->references('id')->on('jenjangs');
-            $table->integer('jurusan_id')->unsigned();
+            $table->integer('jurusan_id')->unsigned()->nullable();
             $table->foreign('jurusan_id')->references('id')->on('jurusan_pendidikans');
-            $table->string('instansi');
+            $table->string('instansi')->nullable();
             $table->string('thn_lulus');
             $table->timestamps();
         });

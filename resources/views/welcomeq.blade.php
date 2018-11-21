@@ -23,8 +23,8 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
     <!--[if lt IE 9]>
-    <script src="{{asset('https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')}}"></script>
-    <script src="{{asset('https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')}}"></script>
+    <script src="https:https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https:https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
 
@@ -48,7 +48,7 @@
                                 {{ csrf_field() }}
 
                                 <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                                    <input id="username" type="text" class="form-control" name="username" value="" placeholder="Username"  required autofocus>
+                                    <input id="username" type="text" class="form-control" name="username" placeholder="Username"  required autofocus>
 
                                     @if ($errors->has('username'))
                                         <span class="help-block">
@@ -68,6 +68,16 @@
                                 <button type="submit" class="btn btn-primary btn-flat">Masuk</button>
                             </form>
                         </div>
+                        @if(session()->has('error'))
+                            <div class="login-form">
+                                <div class="">
+                                    <div class="alert alert-danger alert-dismissible fade show">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        {{session()->get('error')}}
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -114,5 +124,7 @@
 <!-- scripit init-->
 
 <script src="{{asset('js/scripts.js')}}"></script>
+
+<script src="{{asset('js/vendor/tinymce/tinymce.min.js')}}"></script>
 </body>
 </html>

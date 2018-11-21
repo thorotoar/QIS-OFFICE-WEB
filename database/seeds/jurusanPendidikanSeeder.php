@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Faker\Factory;
 use App\JurusanPendidikan;
 
 class jurusanPendidikanSeeder extends Seeder
@@ -12,12 +13,24 @@ class jurusanPendidikanSeeder extends Seeder
      */
     public function run()
     {
-        $jurusan = ['Teknik Informatika', 'Teknik Sipil', 'Teknik Elekro'];
+        $faker = Factory::create('id_ID');
 
         for ($c = 0; $c < 3; $c++){
             $jurusan_pendidikan = JurusanPendidikan::create([
-                'nama_jurusan_pendidikan' => array_random($jurusan),
+                'nama_jurusan_pendidikan' => $faker->sentence('5', 'true'),
             ]);
         }
+
+        JurusanPendidikan::find(1)->update([
+            'nama_jurusan_pendidikan' => 'Teknik Informatika',
+        ]);
+
+        JurusanPendidikan::find(2)->update([
+            'nama_jurusan_pendidikan' => 'Ilmu Komunikasi',
+        ]);
+
+        JurusanPendidikan::find(3)->update([
+            'nama_jurusan_pendidikan' => 'Ilmu Hukum',
+        ]);
     }
 }

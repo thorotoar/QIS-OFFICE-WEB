@@ -2,6 +2,13 @@
 @section('title', 'QIS ADMIN | SURAT KELUAR')
 
 @section('content')
+    <head>
+        <script>
+            tinymce.init({
+                selector: '#mytextarea'
+            });
+        </script>
+    </head>
     <!-- Page wrapper  -->
     <div class="page-wrapper">
         <!-- Bread crumb -->

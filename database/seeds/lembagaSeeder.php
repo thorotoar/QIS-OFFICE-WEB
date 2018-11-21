@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Faker\Factory;
 use App\Lembaga;
 
 class lembagaSeeder extends Seeder
@@ -12,12 +13,24 @@ class lembagaSeeder extends Seeder
      */
     public function run()
     {
-        $lembaga_g = ['Quali International Surabaya','Day Care','Anak Berkebutuhan Khusus'];
+        $faker = Factory::create('id_ID');
 
         for ($c = 0; $c < 3; $c++){
             $lembaga = Lembaga::create([
-                'nama_lembaga' => array_random($lembaga_g),
+                'nama_lembaga' => $faker->sentence('3', 'true'),
             ]);
         }
+
+        Lembaga::find(1)->update([
+            'nama_lembaga' => 'Quali International Surabaya',
+        ]);
+
+        Lembaga::find(2)->update([
+            'nama_lembaga' => 'Muslim Day Care',
+        ]);
+
+        Lembaga::find(3)->update([
+            'nama_lembaga' => 'Sanggar ABK',
+        ]);
     }
 }

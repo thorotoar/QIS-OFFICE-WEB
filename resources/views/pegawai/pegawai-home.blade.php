@@ -19,6 +19,16 @@
         <!-- End Bread crumb -->
         <!-- Container fluid  -->
         <div class="container-fluid">
+            @if(session()->has('signed'))
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert alert-info alert-dismissible fade show">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {{session()->get('signed')}}
+                        </div>
+                    </div>
+                </div>
+            @endif
             <!-- Start Page Content -->
             <div class="row">
                 <div class="col-md-3">

@@ -19,8 +19,8 @@ class pegawaiSeeder extends Seeder
     public function run()
     {
         $faker = Factory::create('id_ID');
-        $gender = ['laki-laki','perempuan'];
-        $status = ['sudah menikah','belum menikah'];
+        $gender = ['Laki-laki','Perempuan'];
+        $status = ['Sudah Menikah','Belum Menikah'];
 
         for ($c = 0; $c < 7; $c++){
             $pegawai = Pegawai::create([

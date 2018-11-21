@@ -69,15 +69,15 @@ class LoginController extends Controller
             Auth::login($user);
             $role = Auth::user()->type;
             if($role == 'admin'){
-                return redirect()->route('home-admin')->with('signed','You`re now signed in as Admin.');
+                return redirect()->route('home-admin')->with('signed','Anda telah masuk sebagai Admin.');
             }
             if($role == 'pegawai'){
-                return redirect()->route('home-pegawai')->with('signed','You`re now signed in as Pegawai.');
+                return redirect()->route('home-pegawai')->with('signed','Anda telah masuk sebagai Pegawai.');
             }
         }
         catch (ModelNotFoundException $e) {
             return back()->with([
-                'error' => 'Your email or password is incorrect.'
+                'error' => 'Username Atau Password Anda Salah!!.'
             ]);
         }
 
