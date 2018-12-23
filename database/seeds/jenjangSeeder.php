@@ -18,6 +18,8 @@ class jenjangSeeder extends Seeder
         for ($c = 0; $c < 13; $c++){
             $jenjang = Jenjang::create([
                 'nama_jenjang' => $faker->sentence('3', 'true'),
+                'created_by' => '',
+                'updated_by' => '',
             ]);
         }
 

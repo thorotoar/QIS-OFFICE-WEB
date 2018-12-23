@@ -16,11 +16,11 @@ class CreateRiwayatPendidikansTable extends Migration
         Schema::create('riwayat_pendidikans', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('pegawai_id')->unsigned();
-            $table->foreign('pegawai_id')->references('id')->on('pegawais')->onDelete('cascade');
+            $table->foreign('pegawai_id')->references('id')->on('pegawais')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->integer('jenjang_id')->unsigned();
             $table->foreign('jenjang_id')->references('id')->on('jenjangs');
             $table->integer('jurusan_id')->unsigned()->nullable();
-            $table->foreign('jurusan_id')->references('id')->on('jurusan_pendidikans');
+            $table->foreign('jurusan_id')->references('id')->on('jurusan_pendidikans')->onDelete('SET NULL')->onUpdate('CASCADE');
             $table->string('instansi')->nullable();
             $table->string('thn_lulus');
             $table->timestamps();

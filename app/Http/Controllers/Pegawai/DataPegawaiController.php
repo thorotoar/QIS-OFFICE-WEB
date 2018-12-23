@@ -9,16 +9,25 @@ use App\Jabatan;
 use App\Jenjang;
 use App\JurusanPendidikan;
 use App\Kewarganegaraan;
+use App\Lembaga;
 use App\Pegawai;
 use App\RiwayatPendidikan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Input;
 
 
 class DataPegawaiController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(){
-        $pegawai_view = RiwayatPendidikan::orderBy('pegawai_id', 'ASC')->get();
+        $pegawai_view = RiwayatPendidikan::orderBy('created_at', 'ASC')->get();
         return view('pegawai.data-pegawai.d-p-home', compact('pegawai_view'));
     }
 
@@ -32,7 +41,8 @@ class DataPegawaiController extends Controller
         $kewarganegaraan = Kewarganegaraan::all();
         $agama = Agama::all();
         $bank = Bank::all();
-        return view('pegawai.data-pegawai.d-p-tambah', compact( 'jabatan', 'agama', 'kewarganegaraan', 'bank'));
+        $lembaga = Lembaga::all();
+        return view('pegawai.data-pegawai.d-p-tambah', compact( 'jabatan', 'agama', 'kewarganegaraan', 'bank', 'lembaga'));
     }
 
     public function create_r(){
@@ -45,12 +55,39 @@ class DataPegawaiController extends Controller
 
     public function store(Request $request)
     {
-       $foto = $request->file('foto')->store('foto_pegawai');
+//       $photos = $request->file('foto'); //store('foto') //storeAs('foto', 'foto-pegawai')
+//       $input['imagename'] = time() . '.' . $photos->getClientOriginalExtension();
+//       $destinationPath = public_path('/images/foto-pegawai');
+//       $fotos = $request->file('foto')->storeAs('foto_pegawai','foto.', $request->user()->id);
 
-       Pegawai::create([
+
+        //dd($request->all()); //$photos->move($destinationPath, $input['imagename'])
+
+        $request->validate([
+            'nik' => 'required|unique:pegawais,nik',
+            'no_telp' => 'required|unique:pegawais,telpon',
+            'email' => 'required|unique:pegawais,email',
+            'no_rek' => 'nullable|unique:pegawais,no_rek',
+            'nik_ibu' => 'required|unique:pegawais,nik_ibu',
+            'nik_ayah' => 'required|unique:pegawais,nik_ayah',
+        ],[
+            'nik.required' => 'NIK belum anda isi, silahkan isi terlebih dahulu!.',
+            'no_telp.required' => 'Nomor Telpon belum anda isi, silahkan isi terlebih dahulu!.',
+            'email.required' => 'E-Mail belum anda isi, silahkan isi terlebih dahulu!.',
+            'nik_ibu.required' => 'NIK belum anda isi, silahkan isi terlebih dahulu!.',
+            'nik_ayah.required' => 'NIK belum anda isi, silahkan isi terlebih dahulu!.',
+            'nik.unique' => 'NIK yang anda tambahkan sudah tersedia, masukan NIK lain!.',
+            'no_telp.unique' => 'Nomor Telpon yang anda tambahkan sudah tersedia, masukan Nomor Telpon lain!.',
+            'email.unique' => 'E-Mail yang anda tambahkan sudah tersedia, masukan E-mail lain!.',
+            'no_rek.unique' => 'Nomor Rekening yang anda tambahkan sudah tersedia, masukan Nomor Rekening lain!.',
+            'nik_ibu.unique' => 'NIK yang anda tambahkan sudah tersedia, masukan NIK lain!.',
+            'nik_ayah.unique' => 'NIK yang anda tambahkan sudah tersedia, masukan NIK lain!.',
+        ]);
+
+       $pegawai = Pegawai::create([
           'user_id' => Auth::user()->id,
           'nik' => $request->nik,
-          'foto' => $foto,
+//          'foto' => $request->foto,
           'nama' => $request->nama,
           'alamat' => $request->alamat,
           'tempat_lahir' => $request->tempat_lahir,
@@ -74,8 +111,19 @@ class DataPegawaiController extends Controller
           'tgl_masuk' => $request->tanggal_masuk,
           'no_sk' => $request->no_sk,
           'jabatan_id' => $request->jenis_p,
+          'lembaga_id' => $request->lembaga,
+          'created_by' => Auth::user()->nama_user,
 
         ]);
+
+        if (Input::has('foto')) {
+            $file = str_replace(' ', '_', str_random(4) . '' . $request->file('foto')->getClientOriginalName());
+            Input::file('foto')->move('images/foto-pegawai/', $file);
+            $pegawai->update([
+                'foto' => 'images/foto-pegawai/' . $file,
+            ]);
+        }
+
 
         return redirect()->route('d-p-tambah-r')->with('pendidikan','Lanjutkan dengan mengisi riwayat pendidikan');
     }
@@ -86,6 +134,7 @@ class DataPegawaiController extends Controller
         $pegawai = Pegawai::find($request->id_pegawai);
 
         RiwayatPendidikan::create([
+            //'id' => $request->riwayat_id,
             'pegawai_id' => $pegawai->id,
             'jenjang_id' => $request->jenjang,
             'jurusan_id' => $request->jurusan,
@@ -97,31 +146,62 @@ class DataPegawaiController extends Controller
         return redirect()->route('d-pegawai')->with('pegawai','Data pegawai berhasil ditambahkan.');
     }
 
-    public function edit(Pegawai $pegawai, RiwayatPendidikan $rpegawai){
+    public function edit(Request $request, RiwayatPendidikan $rpegawai){
 
+        $pegawai = Pegawai::find($request->id);
         $jabatan = Jabatan::all();
         $kewarganegaraan = Kewarganegaraan::all();
         $agama = Agama::all();
         $bank = Bank::all();
+        $lembaga = Lembaga::all();
 
-        return view('pegawai.data-pegawai.d-p-edit', compact('pegawai', 'rpegawai', 'jabatan', 'kewarganegaraan', 'agama', 'bank'));
+        return view('pegawai.data-pegawai.d-p-edit', compact('pegawai', 'rpegawai', 'jabatan', 'kewarganegaraan', 'agama', 'bank', 'lembaga'));
     }
 
-    public function edit_r(RiwayatPendidikan $pegawai){
+    public function edit_r(Request $request, RiwayatPendidikan $pegawai){
 
+        $rpegawai = RiwayatPendidikan::where('pegawai_id',$request->id)->first();
         $jenjang = Jenjang::all();
         $jurusan = JurusanPendidikan::all();
 
-        return view('pegawai.data-pegawai.d-p-edit-r', compact('pegawai', 'jenjang', 'jurusan'));
+        return view('pegawai.data-pegawai.d-p-edit-r', compact('pegawai', 'jenjang', 'jurusan','rpegawai'));
     }
 
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, $id){
 
+        $request->validate([
+            'nik' => "required|unique:pegawais,nik,$id",
+            'no_telp' => "required|unique:pegawais,telpon,$id",
+            'email' => "required|unique:pegawais,email,$id",
+            'no_rek' => "nullable|unique:pegawais,no_rek,$id",
+            'nik_ibu' => "required|unique:pegawais,nik_ibu,$id",
+            'nik_ayah' => "required|unique:pegawais,nik_ayah,$id",
+        ],[
+            'nik.required' => 'NIK belum anda isi, silahkan isi terlebih dahulu!.',
+            'no_telp.required' => 'Nomor Telpon belum anda isi, silahkan isi terlebih dahulu!.',
+            'email.required' => 'E-Mail belum anda isi, silahkan isi terlebih dahulu!.',
+            'nik_ibu.required' => 'NIK belum anda isi, silahkan isi terlebih dahulu!.',
+            'nik_ayah.required' => 'NIK belum anda isi, silahkan isi terlebih dahulu!.',
+            'nik.unique' => 'NIK yang anda tambahkan sudah tersedia, masukan NIK lain!.',
+            'no_telp.unique' => 'Nomor Telpon yang anda tambahkan sudah tersedia, masukan Nomor Telpon lain!.',
+            'email.unique' => 'E-Mail yang anda tambahkan sudah tersedia, masukan E-mail lain!.',
+            'no_rek.unique' => 'Nomor Rekening yang anda tambahkan sudah tersedia, masukan Nomor Rekening lain!.',
+            'nik_ibu.unique' => 'NIK yang anda tambahkan sudah tersedia, masukan NIK lain!.',
+            'nik_ayah.unique' => 'NIK yang anda tambahkan sudah tersedia, masukan NIK lain!.',
+        ]);
+
         $pegawai = Pegawai::find($id);
+        //dd($pegawai);
         $pegawai->update([
             'user_id' => Auth::user()->id,
             'nik' => $request->nik,
             'nama' => $request->nama,
+            'foto' => $request->foto,
             'alamat' => $request->alamat,
             'tempat_lahir' => $request->tempat_lahir,
             'tgl_lahir' => $request->tanggal_lahir,
@@ -144,14 +224,29 @@ class DataPegawaiController extends Controller
             'tgl_masuk' => $request->tanggal_masuk,
             'no_sk' => $request->no_sk,
             'jabatan_id' => $request->jenis_p,
+            'lembaga_id' => $request->lembaga,
+            'updated_by' => Auth::user()->nama_user,
         ]);
 
-        return redirect()->route('d-pegawai')->with('pendidikan', 'Data pegawai berhasil diupdate.'); //Lanjutkan dengan mengisi riwayat pendidikan.
+        if (Input::has('foto_new')) {
+
+            File::delete($pegawai->foto);
+            $file = str_replace(' ', '_', str_random(4) . '' . $request->file('foto_new')->getClientOriginalName());
+            Input::file('foto_new')->move('images/foto-pegawai/', $file);
+
+            $pegawai->update([
+                'foto' => 'images/foto-pegawai/' . $file,
+            ]);
+        }
+
+        $id = Pegawai::find($id);
+
+        return redirect()->route('d-p-edit-r',compact('id'))->with('pendidikan', 'Lanjutkan dengan mengisi riwayat pendidikan.'); //Lanjutkan dengan mengisi riwayat pendidikan.
     }
 
-    public function update_r(Request $request, $id){
+    public function update_r(Request $request){
 
-        $rpegawai = RiwayatPendidikan::find($id);
+        $rpegawai = RiwayatPendidikan::find($request->id);
         $rpegawai->update([
             'jenjang_id' => $request->jenjang,
             'jurusan_id' => $request->jurusan,
@@ -164,8 +259,10 @@ class DataPegawaiController extends Controller
 
     public function destroy($id){
 
-        $rpegawai = RiwayatPendidikan::find($id);
-        $rpegawai->delete();
+        $ser = Pegawai::find($id);
+        $file = $ser->foto;
+        File::delete($file);
+        $ser->delete();
 
         return redirect()->route('d-pegawai')->with('destroy', 'Data terpilih berhasil dihapus.');
     }

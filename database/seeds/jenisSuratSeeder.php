@@ -18,6 +18,8 @@ class jenisSuratSeeder extends Seeder
         for ($c = 0; $c < 9; $c++){
             $jenis_surat = JenisSurat::create([
                 'nama_jenis_surat' => $faker->sentence('5', 'true'),
+                'created_by' => '',
+                'updated_by' => '',
             ]);
         }
 

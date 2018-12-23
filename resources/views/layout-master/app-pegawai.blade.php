@@ -15,12 +15,20 @@
     <link href="{{asset('css/lib/dropzone/dropzone.css')}}" rel="stylesheet">
     <link href="{{asset('css/lib/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="{{asset('css/lib/calendar2/semantic.ui.min.css')}}" rel="stylesheet">
-    <link href="{{asset('css/lib/calendar2/pignose.calendar.min.cphpss')}}" rel="stylesheet">
     <link href="{{asset('css/lib/owl.carousel.min.css')}}" rel="stylesheet" />
     <link href="{{asset('css/lib/owl.theme.default.min.css')}}" rel="stylesheet" />
     <link href="{{asset('css/helper.css')}}" rel="stylesheet">
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
+    {{--modal--}}
+    <style>
+        .modal{
+            overflow-y:auto;
+        }
+    </style>
+    {{--sweatalert--}}
+    <link href="{{asset('css/lib/sweetalert/sweetalert.css')}}" rel="stylesheet">
+    {{--yearpicker--}}
+    <link href="{{asset('css/yearpicker.css')}}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
     <!--[if lt IE 9]>
@@ -78,7 +86,7 @@
                         <a class="nav-link dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset('images/users/5.jpg')}}" alt="user" class="profile-pic" /></a>
                         <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                             <ul class="dropdown-user">
-                                <li><a href="#"><i class="ti-key"></i> Change Password</a></li>
+                                <li><a href="{{route('upass-pegawai')}}"><i class="ti-key"></i> Change Password</a></li>
                                 <li><a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i> Logout</a>
@@ -108,10 +116,10 @@
                         </ul>
                     </li>
                     <li class="nav-label">Work</li>
-                    <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-file-text"></i><span class="hide-menu">Kelola Surat</span></a>
+                    <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-envelope-square"></i><span class="hide-menu">Kelola Surat</span></a>
                         <ul aria-expanded="false" class="collapse">
-                            <li><a href="{{route('surat-masuk-pegawai')}}">Surat Masuk</a></li>
-                            <li><a href="{{route('surat-keluar-pegawai')}}">Surat Keluar</a></li>
+                            <li><a href="{{route('surm-home')}}"><i class="fa fa-envelope-open"></i> Surat Masuk</a></li>
+                            <li><a href="{{route('surat-keluar-pegawai')}}"><i class="fa fa-envelope"></i> Surat Keluar</a></li>
                         </ul>
                     </li>
                     <li>
@@ -151,33 +159,31 @@
 <!--stickey kit -->
 <script src="{{asset('js/lib/sticky-kit-master/dist/sticky-kit.min.js')}}"></script>
 <!--Custom JavaScript -->
-
-
-<!-- Amchart -->
-<script src="{{asset('js/lib/morris-chart/raphael-min.js')}}"></script>
-<script src="{{asset('js/lib/morris-chart/morris.js')}}"></script>
-<script src="{{asset('js/lib/morris-chart/dashboard1-init.js')}}"></script>
-
-
-<script src="{{asset('js/lib/calendar-2/moment.latest.min.js')}}"></script>
-<!-- scripit init-->
-<script src="{{asset('js/lib/calendar-2/semantic.ui.min.js')}}"></script>
-<!-- scripit init-->
-<script src="{{asset('js/lib/calendar-2/prism.min.js')}}"></script>
-<!-- scripit init-->
-<script src="{{asset('js/lib/calendar-2/pignose.calendar.min.js')}}"></script>
-<!-- scripit init-->
-<script src="{{asset('js/lib/calendar-2/pignose.init.js')}}"></script>
-
 <script src="{{asset('js/lib/owl-carousel/owl.carousel.min.js')}}"></script>
 <script src="{{asset('js/lib/owl-carousel/owl.carousel-init.js')}}"></script>
 
 <!-- scripit init-->
-
 <script src="{{asset('js/scripts.js')}}"></script>
+
+{{--sweatalert--}}
+<script src="{{asset('js/lib/sweetalert/sweetalert.min.js')}}"></script>
+
+{{--yearpicker--}}
+<script src="{{asset('js/yearpicker.js')}}"></script>
 
 {{--dropzone--}}
 <script src="{{asset('js/lib/dropzone/dropzone.js')}}"></script>
+
+{{--data-table--}}
+<script src="{{asset('js/lib/datatables/datatables.min.js')}}"></script>
+<script src="{{asset('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js')}}"></script>
+<script src="{{asset('js/lib/datatables/cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js')}}"></script>
+<script src="{{asset('js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js')}}"></script>
+<script src="{{asset('js/lib/datatables/cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js')}}"></script>
+<script src="{{asset('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js')}}"></script>
+<script src="{{asset('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js')}}"></script>
+<script src="{{asset('js/lib/datatables/datatables-init.js')}}"></script>
 
 {{--textarea--}}
 <script src="{{asset('tinymce/tinymce.min.js')}}"></script>
@@ -194,7 +200,6 @@
         "alignmentjustify | bullist numlist outdent indent | link image media"
     });
 </script>
-
 </body>
 
 </html>

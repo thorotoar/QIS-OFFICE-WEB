@@ -35,6 +35,10 @@ class Pegawai extends Model
         return $this->belongsTo(Bank::class, 'bank_id');
     }
 
+    public function lembaga(){
+        return $this->belongsTo(Lembaga::class, 'lembaga_id');
+    }
+
     public function pegawai_r(){
         return $this->hasOne(RiwayatPendidikan::class);
     }

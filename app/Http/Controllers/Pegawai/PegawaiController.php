@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Pegawai;
 
 use App\Http\Controllers\Controller;
 use App\Pegawai;
+use App\RiwayatPendidikan;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class PegawaiController extends Controller
 {
@@ -13,40 +17,43 @@ class PegawaiController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
-        return view('pegawai.pegawai-home');
+    public function index(Request $request){
+        $pegawaiView = RiwayatPendidikan::all()->count();
+        $pegawaiShow = RiwayatPendidikan::find($request->id);
+        return view('pegawai.pegawai-home', compact('pegawaiView', 'pegawaiShow'));
     }
 
-    public function viewsmp(){
-        return view('pegawai.surat-masuk.surat-m-home');
+    public function changePass(){
+        return view('pegawai.pegawai-rpassword');
     }
 
-    public function tambahsmp(){
-        return view('pegawai.surat-masuk.surat-m-tambah');
-    }
+    public function change(Request $request){
 
-    public function viewskp(){
-        return view('pegawai.surat-keluar.surat-k-home');
-    }
+//        if (Hash::check(Auth::user()->password, $request->password_lama ) ){
+//            Auth::user()->update([
+//                'password' => bcrypt($request->password_baru),
+//                'password_a' => $request->password_baru,
+//            ]);
+//        }
 
-    public function tambahskp(){
-        return view('pegawai.surat-keluar.surat-k-tambah');
-    }
-
-    public function view_dp(){
-        $pegawai = Pegawai::all();
-        return view('pegawai.data-pegawai.d-p-home', compact('pegawai'));
-    }
-
-    public function tambah_dp(){
-        return view('pegawai.data-pegawai.d-p-tambah');
-    }
-
-    public function tambah_dpr(){
-        return view('pegawai.data-pegawai.d-p-tambah-r');
-    }
-
-    public function tambah_dpd(){
-        return view('pegawai.data-pegawai.d-p-done');
+        if (!Hash::check($request->password_lama, Auth::user()->password)) {
+            return back()->with([
+                'error' => 'Password lama anda salah !'
+            ]);
+        } else {
+            if ($request->password_baru !== $request->cpassword_baru) {
+                return back()->with([
+                    'error' => 'Password baru anda tidak sama !'
+                ]);
+            } else {
+                Auth::user()->update([
+                    'password' => bcrypt($request->password_baru),
+                    'password_a' => $request->password_baru
+                ]);
+            }
+            return back()->with([
+                'sukses' => 'Berhasil Memperbarui Password !'
+            ]);
+        }
     }
 }

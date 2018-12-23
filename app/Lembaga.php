@@ -34,4 +34,8 @@ class Lembaga extends Model
     {
         return $this->hasMany(Kurikulum::class);
     }
+
+    public function pegawai(){
+        return $this->hasMany(Pegawai::class);
+    }
 }

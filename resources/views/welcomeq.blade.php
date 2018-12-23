@@ -101,13 +101,6 @@
 <script src="{{asset('js/lib/sticky-kit-master/dist/sticky-kit.min.js')}}"></script>
 <!--Custom JavaScript -->
 
-
-<!-- Amchart -->
-<script src="{{asset('js/lib/morris-chart/raphael-min.js')}}"></script>
-<script src="{{asset('js/lib/morris-chart/morris.js')}}"></script>
-<script src="{{asset('js/lib/morris-chart/dashboard1-init.js')}}"></script>
-
-
 <script src="{{asset('js/lib/calendar-2/moment.latest.min.js')}}"></script>
 <!-- scripit init-->
 <script src="{{asset('js/lib/calendar-2/semantic.ui.min.js')}}"></script>
@@ -124,7 +117,5 @@
 <!-- scripit init-->
 
 <script src="{{asset('js/scripts.js')}}"></script>
-
-<script src="{{asset('js/vendor/tinymce/tinymce.min.js')}}"></script>
 </body>
 </html>

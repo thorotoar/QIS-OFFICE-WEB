@@ -28,6 +28,15 @@
                         </div>
                     </div>
                 </div>
+                @elseif(session()->has('pass_sukses'))
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="alert alert-info alert-dismissible fade show">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                {{session()->get('pass_sukses')}}
+                            </div>
+                        </div>
+                    </div>
             @endif
             <!-- Start Page Content -->
             <div class="row">
@@ -90,7 +99,7 @@
                                 <span><i class="fa fa-user f-s-40 color-danger"></i></span>
                             </div>
                             <div class="media-body media-text-right">
-                                <h2>847</h2>
+                                <h2>{{$pegawaiView}}</h2>
                                 <p class="m-b-0">Pegawai</p>
                             </div>
                         </div>

@@ -18,9 +18,14 @@ class userSeeder extends Seeder
         for ($c = 0; $c < 2; $c++){
             $user = user::create([
                 'username' => $faker->userName,
+                'nama_user' => $faker->name,
                 //'email' => $faker->unique()->safeEmail,
                 'password' => bcrypt('secret'),
+                'password_a' => 'secret',
+                'email_user' => '',
                 'type' => $faker->sentence('1', 'true'),
+                'created_by' => '',
+                'updated_by' => '',
                 'remember_token' => str_random(10),
             ]);
         }

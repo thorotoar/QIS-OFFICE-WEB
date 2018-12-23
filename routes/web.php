@@ -42,17 +42,55 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
         'as' => 'surat-keluar-admin'
     ]);
 
-    Route::get('/manajemen-user', [
-        'uses' => 'AdminController@view_um',
-        'as' => 'um-home'
+    Route::get('/ubah-password-admin', [
+        'uses' => 'AdminController@changePassAdmin',
+        'as' => 'upass-admin'
     ]);
 
-    Route::get('/manajemen-user-tambah', [
-        'uses' => 'AdminController@tambah_um',
-        'as' => 'um-tambah'
+    Route::post('/update-password-admin', [
+        'uses' => 'AdminController@changeAdmin',
+        'as' => 'ua-pass',
     ]);
 
     //Route::post('/tambah/user','AdminController@tambahuser')->name('save.user');
+
+    Route::group(['prefix' => 'manajemen-user'], function (){
+
+        Route::get('/', [
+            'uses' => 'UserManajemenController@index',
+            'as' => 'um-home'
+        ]);
+
+        Route::get('/manajemen-user-tambah', [
+            'uses' => 'UserManajemenController@create',
+            'as' => 'um-tambah'
+        ]);
+
+        Route::get('/lihat-user/{id}', [
+            'uses' => 'UserManajemenController@show',
+            'as' => 'um-lihat'
+        ]);
+
+        Route::post('/tambah-user', [
+            'uses' => 'UserManajemenController@store',
+            'as' => 'um-tambah-selesai'
+        ]);
+
+        Route::get('/user-edit', [
+            'uses' => 'UserManajemenController@edit',
+            'as' => 'um-edit'
+        ]);
+
+        Route::post('/update-user/{id}', [
+            'uses' => 'UserManajemenController@update',
+            'as' => 'um-update'
+        ]);
+
+        Route::delete('/hapus-user/{id}', [
+            'uses' => 'UserManajemenController@destroy',
+            'as' => 'um-hapus'
+        ]);
+    });
 
     Route::group(['prefix' => 'manajemen-jabatan'], function (){
 
@@ -76,7 +114,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
             'as' => 'jm-tambah-selesai'
         ]);
 
-        Route::get('/jabatan-edit/{id}/edit', [
+        Route::get('/jabatan-edit', [
             'uses' => 'JabatanController@edit',
             'as' => 'jm-edit'
         ]);
@@ -86,7 +124,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
             'as' => 'jm-update'
         ]);
 
-        Route::post('/hapus-jabatan/{id}', [
+        Route::delete('/hapus-jabatan/{id}', [
             'uses' => 'JabatanController@destroy',
             'as' => 'jm-hapus'
         ]);
@@ -100,8 +138,127 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
         ]);
 
         Route::get('/manajemen-jenis-surat-tambah', [
-            'uses' => 'JenisSuratController@tambah_jsm',
+            'uses' => 'JenisSuratController@create',
             'as' => 'jsm-tambah'
+        ]);
+
+        Route::post('/tambah-jenis-surat', [
+            'uses' => 'JenisSuratController@store',
+            'as' => 'jsm-tambah-selesai'
+        ]);
+
+        Route::get('/jenis-surat-edit', [
+            'uses' => 'JenisSuratController@edit',
+            'as' => 'jsm-edit'
+        ]);
+
+        Route::post('/update-jenis-surat/{id}', [
+            'uses' => 'JenisSuratController@update',
+            'as' => 'jsm-update'
+        ]);
+
+        Route::delete('/hapus-jenis-surat/{id}', [
+            'uses' => 'JenisSuratController@destroy',
+            'as' => 'jsm-hapus'
+        ]);
+    });
+
+    Route::group(['prefix' => 'manajemen-jenjang'], function (){
+
+        Route::get('/', [
+            'uses' => 'JenjangController@index',
+            'as' => 'jen-home'
+        ]);
+
+        Route::get('/manajemen-jenjang-tambah', [
+            'uses' => 'JenjangController@create',
+            'as' => 'jen-tambah'
+        ]);
+
+        Route::post('/tambah-jenjang', [
+            'uses' => 'JenjangController@store',
+            'as' => 'jen-tambah-selesai'
+        ]);
+
+        Route::get('/jenjang-edit', [
+            'uses' => 'JenjangController@edit',
+            'as' => 'jen-edit'
+        ]);
+
+        Route::post('/update-jenjang/{id}', [
+            'uses' => 'JenjangController@update',
+            'as' => 'jen-update'
+        ]);
+
+        Route::delete('/hapus-jenjang/{id}', [
+            'uses' => 'JenjangController@destroy',
+            'as' => 'jen-hapus'
+        ]);
+    });
+
+    Route::group(['prefix' => 'manajemen-jurusan'], function (){
+
+        Route::get('/', [
+            'uses' => 'JurusanController@index',
+            'as' => 'jur-home'
+        ]);
+
+        Route::get('/manajemen-jurusan-tambah', [
+            'uses' => 'JurusanController@create',
+            'as' => 'jur-tambah'
+        ]);
+
+        Route::post('/tambah-jurusan', [
+            'uses' => 'JurusanController@store',
+            'as' => 'jur-tambah-selesai'
+        ]);
+
+        Route::get('/jurusan-edit', [
+            'uses' => 'JurusanController@edit',
+            'as' => 'jur-edit'
+        ]);
+
+        Route::post('/update-jurusan/{id}', [
+            'uses' => 'JurusanController@update',
+            'as' => 'jur-update'
+        ]);
+
+        Route::delete('/hapus-jurusan/{id}', [
+            'uses' => 'JurusanController@destroy',
+            'as' => 'jur-hapus'
+        ]);
+    });
+
+    Route::group(['prefix' => 'manajemen-lembaga'], function (){
+
+        Route::get('/', [
+            'uses' => 'LembagaController@index',
+            'as' => 'lem-home'
+        ]);
+
+        Route::get('/manajemen-lembaga-tambah', [
+            'uses' => 'LembagaController@create',
+            'as' => 'lem-tambah'
+        ]);
+
+        Route::post('/tambah-lembaga', [
+            'uses' => 'LembagaController@store',
+            'as' => 'lem-tambah-selesai'
+        ]);
+
+        Route::get('/lembaga-edit', [
+            'uses' => 'LembagaController@edit',
+            'as' => 'lem-edit'
+        ]);
+
+        Route::post('/update-lembaga/{id}', [
+            'uses' => 'LembagaController@update',
+            'as' => 'lem-update'
+        ]);
+
+        Route::delete('/hapus-lembaga/{id}', [
+            'uses' => 'LembagaController@destroy',
+            'as' => 'lem-hapus'
         ]);
     });
 
@@ -114,16 +271,46 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
         'as' => 'home-pegawai'
     ]);
 
+    Route::get('/ubah-password', [
+        'uses' => 'PegawaiController@changePass',
+        'as' => 'upass-pegawai'
+    ]);
+
+    Route::post('/update-password', [
+        'uses' => 'PegawaiController@change',
+        'as' => 'u-pass'
+    ]);
+
     Route::group(['prefix' => 'surat-masuk'], function (){
 
         Route::get('/', [
-            'uses' => 'PegawaiController@viewsmp',
-            'as' => 'surat-masuk-pegawai'
+            'uses' => 'SuratMasukController@index',
+            'as' => 'surm-home'
         ]);
 
-        Route::get('/tambah-surat-masuk', [
-            'uses' => 'PegawaiController@tambahsmp',
-            'as' => 'tambah-s-m-p'
+        Route::get('/data-surat-masuk-tambah', [
+            'uses' => 'SuratMasukController@create',
+            'as' => 'surm-tambah'
+        ]);
+
+        Route::post('/tambah-surat-masuk', [
+            'uses' => 'SuratMasukController@store',
+            'as' => 'surm-tambah-selesai'
+        ]);
+
+        Route::get('/surat-masuk-edit', [
+            'uses' => 'SuratMasukController@edit',
+            'as' => 'surm-edit'
+        ]);
+
+        Route::post('/update-surat-masuk/{id}', [
+            'uses' => 'SuratMasukController@update',
+            'as' => 'surm-update'
+        ]);
+
+        Route::delete('/hapus-surat-masuk/{id}', [
+            'uses' => 'SuratMasukController@destroy',
+            'as' => 'surm-hapus'
         ]);
 
     });
@@ -159,12 +346,12 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 't-d-pegawai'
         ]);
 
-        Route::get('/{pegawai}/edit-pegawai', [
+        Route::get('/edit-pegawai', [
             'uses' => 'DataPegawaiController@edit',
             'as' => 'd-p-edit'
         ]);
 
-        Route::post('/{pegawai}/update-pegawai', [
+        Route::post('/update-pegawai/{id}', [
             'uses' => 'DataPegawaiController@update',
             'as' => 'u-d-pegawai'
         ]);
@@ -179,17 +366,17 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 't-d-p-pegawai'
         ]);
 
-        Route::get('/{pegawai}/edit-pendidikan', [
+        Route::get('/edit-pendidikan', [
             'uses' => 'DataPegawaiController@edit_r',
             'as' => 'd-p-edit-r'
         ]);
 
-        Route::post('/{pegawai}/update-pendidikan', [
+        Route::post('/update-pendidikan', [
             'uses' => 'DataPegawaiController@update_r',
             'as' => 'u-d-p-pegawai'
         ]);
 
-        Route::post('/{id}/hapus', [
+        Route::delete('/hapus/{id}', [
             'uses' => 'DataPegawaiController@destroy',
             'as' => 'h-d-p-pegawai'
         ]);

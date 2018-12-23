@@ -16,6 +16,10 @@ class CreateJabatansTable extends Migration
         Schema::create('jabatans', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama_jabatan');
+            $table->integer('lembaga_id')->unsigned()->nullable();
+            $table->foreign('lembaga_id')->references('id')->on('lembagas')->onDelete('set null')->onUpdate('cascade');
+            $table->string('created_by');
+            $table->string('updated_by');
             $table->timestamps();
         });
     }

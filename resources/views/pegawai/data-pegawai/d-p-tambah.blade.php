@@ -18,13 +18,25 @@
         <!-- End Bread crumb -->
         <!-- Container fluid  -->
         <div class="container-fluid">
+            @if(count($errors)>0)
+                @foreach($errors->all() as $error)
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="alert alert-info alert-dismissible fade show">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                {{ $error }}
+                            </div>
+                        </div>
+                    </div>
+            @endforeach
+            @endif
             <!-- Start Page Content -->
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="basic-elements">
-                                <form action="{{route('t-d-pegawai')}}" enctype="multipart/form-data" method="post">
+                                <form id="form-addPegawai" action="{{route('t-d-pegawai')}}" enctype="multipart/form-data" method="post">
                                     {{csrf_field()}}
                                     {{--Personal Info--}}
                                     <div class="row">
@@ -72,6 +84,21 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="form-group">
+                                                <label for="status">Upload File Foto</label>
+                                                <div>
+                                                    <input type="file" name="foto" class="form-control">
+                                                </div>
+                                                {{--<div class="input-group">--}}
+                                                    {{--<div class="input-group-prepend">--}}
+                                                        {{--<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>--}}
+                                                    {{--</div>--}}
+                                                    {{--<div class="custom-file">--}}
+                                                        {{--<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="foto">--}}
+                                                        {{--<label class="custom-file-label" for="inputGroupFile01">Choose file</label>--}}
+                                                    {{--</div>--}}
+                                                {{--</div>--}}
+                                            </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
@@ -102,23 +129,22 @@
                                                 <div>
                                                     <select class="form-control" id="status" name="status" required>
                                                         <option value="">Status</option>
-                                                        <option value="Sudah-Menikah">Sudah Menikah</option>
-                                                        <option value="Belum-Menikah">Belum Menikah</option>
+                                                        <option value="Sudah Menikah">Sudah Menikah</option>
+                                                        <option value="Belum Menikah">Belum Menikah</option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Upload File Foto</label>
-                                                <input name="foto" type="file" />
+                                        {{--<div class="col-lg-12">--}}
+                                            {{--<div class="form-group">--}}
+                                                {{--<label for="status">Uploaf File Foto </label>--}}
                                                 {{--<div action="#" class="dropzone">--}}
                                                     {{--<div class="fallback">--}}
-                                                        {{--<input name="foto" type="file" />--}}
+                                                        {{--<input name="file" type="file" multiple />--}}
                                                     {{--</div>--}}
                                                 {{--</div>--}}
-                                            </div>
-                                        </div>
+                                            {{--</div>--}}
+                                        {{--</div>--}}
                                     </div>
 
                                     {{--Bank Info--}}
@@ -191,7 +217,7 @@
                                             <hr>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row" id="pasangan">
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Nama Pasangan</label>
@@ -223,6 +249,17 @@
                                                 <label>Tanggal Masuk <span class="text-danger">*</span></label>
                                                 <input type="date" class="form-control" name="tanggal_masuk" value="" required>
                                             </div>
+                                            <div class="form-group">
+                                                <label for="lembaga">Lembaga <span class="text-danger">*</span></label>
+                                                <div>
+                                                    <select class="form-control" id="lembaga" name="lembaga"  required>
+                                                        <option value="">Pilih Jenis</option>
+                                                        @foreach ($lembaga as $lembagas)
+                                                            <option value="{{$lembagas->id}}">{{$lembagas->nama_lembaga}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
@@ -247,7 +284,7 @@
                                     <div class="row">
                                         <div class="col-lg-5">
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <button id="addPegawai" type="submit" class="btn btn-primary">Submit</button>
                                                 <button type="reset" class="btn btn-primary">Clear</button>
                                                 <a href="{{route('d-pegawai')}}" class="btn btn-dark">Cancel</a>
                                             </div>
@@ -266,4 +303,36 @@
         <!-- End Container fluid  -->
     </div>
     <!-- End Page wrapper  -->
+    <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
+
+    <script>
+        var fForm = $('#form-addPegawai');
+        var fConfirm = $('button#addPegawai');
+
+        fConfirm.on('click', function(e){
+            e.preventDefault();
+            swal({
+                    title: "Tambahkan pegawai?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Iya",
+                    cancelButtonText: "Tidak",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                },
+                function(){
+                    fForm.submit();
+                });
+        });
+
+        $('[name="status"]').change(function () {
+            let objChange=$('#pasangan').find('input');
+            if ($(this).val()==='Sudah Menikah'){
+                objChange.prop('readonly',false);
+                }else{
+                objChange.prop('readonly',true);
+            }
+        });
+    </script>
 @endsection

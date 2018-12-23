@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Faker\Factory;
+use Faker\Provider\Image;
 use App\Pegawai;
 use App\User;
 use App\Agama;
@@ -21,12 +22,13 @@ class pegawaiSeeder extends Seeder
         $faker = Factory::create('id_ID');
         $gender = ['Laki-laki','Perempuan'];
         $status = ['Sudah Menikah','Belum Menikah'];
+        //$foto = asset('public/images/foto-pegawai/contoh.jpg');
 
         for ($c = 0; $c < 7; $c++){
-            $pegawai = Pegawai::create([
+            Pegawai::create([
                 'user_id' => rand(User::min('id'), User::max('id')),
                 'nik' => $faker->numerify('###########'),
-                'foto' => '123.jpg',
+                'foto' => $faker->imageUrl('84', '112'),
                 'nama' => $faker->name,
                 'alamat' => $faker->address,
                 'tempat_lahir' => $faker->city,
@@ -50,6 +52,10 @@ class pegawaiSeeder extends Seeder
                 'tgl_masuk' => $faker->dateTimeThisDecade,
                 'no_sk' => $faker->numerify('###########'),
                 'jabatan_id' => rand(Jabatan::min('id'), Jabatan::max('id')),
+                'created_by' => '',
+                'updated_by' => '',
+                'lembaga_id' => rand(\App\Lembaga::min('id'), \App\Lembaga::max('id')),
+                'status_user' => '',
             ]);
         }
     }

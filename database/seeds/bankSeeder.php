@@ -18,6 +18,8 @@ class bankSeeder extends Seeder
         for ($c = 0; $c < 7; $c++){
             $bank = Bank::create([
                 'nama_bank' => $faker->sentence('1', 'true'),
+                'created_by' => '',
+                'updated_by' => '',
             ]);
         }
 

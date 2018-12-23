@@ -5,9 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Jabatan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JabatanController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
@@ -22,16 +28,15 @@ class JabatanController extends Controller
 
     public function store(Request $request)
     {
-        //return $request;
-//        $jabatan = new jabatan;
-////        $this->validate($request,[
-////            'nama_jabatan'=>'required', //unique:todos
-////        ]);
-//        $jabatan->nama_jabatan = $request->jabatan;
-//        $jabatan->save();
+        $request->validate([
+            'jabatan' => 'required|unique:jabatans,nama_jabatan',
+        ],[
+            'jabatan.unique' => 'Jabatan yang anda tambahkan sudah tersedia, masukan jabatan lain!.',
+        ]);
 
         Jabatan::create([
             'nama_jabatan' => $request->jabatan,
+            'created_by' => Auth::user()->nama_user,
         ]);
         return redirect()->route('jm-home')->with('sukses','Jabatan baru berhasil ditambahkan.');
     }
@@ -44,21 +49,27 @@ class JabatanController extends Controller
         return view('admin.j-management.m-j-show', compact('jabatan'));
     }
 
-    public function edit($id)
+    public function edit(Request $request)
     {
 
-        $jabatan = Jabatan::find($id);
+        $jabatan = Jabatan::find($request->id);
         return view('admin.j-management.m-j-edit', compact('jabatan'));
     }
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'jabatan' => "required|unique:jabatans,nama_jabatan,$id",
+        ],[
+            'jabatan.unique' => 'Jabatan yang anda tambahkan sudah tersedia, masukan jabatan lain!.',
+        ]);
+
         $jabatan = Jabatan::find($id);
-//        $this->validate($request,[
-//            'nama_jabatan'=>'required', //unique:todos
-//        ]);
-        $jabatan->nama_jabatan = $request->jabatan;
-        $jabatan->save();
+        $jabatan->update([
+            'nama_jabatan' => $request->jabatan,
+            'updated_by' => Auth::user()->nama_user,
+        ]);
+
         return redirect()->route('jm-home')->with('edit','Jabatan berhasil diubah.');
     }
 

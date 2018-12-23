@@ -18,6 +18,9 @@ class jabatanSeeder extends Seeder
         for ($c = 0; $c < 2; $c++){
             $jabatan = Jabatan::create([
                 'nama_jabatan' => $faker->sentence('1', 'true'),
+                'lembaga_id' => null,
+                'created_by' => '',
+                'updated_by' => '',
             ]);
         }
 

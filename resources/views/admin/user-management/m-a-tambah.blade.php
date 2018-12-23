@@ -18,52 +18,60 @@
         <!-- End Bread crumb -->
         <!-- Container fluid  -->
         <div class="container-fluid">
+            @if(count($errors)>0)
+                @foreach($errors->all() as $error)
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="alert alert-info alert-dismissible fade show">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                {{ $error }}
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
             <!-- Start Page Content -->
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
                             <div class="form-validation">
-                                <form class="form-valide" action="{{route('save.user')}}" method="post">
+                                <form class="form-valide" action="{{route('um-tambah-selesai')}}" method="post">
                                     {{csrf_field()}}
                                     <div class="form-group row">
                                         <label class="col-lg-4 col-form-label" for="username">Username <span class="text-danger">*</span></label>
                                         <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan username..">
+                                            <input type="text" class="form-control" id="username" name="username" placeholder="username..">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-lg-4 col-form-label" for="val-skill">Nama Pegawai <span class="text-danger">*</span></label>
                                         <div class="col-lg-6">
-                                            <select class="form-control" id="nama-pegawai" name="nama-pegawai">
+                                            <select class="form-control" id="nama-pegawai" name="id_pegawai">
                                                 <option value="">Pilih Pegawai</option>
-                                                <option value="admin">Nama Pegawai</option>
-                                                <option value="pegawai">Nama Pegawai</option>
+                                                @foreach(App\Pegawai::all() as $item)
+                                                    <option value="{{$item->id}}">{{$item->nama}}</option>
+                                                    @endforeach
                                             </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="nama-user">Nama User <span class="text-danger">*</span></label>
-                                        <div class="col-lg-6">
-                                            <input type="text" class="form-control" id="nama-user" name="nama-user" placeholder="Masukkan Nama Lengkap.. ">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-lg-4 col-form-label" for="val-password">Password <span class="text-danger">*</span></label>
                                         <div class="col-lg-6">
-                                            <input type="password" class="form-control" id="val-password" name="val-password" placeholder="Buat yang paling aman..">
+                                            <input type="password" class="form-control" id="val-password" name="password" placeholder="password..">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="confirm-password">Confirm Password <span class="text-danger">*</span></label>
+                                        <label class="col-lg-4 col-form-label" for="val-password">Confirm Password <span class="text-danger">*</span></label>
                                         <div class="col-lg-6">
-                                            <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="..dan konfirmasi disini!!">
+                                            <input type="password" class="form-control" id="val-password" name="cpassword" placeholder="confirm password..">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-lg-4 col-form-label" for="hak-akses">Hak Akses <span class="text-danger">*</span></label>
                                         <div class="col-lg-6">
-                                            <select class="form-control" id="hak-akses" name="hak-akses">
+                                            <select class="form-control" id="hak-akses" name="hak_akses">
                                                 <option value="">Pilih hak akses</option>
                                                 <option value="admin">Admin</option>
                                                 <option value="pegawai">Pegawai</option>
@@ -71,15 +79,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-lg-4 col-form-label" for="avatar">Avatar <span class="text-danger">*</span></label>
-                                        <div class="col-lg-6">
-                                            <input type="file" class="form-control" id="avatar" name="avatar">
-                                            {{--<input type="password" class="form-control" id="val-confirm-password" name="val-confirm-password" placeholder="..and confirm it!">--}}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
                                         <div class="col-lg-8 ml-auto">
                                             <button type="submit" class="btn btn-primary">Submit</button>
+                                            <a href="{{route('um-home')}}" class="btn btn-dark">Cancel</a>
                                         </div>
                                     </div>
                                 </form>

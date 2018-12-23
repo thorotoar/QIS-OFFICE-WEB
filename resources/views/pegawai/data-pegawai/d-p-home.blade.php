@@ -45,6 +45,15 @@
                         </div>
                     </div>
                 </div>
+            @elseif(session()->has('update_r'))
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert alert-info alert-dismissible fade show">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {{session()->get('update_r')}}
+                        </div>
+                    </div>
+                </div>
             @endif
             <!-- Start Page Content -->
             <div class="row">
@@ -55,48 +64,54 @@
                             <a class="btn btn-primary btn-flat" href="{{route('d-p-tambah')}}">
                                 <i class="fa fa-plus"></i>&nbsp;Tambah Data Pegawai</a>
                             <div class="table-responsive m-t-40">
-                                <table id="myTable" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                                <table id="myTable" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Foto</th>
-                                        <th>NIP</th>
+                                        <th>NIK</th>
                                         <th>Nama</th>
                                         <th>Jenis Kelamin</th>
                                         <th>TTL</th>
                                         <th>Jabatan</th>
-                                        <th>Action</th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($pegawai_view as $value)
+                                    @foreach($pegawai_view as $index => $value)
+                                        @php
+                                            $pegawai = App\Pegawai::find($value->pegawai_id); //$pegawai->foto
+                                        @endphp
                                         <tr>
-                                            <th>{{ $value->pegawai->id }}</th>
-                                            <th>{{ $value->pegawai->foto }}</th>
-                                            <th>{{ $value->pegawai->nik }}</th>
+                                            <th>{{ $index +1 }}</th>
+                                            <th><img src="{{asset($value->pegawai->foto)}}" width="84" height="112"></th>
+                                            <th>{{ $value->pegawai->nik }} </th>
                                             <th>{{ $value->pegawai->nama }}</th>
                                             <th>{{ $value->pegawai->kelamin }}</th>
                                             <th>{{ $value->pegawai->tempat_lahir }}, {{ $value->pegawai->tgl_lahir }}</th>
                                             <th>{{ $value->pegawai->jabatan->nama_jabatan }}</th>
                                             <th>
                                                 <div class="table-data-feature">
-                                                    <form class="form-group pull-left" action="{{route('h-d-p-pegawai',['id'=>$value->id])}}" method="post">
-                                                        {{csrf_field()}}
-                                                        <button type="submit" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                            <i class="fa fa-trash"></i>
-                                                        </button>
-                                                    </form>&nbsp;
-                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Send">
-                                                        <i class="fa fa-send"></i>
+                                                    <form id="form-deletePegawai-{{$value->id}}" class="form-group pull-left" action="" method="post" hidden>
+                                                        {{csrf_field()}} {{method_field('DELETE')}}
+                                                        {{--onclick="return confirm('Hapus data terpilih?')"--}}
+                                                    </form>
+                                                    <button data-target="#test{{$value->id}}" type="submit" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="modal" data-placement="top" title="Lihat" data-id="pegawaiId">
+                                                        <i class="fa fa-eye"></i> Lihat
                                                     </button>
-                                                    <a href="{{route('d-p-edit', $value->pegawai->id)}}" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                        <i class="fa fa-edit"></i>
-                                                    </a>
+                                                    <button type="button" data-id="{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat sweet-pegawai-edit" data-toggle="tooltip"
+                                                            data-placement="top" title="Edit">
+                                                        <i class="fa fa-edit"></i> Edit
+                                                    </button>
                                                     <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
-                                                        <i class="fa fa-print"></i>
+                                                        <i class="fa fa-print"></i> Print
+                                                    </button>
+                                                    <button onclick="deleteDataPegawai('{{$value->id}}')" type="submit" class="btn btn-sm btn-rounded btn-danger btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                        <i class="fa fa-trash"></i> Hapus
                                                     </button>
                                                 </div>
                                             </th>
+                                            @include('pegawai.data-pegawai.d-p-show')
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -111,4 +126,44 @@
         <!-- End Container fluid  -->
     </div>
     <!-- End Page wrapper  -->
+    <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
+
+    <script>
+        var id;
+        var body = $('body');
+        body.on('click','.sweet-pegawai-edit',function () {
+            id=$(this).data('id');
+            swal({
+                title: "Edit data terpilih?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Iya",
+                cancelButtonText: "Tidak",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },function (isConfirm){
+
+                if (isConfirm){
+                    window.location='{{route('d-p-edit')}}'+'?id='+id;
+                }
+            })
+        });
+
+        function deleteDataPegawai(id) {
+            swal({
+                title: "Hapus data terpilih?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Iya",
+                cancelButtonText: "Tidak",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            }, function(){
+                $("#form-deletePegawai-" + id).attr("action", "{{route('h-d-p-pegawai', ["id" => ""])}}/" + id).submit()
+            })
+        }
+
+    </script>
 @endsection

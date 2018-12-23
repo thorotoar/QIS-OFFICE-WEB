@@ -18,6 +18,8 @@ class jurusanPendidikanSeeder extends Seeder
         for ($c = 0; $c < 3; $c++){
             $jurusan_pendidikan = JurusanPendidikan::create([
                 'nama_jurusan_pendidikan' => $faker->sentence('5', 'true'),
+                'created_by' => '',
+                'updated_by' => '',
             ]);
         }
 

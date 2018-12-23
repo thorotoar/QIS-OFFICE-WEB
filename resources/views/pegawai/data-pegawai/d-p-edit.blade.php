@@ -1,5 +1,5 @@
 @extends('layout-master.app-pegawai')
-@section('title', 'QIS OFFICE | TAMBAH DATA PEGAWAI')
+@section('title', 'QIS OFFICE | EDIT DATA PEGAWAI')
 
 @section('content')
     <!-- Page wrapper  -->
@@ -18,13 +18,25 @@
         <!-- End Bread crumb -->
         <!-- Container fluid  -->
         <div class="container-fluid">
+            @if(count($errors)>0)
+                @foreach($errors->all() as $error)
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="alert alert-info alert-dismissible fade show">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                {{ $error }}
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @endif
             <!-- Start Page Content -->
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="basic-elements">
-                                <form action="{{route('u-d-pegawai', $pegawai)}}" method="post">
+                                <form id="form-editPegawai" action="{{route('u-d-pegawai', $pegawai)}}" enctype="multipart/form-data" method="post">
                                     {{csrf_field()}}
                                     {{--Personal Info--}}
                                     <div class="row">
@@ -81,6 +93,12 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="form-group">
+                                                <label for="status">Upload File Foto</label><b> (<i>{{$pegawai->foto}}</i>)</b><input type="hidden" value="{{$pegawai->foto}}" name="foto">
+                                                <div>
+                                                    <input type="file" name="foto_new" class="form-control">
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
@@ -123,16 +141,6 @@
                                                             <option value="Belum Menikah" selected>Belum Menikah</option>
                                                         @endif
                                                     </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Upload File Foto</label>
-                                                <div action="#" class="dropzone">
-                                                    <div class="fallback">
-                                                        <input name="foto" type="file" />
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -272,7 +280,7 @@
                                     <div class="row">
                                         <div class="col-lg-5">
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                <button id="editPegawai" type="submit" class="btn btn-primary">Submit</button>
                                                 <button type="reset" class="btn btn-primary">Clear</button>
                                                 <a href="{{route('d-pegawai')}}" class="btn btn-dark">Cancel</a>
                                             </div>
@@ -291,4 +299,27 @@
         <!-- End Container fluid  -->
     </div>
     <!-- End Page wrapper  -->
+    <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
+
+    <script>
+        var fForm = $('#form-editPegawai');
+        var fConfirm = $('button#editPegawai');
+
+        fConfirm.on('click', function(e){
+            e.preventDefault();
+            swal({
+                    title: "Simpan perubahan?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Iya",
+                    cancelButtonText: "Tidak",
+                    closeOnConfirm: false,
+                    closeOnCancel: true
+                },
+                function(){
+                    fForm.submit();
+                });
+        })
+    </script>
 @endsection
