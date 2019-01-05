@@ -51,7 +51,7 @@ class pegawaiSeeder extends Seeder
                 'pekerjaan_pasangan' => $faker->jobTitle,
                 'tgl_masuk' => $faker->dateTimeThisDecade,
                 'no_sk' => $faker->numerify('###########'),
-                'jabatan_id' => rand(Jabatan::min('id'), Jabatan::max('id')),
+//                'jabatan_id' => rand(Jabatan::min('id'), Jabatan::max('id')),
                 'created_by' => '',
                 'updated_by' => '',
                 'lembaga_id' => rand(\App\Lembaga::min('id'), \App\Lembaga::max('id')),

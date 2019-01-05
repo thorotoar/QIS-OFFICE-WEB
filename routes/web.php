@@ -341,6 +341,11 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'd-p-tambah'
         ]);
 
+        Route::get('/jabatan', [
+            'uses' => 'DataPegawaiController@jabatan',
+            'as' => 'json-jabatan'
+        ]);
+
         Route::post('/tambah-pegawai', [
             'uses' => 'DataPegawaiController@store',
             'as' => 't-d-pegawai'
@@ -385,6 +390,40 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'uses' => 'DataPegawaiController@tambah_dpd',
             'as' => 'd-p-done'
         ]);
+    });
+
+    Route::group(['prefix' => 'dokumen'], function (){
+
+        Route::get('/', [
+            'uses' => 'DokumenController@index',
+            'as' => 'd-home'
+        ]);
+
+        Route::get('/data-dokumen-tambah', [
+            'uses' => 'DokumenController@create',
+            'as' => 'd-tambah'
+        ]);
+
+        Route::post('/tambah-dokumen', [
+            'uses' => 'DokumenController@store',
+            'as' => 'd-tambah-selesai'
+        ]);
+
+        Route::get('/dokumen-edit', [
+            'uses' => 'DokumenController@edit',
+            'as' => 'd-edit'
+        ]);
+
+        Route::post('/update-dokumen/{id}', [
+            'uses' => 'DokumenController@update',
+            'as' => 'd-update'
+        ]);
+
+        Route::delete('/hapus-dokumen/{id}', [
+            'uses' => 'DokumenController@destroy',
+            'as' => 'd-hapus'
+        ]);
+
     });
 
 //    Route::group(['prefix' => 'data-pegawai', 'namespace' => 'Data-Pegawai', 'middleware' => 'pegawai'], function (){

@@ -37,12 +37,17 @@ class DataPegawaiController extends Controller
 
     public function create()
     {
-        $jabatan = Jabatan::all();
         $kewarganegaraan = Kewarganegaraan::all();
         $agama = Agama::all();
         $bank = Bank::all();
         $lembaga = Lembaga::all();
-        return view('pegawai.data-pegawai.d-p-tambah', compact( 'jabatan', 'agama', 'kewarganegaraan', 'bank', 'lembaga'));
+        return view('pegawai.data-pegawai.d-p-tambah', compact( 'agama', 'kewarganegaraan', 'bank', 'lembaga'));
+    }
+
+    public function jabatan(){
+        $lembaga_id = Input::get('lembaga_id');
+        $jabatan = Jabatan::where('lembaga_id', '=', $lembaga_id)->get();
+        return response()->json($jabatan);
     }
 
     public function create_r(){
@@ -55,6 +60,7 @@ class DataPegawaiController extends Controller
 
     public function store(Request $request)
     {
+        //dd($request->all());
 //       $photos = $request->file('foto'); //store('foto') //storeAs('foto', 'foto-pegawai')
 //       $input['imagename'] = time() . '.' . $photos->getClientOriginalExtension();
 //       $destinationPath = public_path('/images/foto-pegawai');
@@ -110,7 +116,7 @@ class DataPegawaiController extends Controller
           'pekerjaan_pasangan' => $request->pekerjaan_p,
           'tgl_masuk' => $request->tanggal_masuk,
           'no_sk' => $request->no_sk,
-          'jabatan_id' => $request->jenis_p,
+          'jabatan_id' => $request->jabatan,
           'lembaga_id' => $request->lembaga,
           'created_by' => Auth::user()->nama_user,
 

@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Jabatan extends Model
+class Dokumen extends Model
 {
     //"$table" pengenalan table
-    protected $table = 'jabatans';
+    protected $table = 'dokumens';
 
     //"$primaryKey" kolom pengenalan primary key tabel
     protected $primaryKey = 'id';
@@ -15,16 +15,8 @@ class Jabatan extends Model
     //"$guarded" kolom yang tidak dapat diisi secara manual
     protected $guarded = ['id'];
 
-    //protected $fillable = ['nama_jabatan'];
-
-    public function p_jabatan()
+    public function file_dokumen()
     {
-        return $this->hasMany(Pegawai::class);
+        return $this->hasMany(FileDokumen::class);
     }
-
-    public function lembaga()
-    {
-        return $this->belongsTo(Lembaga::class);
-    }
-
 }

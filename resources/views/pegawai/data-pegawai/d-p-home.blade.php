@@ -73,6 +73,7 @@
                                         <th>Nama</th>
                                         <th>Jenis Kelamin</th>
                                         <th>TTL</th>
+                                        <th>Lembaga</th>
                                         <th>Jabatan</th>
                                         <th></th>
                                     </tr>
@@ -89,7 +90,8 @@
                                             <th>{{ $value->pegawai->nama }}</th>
                                             <th>{{ $value->pegawai->kelamin }}</th>
                                             <th>{{ $value->pegawai->tempat_lahir }}, {{ $value->pegawai->tgl_lahir }}</th>
-                                            <th>{{ $value->pegawai->jabatan->nama_jabatan }}</th>
+                                            <th>{{ $value->pegawai->lembaga->nama_lembaga }}</th>
+                                            <th>{{ isset($value->pegawai->jabatan)?$value->pegawai->jabatan->nama_jabatan:'-' }}</th>
                                             <th>
                                                 <div class="table-data-feature">
                                                     <form id="form-deletePegawai-{{$value->id}}" class="form-group pull-left" action="" method="post" hidden>
@@ -129,6 +131,21 @@
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
 
     <script>
+        $('#myTable').on('change', function(e){
+            // console.log(e);
+            // console.log('waw');
+            var lembaga_id = e.target.value;
+            $.get('/pegawai/data-pegawai/jabatan?lembaga_id=' + lembaga_id,function(data) {
+                console.log(data);
+                $('#jabatan').empty();
+                $('#jabatan').append('<option readonly="true" selected>Pilih Jenis</option>');
+
+                $.each(data, function(index, lembagaObj){
+                    $('#jabatan').append('<option value="'+ lembagaObj.id +'">'+ lembagaObj.nama_jabatan +'</option>');
+                })
+            });
+        });
+
         var id;
         var body = $('body');
         body.on('click','.sweet-pegawai-edit',function () {

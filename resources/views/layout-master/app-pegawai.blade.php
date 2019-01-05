@@ -132,7 +132,7 @@
                         <a class="has-arrow  " href="{{url('/homek')}}" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Kelola Kurikulum</span></a>
                     </li>
                     <li>
-                        <a class="has-arrow  " href="{{url('/homed')}}" aria-expanded="false"><i class="fa fa-archive"></i><span class="hide-menu">Kelola Dokumen</span></a>
+                        <a class="has-arrow  " href="{{route('d-home')}}" aria-expanded="false"><i class="fa fa-archive"></i><span class="hide-menu">Kelola Dokumen</span></a>
                     </li>
                 </ul>
             </nav>

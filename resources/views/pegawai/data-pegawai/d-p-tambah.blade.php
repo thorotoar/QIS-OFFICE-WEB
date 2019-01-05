@@ -67,7 +67,7 @@
                                                 <label for="jenis-kelamin">Jenis Kelamin <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control" id="jenis-kelamin" name="kelamin" required>
-                                                        <option value="">Pilih Jenis Kelamin</option>
+                                                        <option value="" disabled selected>Pilih Jenis Kelamin</option>
                                                         <option value="Laki-laki">Laki-laki</option>
                                                         <option value="Perempuan">Perempuan</option>
                                                     </select>
@@ -77,7 +77,7 @@
                                                 <label for="agama">Agama <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control" id="agama" name="agama" required>
-                                                        <option value="">Pilih Agama</option>
+                                                        <option value="" disabled selected>Pilih Agama</option>
                                                         @foreach($agama as $agamav)
                                                             <option value="{{$agamav->id}}">{{$agamav->nama_agama}}</option>
                                                         @endforeach
@@ -117,7 +117,7 @@
                                                 <label for="negara">Kewarganegaraan <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control" id="negara" name="negara" required>
-                                                        <option value="">Pilih Kewarganegaraan</option>
+                                                        <option value="" disabled selected>Pilih Kewarganegaraan</option>
                                                         @foreach($kewarganegaraan as $negara)
                                                             <option value="{{$negara->id}}">{{$negara->nama_negara}}</option>
                                                         @endforeach
@@ -128,7 +128,7 @@
                                                 <label for="status">Status Pernikahan <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control" id="status" name="status" required>
-                                                        <option value="">Status</option>
+                                                        <option value="" disabled selected>Status</option>
                                                         <option value="Sudah Menikah">Sudah Menikah</option>
                                                         <option value="Belum Menikah">Belum Menikah</option>
                                                     </select>
@@ -164,7 +164,7 @@
                                                 <label for="bank">Bank</label>
                                                 <div>
                                                     <select class="form-control" id="bank" name="bank">
-                                                        <option value="">Pilih Bank</option>
+                                                        <option value="" disabled selected>Pilih Bank</option>
                                                         @foreach($bank as $bankv)
                                                             <option value="{{$bankv->id}}">{{$bankv->nama_bank}}</option>
                                                         @endforeach
@@ -253,8 +253,8 @@
                                                 <label for="lembaga">Lembaga <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control" id="lembaga" name="lembaga"  required>
-                                                        <option value="">Pilih Jenis</option>
-                                                        @foreach ($lembaga as $lembagas)
+                                                        <option readonly="true" selected>Pilih Jenis</option>
+                                                        @foreach ($lembaga as $key => $lembagas)
                                                             <option value="{{$lembagas->id}}">{{$lembagas->nama_lembaga}}</option>
                                                         @endforeach
                                                     </select>
@@ -269,11 +269,11 @@
                                             <div class="form-group">
                                                 <label for="jenis-p">Jenis Kepegawaian <span class="text-danger">*</span></label>
                                                 <div>
-                                                    <select class="form-control" id="jenis-p" name="jenis_p"  required>
-                                                        <option value="">Pilih Jenis</option>
-                                                        @foreach ($jabatan as $value)
-                                                            <option value="{{$value->id}}">{{$value->nama_jabatan}}</option>
-                                                        @endforeach
+                                                    <select class="form-control" id="jabatan" name="jabatan"  required>
+                                                        <option value="0" disabled selected>Pilih Jenis</option>
+                                                        {{--@foreach ($jabatan as $value)--}}
+                                                            {{--<option value="{{$value->id}}">{{$value->nama_jabatan}}</option>--}}
+                                                        {{--@endforeach--}}
                                                     </select>
                                                 </div>
                                             </div>
@@ -306,6 +306,21 @@
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
 
     <script>
+        $('#lembaga').on('change', function(e){
+            // console.log(e);
+            // console.log('waw');
+            var lembaga_id = e.target.value;
+            $.get('/pegawai/data-pegawai/jabatan?lembaga_id=' + lembaga_id,function(data) {
+                console.log(data);
+                $('#jabatan').empty();
+                $('#jabatan').append('<option readonly="true" selected>Pilih Jenis</option>');
+
+                $.each(data, function(index, lembagaObj){
+                    $('#jabatan').append('<option value="'+ lembagaObj.id +'">'+ lembagaObj.nama_jabatan +'</option>');
+                })
+            });
+        });
+
         var fForm = $('#form-addPegawai');
         var fConfirm = $('button#addPegawai');
 

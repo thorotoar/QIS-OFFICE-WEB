@@ -67,7 +67,7 @@
                                                 <label for="jenis-kelamin">Jenis Kelamin <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control" id="jenis-kelamin" name="kelamin" required>
-                                                        <option value="">Pilih Jenis Kelamin</option>
+                                                        <option value=""  disabled>Pilih Jenis Kelamin</option>
                                                         @if($pegawai->kelamin == 'Laki-laki')
                                                             <option value="Laki-laki" selected>Laki-laki</option>
                                                             <option value="Perempuan">Perempuan</option>
@@ -82,7 +82,7 @@
                                                 <label for="agama">Agama <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control" id="agama" name="agama" required>
-                                                        <option value="">Pilih Agama</option>
+                                                        <option value="" disabled>Pilih Agama</option>
                                                         @foreach($agama as $agamav)
                                                             <option value="{{$agamav->id}}"
                                                             @if($agamav->id == $pegawai->agama_id)
@@ -117,7 +117,7 @@
                                                 <label for="negara">Kewarganegaraan <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control" id="negara" name="negara" required>
-                                                        <option value="">Pilih Kewarganegaraan</option>
+                                                        <option value=""  disabled>Pilih Kewarganegaraan</option>
                                                         @foreach($kewarganegaraan as $negara)
                                                             <option value="{{$negara->id}}"
                                                                     @if($negara->id == $pegawai->kewarganegaraan_id)
@@ -132,7 +132,7 @@
                                                 <label for="status">Status Pernikahan <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control" id="status" name="status" required>
-                                                        <option value="">Status</option>
+                                                        <option value=""  disabled>Status</option>
                                                         @if($pegawai->status_pernikahan == 'Sudah Menikah')
                                                             <option value="Sudah Menikah" selected>Sudah Menikah</option>
                                                             <option value="Belum Menikah" >Belum Menikah</option>
@@ -163,7 +163,7 @@
                                                 <label for="bank">Bank</label>
                                                 <div>
                                                     <select class="form-control" id="bank" name="bank">
-                                                        <option value="">Pilih Bank</option>
+                                                        <option value=""  disabled>Pilih Bank</option>
                                                         @foreach($bank as $bankv)
                                                             <option value="{{$bankv->id}}"
                                                             @if($bankv->id == $pegawai->bank_id)
@@ -262,7 +262,7 @@
                                                 <label for="jenis-p">Jenis Kepegawaian <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control" id="jenis-p" name="jenis_p"  required>
-                                                        <option value="">Pilih Jenis</option>
+                                                        <option value=""  disabled>Pilih Jenis</option>
                                                         @foreach ($jabatan as $value)
                                                             <option value="{{$value->id}}"
                                                             @if($value->id == $pegawai->jabatan_id)

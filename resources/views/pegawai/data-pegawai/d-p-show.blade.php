@@ -202,10 +202,7 @@
                                         </h6>
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Jabatan :</small><br>
-                                            @if($value->pegawai->jabatan->nama_jabatan == 'pemimpin')
-                                                <button class="btn btn-sm btn-outline-danger btn-flat btn-rounded disabled" disabled>{{ $value->pegawai->jabatan->nama_jabatan }}</button>
-                                            @endif
-                                            <button class="btn btn-sm btn-outline-dark btn-flat btn-rounded disabled" disabled>{{ $value->pegawai->jabatan->nama_jabatan }}</button>
+                                            <strong><span>{{isset($value->pegawai->jabatan)?$value->pegawai->jabatan->nama_jabatan:'-'}}</span></strong>
                                         </h6>
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Lembaga :</small><br>

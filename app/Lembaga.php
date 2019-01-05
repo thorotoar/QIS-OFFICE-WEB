@@ -38,4 +38,8 @@ class Lembaga extends Model
     public function pegawai(){
         return $this->hasMany(Pegawai::class);
     }
+
+    public function jabatan(){
+        return $this->hasMany(Jabatan::class);
+    }
 }

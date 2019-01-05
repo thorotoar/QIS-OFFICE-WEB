@@ -1127,7 +1127,7 @@
                                                 <label for="bank">Jenjang Terakhir <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control" id="bank" name="jenjang" required>
-                                                        <option value="">Pilih Jenjang</option>
+                                                        <option value="" disabled selected>Pilih Jenjang</option>
                                                         @foreach($jenjang as $jenjangv)
                                                             <option value="{{$jenjangv->id}}">{{$jenjangv->nama_jenjang}}</option>
                                                         @endforeach
@@ -1148,7 +1148,7 @@
                                                 <label for="jurusan">Jurusan</label>
                                                 <div>
                                                     <select class="form-control" id="jurusan" name="jurusan">
-                                                        <option value="">Pilih Jurusan</option>
+                                                        <option value=""  disabled selected>Pilih Jurusan</option>
                                                         @foreach($jurusan as $jurusanv)
                                                             <option value="{{$jurusanv->id}}">{{$jurusanv->nama_jurusan_pendidikan}}</option>
                                                         @endforeach

@@ -15,8 +15,8 @@ class jabatanSeeder extends Seeder
     {
         $faker = Factory::create('id_ID');
 
-        for ($c = 0; $c < 2; $c++){
-            $jabatan = Jabatan::create([
+        for ($c = 0; $c < 6; $c++){
+            Jabatan::create([
                 'nama_jabatan' => $faker->sentence('1', 'true'),
                 'lembaga_id' => null,
                 'created_by' => '',
@@ -30,6 +30,22 @@ class jabatanSeeder extends Seeder
 
         Jabatan::find(2)->update([
             'nama_jabatan' => 'Instruktur',
+        ]);
+
+        Jabatan::find(3)->update([
+            'nama_jabatan' => 'Pemimpin Muslim Day Care',
+        ]);
+
+        Jabatan::find(4)->update([
+            'nama_jabatan' => 'Instruktur Muslim Day Care',
+        ]);
+
+        Jabatan::find(5)->update([
+            'nama_jabatan' => 'Pemimpin ABK',
+        ]);
+
+        Jabatan::find(6)->update([
+            'nama_jabatan' => 'Instruktur ABK',
         ]);
     }
 }

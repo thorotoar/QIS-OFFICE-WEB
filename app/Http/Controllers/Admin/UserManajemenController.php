@@ -27,8 +27,8 @@ class UserManajemenController extends Controller
     public function store(Request $request){
         $request->validate([
             'username' => "required|unique:users,username",
-            'password' => 'required|min:6|required_with:cpassword|same:cpassword',
-            'cpassword' => 'required|min:6',
+            'password' => 'required|min:6',
+            'cpassword' => 'required_with:password|same:password|min:6',
         ],[
             'username.unique' => 'Username yang anda tambahkan sudah tersedia, masukan username lain!.',
         ]);
