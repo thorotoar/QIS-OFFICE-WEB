@@ -15,24 +15,12 @@ class Lembaga extends Model
     //"$guarded" kolom yang tidak dapat diisi secara manual
     protected $guarded = ['id'];
 
-    public function p_qis()
-    {
-        return $this->hasMany(PesertaQIS::class);
+    public function pesertaDidik(){
+        return $this->hasMany(PesertaDidik::class);
     }
 
-    public function p_dc()
-    {
-        return $this->hasMany(PesertaDC::class);
-    }
-
-    public function p_abk()
-    {
-        return $this->hasMany(PesertaABK::class);
-    }
-
-    public function l_kurikulum()
-    {
-        return $this->hasMany(Kurikulum::class);
+    public function jadwalPelajaran(){
+        return $this->hasMany(JadwalPelajaran::class);
     }
 
     public function pegawai(){

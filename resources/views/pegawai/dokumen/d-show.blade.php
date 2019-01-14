@@ -29,6 +29,10 @@
                                         <strong><span>{{$value->nama_dokumen}}</span></strong>
                                     </h6>
                                     <h6 class="h6-responsive">
+                                        <small class="green-text">Tanggal file :</small><br>
+                                        <strong><span>{{ $value->tgl_file }}</span></strong>
+                                    </h6>
+                                    <h6 class="h6-responsive">
                                         <small class="green-text">Tanggal dicatat :</small><br>
                                         <strong><span>{{ $value->tgl_dicatat }}</span></strong>
                                     </h6>

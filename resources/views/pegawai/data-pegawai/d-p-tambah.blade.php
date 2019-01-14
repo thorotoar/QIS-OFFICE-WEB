@@ -267,13 +267,21 @@
                                                 <input type="text" class="form-control" name="no_sk" value="">
                                             </div>
                                             <div class="form-group">
-                                                <label for="jenis-p">Jenis Kepegawaian <span class="text-danger">*</span></label>
+                                                <label for="jabatanY">Jenis Kepegawaian Yayasan </label>
+                                                <div>
+                                                    <select class="form-control" id="jabatanY" name="jabatanY">
+                                                        <option value="0" disabled selected>Pilih Jenis</option>
+                                                        @foreach ($jabaya as $jabayas)
+                                                            <option value="{{$jabayas->id}}">{{$jabayas->nama_jabatan_yayasan}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="jenis-p">Jenis Kepegawaian Lembaga <span class="text-danger">*</span></label>
                                                 <div>
                                                     <select class="form-control" id="jabatan" name="jabatan"  required>
                                                         <option value="0" disabled selected>Pilih Jenis</option>
-                                                        {{--@foreach ($jabatan as $value)--}}
-                                                            {{--<option value="{{$value->id}}">{{$value->nama_jabatan}}</option>--}}
-                                                        {{--@endforeach--}}
                                                     </select>
                                                 </div>
                                             </div>
@@ -307,8 +315,8 @@
 
     <script>
         $('#lembaga').on('change', function(e){
-            // console.log(e);
-            // console.log('waw');
+            console.log(e);
+            console.log('waw');
             var lembaga_id = e.target.value;
             $.get('/pegawai/data-pegawai/jabatan?lembaga_id=' + lembaga_id,function(data) {
                 console.log(data);

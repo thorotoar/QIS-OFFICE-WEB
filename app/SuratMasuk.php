@@ -14,9 +14,4 @@ class SuratMasuk extends Model
 
     //"$guarded" kolom yang tidak dapat diisi secara manual
     protected $guarded = ['id'];
-
-    public function jenis_surat_m()
-    {
-        return $this->belongsTo(JenisSurat::class);
-    }
 }

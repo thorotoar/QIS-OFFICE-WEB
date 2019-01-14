@@ -17,6 +17,6 @@ class FileDokumen extends Model
 
     public function dokumen()
     {
-        return $this->belongsTo(Dokumen::class);
+        return $this->belongsTo(Dokumen::class, 'dokumen_id');
     }
 }

@@ -1,7 +1,7 @@
 @extends('layout-master.app-pegawai')
 @section('title', 'QIS OFFICE | TAMBAH DATA PEGAWAI')
 
-@section('css')
+@push('css')
     <style>
         /**/
         /* normal state */
@@ -1062,7 +1062,7 @@
             }
         }
     </style>
-@endsection
+@endpush
 @section('content')
     <!-- Page wrapper  -->
     <div class="page-wrapper">

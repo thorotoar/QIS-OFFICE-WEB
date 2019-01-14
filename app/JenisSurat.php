@@ -15,13 +15,7 @@ class JenisSurat extends Model
     //"$guarded" kolom yang tidak dapat diisi secara manual
     protected $guarded = ['id'];
 
-    public function surat_m()
-    {
-        return $this->hasMany(SuratMasuk::class);
-    }
-
-    public function surat_k()
-    {
+    public function surat_k(){
         return $this->hasMany(SuratKeluar::class);
     }
 }

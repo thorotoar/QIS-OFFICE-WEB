@@ -18,4 +18,8 @@ class Jenjang extends Model
     public function r_jenjang(){
         return $this->hasMany(RiwayatPendidikan::class);
     }
+
+    public function pesertaDidik(){
+        return $this->hasMany(PesertaDidik::class);
+    }
 }

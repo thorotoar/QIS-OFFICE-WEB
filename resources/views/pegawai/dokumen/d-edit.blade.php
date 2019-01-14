@@ -30,7 +30,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Nama File</label>
-                                                <input class="form-control" name="nama_dokumen" type="Text" value="{{$fileDok->dokumen->nama_dokumen}}">
+                                                <input class="form-control" name="nama_dokumen" type="Text" value="{{$dokumen->nama_dokumen}}">
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
@@ -55,15 +55,15 @@
                                         </div>
                                     </div>
                                     <div class="row">
+                                        <div class="col-lg-12">
+                                            @foreach($fileDok as $value)
+                                                <img src="{{asset($value->upload_file)}}" width="84" height="112">
+                                            @endforeach
+                                        </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label>Upload File *</label><b><i>{{$fileDok->upload_file}}</i>)
                                                 </b><input type="hidden" value="{{$fileDok->upload_file}}" name="upload_file[]">
-                                                {{--<div action="#" class="dropzone">--}}
-                                                {{--<div class="fallback">--}}
-                                                {{--<input name="file" type="file" multiple />--}}
-                                                {{--</div>--}}
-                                                {{--</div>--}}
                                                 <div>
                                                     <input name="upload_file_new[]" type="file" class="form-control" multiple />
                                                 </div>

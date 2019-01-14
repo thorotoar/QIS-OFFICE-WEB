@@ -6,6 +6,7 @@ use App\Agama;
 use App\Bank;
 use App\Http\Controllers\Controller;
 use App\Jabatan;
+use App\JabatanYayasan;
 use App\Jenjang;
 use App\JurusanPendidikan;
 use App\Kewarganegaraan;
@@ -41,7 +42,8 @@ class DataPegawaiController extends Controller
         $agama = Agama::all();
         $bank = Bank::all();
         $lembaga = Lembaga::all();
-        return view('pegawai.data-pegawai.d-p-tambah', compact( 'agama', 'kewarganegaraan', 'bank', 'lembaga'));
+        $jabaya = JabatanYayasan::all();
+        return view('pegawai.data-pegawai.d-p-tambah', compact( 'agama', 'kewarganegaraan', 'bank', 'lembaga', 'jabaya'));
     }
 
     public function jabatan(){
@@ -52,7 +54,7 @@ class DataPegawaiController extends Controller
 
     public function create_r(){
 
-        $jenjang = Jenjang::all();
+        $jenjang = Jenjang::whereIn('id', [8,9,10,11,12,13,14,15,16,17,18,19,20])->get();
         $jurusan = JurusanPendidikan::all();
         $pegawai = Pegawai::orderBy('id','DESC')->first();
         return view('pegawai.data-pegawai.d-p-tambah-r', compact('pegawai','jenjang', 'jurusan'));
@@ -116,6 +118,7 @@ class DataPegawaiController extends Controller
           'pekerjaan_pasangan' => $request->pekerjaan_p,
           'tgl_masuk' => $request->tanggal_masuk,
           'no_sk' => $request->no_sk,
+          'jabatan_yayasan_id' => $request->jabatanY,
           'jabatan_id' => $request->jabatan,
           'lembaga_id' => $request->lembaga,
           'created_by' => Auth::user()->nama_user,
@@ -160,14 +163,15 @@ class DataPegawaiController extends Controller
         $agama = Agama::all();
         $bank = Bank::all();
         $lembaga = Lembaga::all();
+        $jabaya = JabatanYayasan::all();
 
-        return view('pegawai.data-pegawai.d-p-edit', compact('pegawai', 'rpegawai', 'jabatan', 'kewarganegaraan', 'agama', 'bank', 'lembaga'));
+        return view('pegawai.data-pegawai.d-p-edit', compact('pegawai', 'rpegawai', 'jabatan', 'kewarganegaraan', 'agama', 'bank', 'lembaga', 'jabaya'));
     }
 
     public function edit_r(Request $request, RiwayatPendidikan $pegawai){
 
         $rpegawai = RiwayatPendidikan::where('pegawai_id',$request->id)->first();
-        $jenjang = Jenjang::all();
+        $jenjang = Jenjang::whereIn('id', [8,9,10,11,12,13,14,15,16,17,18,19,20])->get();
         $jurusan = JurusanPendidikan::all();
 
         return view('pegawai.data-pegawai.d-p-edit-r', compact('pegawai', 'jenjang', 'jurusan','rpegawai'));
@@ -229,7 +233,8 @@ class DataPegawaiController extends Controller
             'pekerjaan_pasangan' => $request->pekerjaan_p,
             'tgl_masuk' => $request->tanggal_masuk,
             'no_sk' => $request->no_sk,
-            'jabatan_id' => $request->jenis_p,
+            'jabatan_yayasan_id' => $request->jabatanY,
+            'jabatan_id' => $request->jabatan,
             'lembaga_id' => $request->lembaga,
             'updated_by' => Auth::user()->nama_user,
         ]);
@@ -270,7 +275,7 @@ class DataPegawaiController extends Controller
         File::delete($file);
         $ser->delete();
 
-        return redirect()->route('d-pegawai')->with('destroy', 'Data terpilih berhasil dihapus.');
+        return back()->with('destroy', 'Data terpilih berhasil dihapus.');
     }
 
 }

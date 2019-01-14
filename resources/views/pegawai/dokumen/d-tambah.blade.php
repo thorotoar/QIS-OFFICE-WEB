@@ -21,7 +21,7 @@
             @if(count($errors)>0)
                 @foreach($errors->all() as $error)
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-md-12">
                             <div class="alert alert-info alert-dismissible fade show">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                             aria-hidden="true">&times;</span></button>
@@ -33,26 +33,26 @@
         @endif
             <!-- Start Page Content -->
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="basic-elements">
                                 <form id="form-addDokumen" action="{{route('d-tambah-selesai')}}" enctype="multipart/form-data" method="post">
                                     {{csrf_field()}}
                                     <div class="row">
-                                        <div class="col-lg-6">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Nama File</label>
                                                 <input class="form-control" name="nama_dokumen" type="Text" value="">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Tanggal File</label>
                                                 <input type="date" class="form-control" name="tgl_file" placeholder="tanggal/bulan/tahun">
                                             </div>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Tanggal Dicatat</label>
                                                 <input type="date" class="form-control" name="tgl_dicatat" placeholder="tanggal/bulan/tahun">

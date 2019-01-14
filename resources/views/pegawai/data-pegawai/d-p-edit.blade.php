@@ -252,6 +252,21 @@
                                                 <label>Tanggal Masuk <span class="text-danger">*</span></label>
                                                 <input type="date" class="form-control" name="tanggal_masuk" value="{{ $pegawai->tgl_masuk  }}" required>
                                             </div>
+                                            <div class="form-group">
+                                                <label for="lembaga">Lembaga <span class="text-danger">*</span></label>
+                                                <div>
+                                                    <select class="form-control custom-select" id="lembaga" name="lembaga"  required>
+                                                        <option readonly="true" disabled>Pilih Jenis</option>
+                                                        @foreach ($lembaga as $value)
+                                                            <option value="{{$value->id}}"
+                                                                    @if($value->id == $pegawai->lembaga_id)
+                                                                    selected
+                                                                    @endif
+                                                            >{{$value->nama_lembaga}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
@@ -259,15 +274,30 @@
                                                 <input type="text" class="form-control" name="no_sk" value="{{ $pegawai->no_sk  }}">
                                             </div>
                                             <div class="form-group">
-                                                <label for="jenis-p">Jenis Kepegawaian <span class="text-danger">*</span></label>
+                                                <label for="jabatanY">Jenis Kepegawaian Yayasan </label>
                                                 <div>
-                                                    <select class="form-control" id="jenis-p" name="jenis_p"  required>
-                                                        <option value=""  disabled>Pilih Jenis</option>
+                                                    <select class="form-control" id="jabatanY" name="jabatanY">
+                                                        <option value="0" disabled readonly>Pilih Jenis</option>
+                                                        @foreach ($jabaya as $value)
+                                                            <option value="{{$value->id}}"
+                                                                    @if($value->id == $pegawai->jabatan_yayasan_id)
+                                                                    selected
+                                                                    @endif
+                                                            >{{$value->nama_jabatan_yayasan}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="jabatan">Jenis Kepegawaian <span class="text-danger">*</span></label>
+                                                <div>
+                                                    <select class="form-control" id="jabatan" name="jabatan"  required>
+                                                        <option value=""  disabled readonly>Pilih Jenis</option>
                                                         @foreach ($jabatan as $value)
                                                             <option value="{{$value->id}}"
-                                                            @if($value->id == $pegawai->jabatan_id)
-                                                            selected
-                                                            @endif
+                                                                    @if($value->id == $pegawai->jabatan_id)
+                                                                    selected
+                                                                    @endif
                                                             >{{$value->nama_jabatan}}</option>
                                                         @endforeach
                                                     </select>
@@ -302,6 +332,21 @@
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
 
     <script>
+        $('#lembaga').on('change', function(e){
+            console.log(e);
+            console.log('waw');
+            var lembaga_id = e.target.value;
+            $.get('/pegawai/data-pegawai/jabatan?lembaga_id=' + lembaga_id,function(data) {
+                console.log(data);
+                $('#jabatan').empty();
+                $('#jabatan').append('<option readonly="true" selected>Pilih Jenis</option>');
+
+                $.each(data, function(index, lembagaObj){
+                    $('#jabatan').append('<option value="'+ lembagaObj.id +'">'+ lembagaObj.nama_jabatan +'</option>');
+                })
+            });
+        });
+
         var fForm = $('#form-editPegawai');
         var fConfirm = $('button#editPegawai');
 

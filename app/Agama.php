@@ -18,4 +18,8 @@ class Agama extends Model
     public function p_agama(){
         return $this->hasMany(Pegawai::class);
     }
+
+    public function pesertaDidik(){
+        return $this->hasMany(PesertaDidik::class);
+    }
 }

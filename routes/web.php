@@ -386,10 +386,59 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'h-d-p-pegawai'
         ]);
 
+        Route::delete('/hapus-semua}', [
+            'uses' => 'DataPegawaiController@destroyAll',
+            'as' => 'h-s-pegawai'
+        ]);
+
         Route::get('/data-pegawai-berhasil-ditambahkan', [
             'uses' => 'DataPegawaiController@tambah_dpd',
             'as' => 'd-p-done'
         ]);
+    });
+
+    Route::group(['prefix' => 'peserta-didik'], function (){
+
+        Route::get('/', [
+            'uses' => 'PesertaController@index',
+            'as' => 'p-home'
+        ]);
+
+        Route::get('/data-peserta-tambah', [
+            'uses' => 'PesertaController@create',
+            'as' => 'p-tambah'
+        ]);
+
+        Route::get('/kabupaten', [
+            'uses' => 'PesertaController@kabupaten',
+            'as' => 'json-kabupaten'
+        ]);
+
+            Route::get('/kecamatan', [
+                'uses' => 'PesertaController@kecamatan',
+                'as' => 'json-kecamatan'
+            ]);
+
+        Route::post('/tambah-peserta', [
+            'uses' => 'PesertaController@store',
+            'as' => 'p-tambah-peserta'
+        ]);
+
+        Route::get('/peserta-edit', [
+            'uses' => 'PesertaController@edit',
+            'as' => 'p-edit'
+        ]);
+
+        Route::post('/update-peserta/{id}', [
+            'uses' => 'PesertaController@update',
+            'as' => 'p-update'
+        ]);
+
+        Route::delete('/hapus-peserta/{id}', [
+            'uses' => 'PesertaController@destroy',
+            'as' => 'p-hapus'
+        ]);
+
     });
 
     Route::group(['prefix' => 'dokumen'], function (){

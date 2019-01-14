@@ -15,8 +15,11 @@ class Kewarganegaraan extends Model
     //"$guarded" kolom yang tidak dapat diisi secara manual
     protected $guarded = ['id'];
 
-    public function pegawai_k()
-    {
+    public function pegawai_k(){
         return $this->hasMany(Pegawai::class);
+    }
+
+    public function pesertaDidik(){
+        return $this->hasMany(PesertaDidik::class);
     }
 }

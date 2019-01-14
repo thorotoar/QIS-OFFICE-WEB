@@ -77,8 +77,7 @@ class DokumenController extends Controller
     public function edit(Request $request){
 
         $dokumen = Dokumen::find($request->id);
-//        $fileDok = FileDokumen::find($request->id);
-        $fileDok = FileDokumen::where('dokumen_id', $dokumen->id)->firstOrFail();
+        $fileDok = FileDokumen::where('dokumen_id', $dokumen->id)->get();
 
         return view('pegawai.dokumen.d-edit', compact('dokumen', 'fileDok'));
     }

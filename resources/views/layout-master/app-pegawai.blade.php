@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('images/favicon-v1.png')}}">
     <title>@yield('title')</title>
@@ -123,7 +124,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a class="has-arrow  " href={{url('/homepd')}}" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Kelola Peserta Didik</span></a>
+                        <a class="has-arrow  " href="{{route('p-home')}}" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Kelola Peserta Didik</span></a>
                     </li>
                     <li>
                         <a class="has-arrow  " href="{{route('d-pegawai')}}" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Kelola Pegawai</span></a>

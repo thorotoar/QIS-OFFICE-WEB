@@ -61,20 +61,23 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Daftar Data Pegawai</h4><hr>
-                            <a class="btn btn-primary btn-flat" href="{{route('d-p-tambah')}}">
-                                <i class="fa fa-plus"></i>&nbsp;Tambah Data Pegawai</a>
+                            <div class="button-list">
+                                <a class="btn btn-primary btn-flat" href="{{route('d-p-tambah')}}">
+                                    <i class="fa fa-plus"></i>&nbsp;Tambah Data Pegawai</a>
+                                <button class="btn btn-danger btn-flat delete-all" data-url="">
+                                    <i class="fa fa-trash"></i>&nbsp;Delete All</button>
+                            </div>
                             <div class="table-responsive m-t-40">
                                 <table id="myTable" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th>No</th>
+                                        <th width="50px">No</th>
                                         <th>Foto</th>
                                         <th>NIK</th>
                                         <th>Nama</th>
                                         <th>Jenis Kelamin</th>
                                         <th>TTL</th>
                                         <th>Lembaga</th>
-                                        <th>Jabatan</th>
                                         <th></th>
                                     </tr>
                                     </thead>
@@ -91,7 +94,6 @@
                                             <th>{{ $value->pegawai->kelamin }}</th>
                                             <th>{{ $value->pegawai->tempat_lahir }}, {{ $value->pegawai->tgl_lahir }}</th>
                                             <th>{{ $value->pegawai->lembaga->nama_lembaga }}</th>
-                                            <th>{{ isset($value->pegawai->jabatan)?$value->pegawai->jabatan->nama_jabatan:'-' }}</th>
                                             <th>
                                                 <div class="table-data-feature">
                                                     <form id="form-deletePegawai-{{$value->id}}" class="form-group pull-left" action="" method="post" hidden>
@@ -131,21 +133,6 @@
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
 
     <script>
-        $('#myTable').on('change', function(e){
-            // console.log(e);
-            // console.log('waw');
-            var lembaga_id = e.target.value;
-            $.get('/pegawai/data-pegawai/jabatan?lembaga_id=' + lembaga_id,function(data) {
-                console.log(data);
-                $('#jabatan').empty();
-                $('#jabatan').append('<option readonly="true" selected>Pilih Jenis</option>');
-
-                $.each(data, function(index, lembagaObj){
-                    $('#jabatan').append('<option value="'+ lembagaObj.id +'">'+ lembagaObj.nama_jabatan +'</option>');
-                })
-            });
-        });
-
         var id;
         var body = $('body');
         body.on('click','.sweet-pegawai-edit',function () {

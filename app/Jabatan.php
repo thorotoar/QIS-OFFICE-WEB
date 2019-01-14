@@ -26,5 +26,4 @@ class Jabatan extends Model
     {
         return $this->belongsTo(Lembaga::class);
     }
-
 }

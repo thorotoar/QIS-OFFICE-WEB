@@ -201,6 +201,10 @@
                                             <strong><span>{{$value->pegawai->tgl_masuk}}</span></strong>
                                         </h6>
                                         <h6 class="h6-responsive">
+                                            <small class="green-text">Jabatan Yayasan :</small><br>
+                                            <strong><span>{{isset($value->pegawai->jabatanYayasan)?$value->pegawai->jabatanYayasan->nama_jabatan_yayasan:'-'}}</span></strong>
+                                        </h6>
+                                        <h6 class="h6-responsive">
                                             <small class="green-text">Jabatan :</small><br>
                                             <strong><span>{{isset($value->pegawai->jabatan)?$value->pegawai->jabatan->nama_jabatan:'-'}}</span></strong>
                                         </h6>
