@@ -3,7 +3,7 @@
 
 @section('content')
     <!-- Page wrapper  -->
-    <div class="page-wrapper">
+    <div class="page-wrapper" xmlns="http://www.w3.org/1999/html">
         <!-- Bread crumb -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
@@ -64,8 +64,8 @@
                             <div class="button-list">
                                 <a class="btn btn-primary btn-flat" href="{{route('d-p-tambah')}}">
                                     <i class="fa fa-plus"></i>&nbsp;Tambah Data Pegawai</a>
-                                <button class="btn btn-danger btn-flat delete-all" data-url="">
-                                    <i class="fa fa-trash"></i>&nbsp;Delete All</button>
+                                <a class="btn btn-primary btn-flat" href="{{route('d-p-print-all')}}">
+                                    <i class="fa fa-print"></i>&nbsp;Print All</a>
                             </div>
                             <div class="table-responsive m-t-40">
                                 <table id="myTable" class="table table-bordered table-striped">
@@ -88,7 +88,11 @@
                                         @endphp
                                         <tr>
                                             <th>{{ $index +1 }}</th>
-                                            <th><img src="{{asset($value->pegawai->foto)}}" width="84" height="112"></th>
+                                            <th>@if($value->pegawai->foto === null)
+                                                    <img src="{{asset('images/icon/no3x4.png')}}" width="84" height="112">
+                                                @else
+                                                    <img src="{{asset($value->pegawai->foto)}}" width="84" height="112">
+                                                @endif</th>
                                             <th>{{ $value->pegawai->nik }} </th>
                                             <th>{{ $value->pegawai->nama }}</th>
                                             <th>{{ $value->pegawai->kelamin }}</th>
@@ -107,7 +111,7 @@
                                                             data-placement="top" title="Edit">
                                                         <i class="fa fa-edit"></i> Edit
                                                     </button>
-                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
+                                                    <button type="button" data-id="{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat sweet-print" data-toggle="tooltip" data-placement="top" title="Print">
                                                         <i class="fa fa-print"></i> Print
                                                     </button>
                                                     <button onclick="deleteDataPegawai('{{$value->id}}')" type="submit" class="btn btn-sm btn-rounded btn-danger btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
@@ -152,6 +156,11 @@
                     window.location='{{route('d-p-edit')}}'+'?id='+id;
                 }
             })
+        });
+
+        body.on('click','.sweet-print',function () {
+            id=$(this).data('id');
+            window.location='{{route('d-p-print')}}'+'?id='+id;
         });
 
         function deleteDataPegawai(id) {

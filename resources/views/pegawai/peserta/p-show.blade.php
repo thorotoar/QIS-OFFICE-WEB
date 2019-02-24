@@ -14,7 +14,13 @@
                             <!--Slides-->
                             <div class="carousel-inner" role="listbox">
                                 <div class="carousel-item active">
-                                    <img class="d-block w-100" src="{{asset($value->foto)}}" alt="First slide">
+                                    <div style="text-align: center">
+                                        @if($value->foto === null)
+                                            <img class="d-block w-100" src="{{asset('images/icon/no.png')}}" alt="First slide">
+                                        @else
+                                            <img class="d-block w-100" src="{{asset($value->foto)}}" alt="First slide">
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -24,31 +30,20 @@
                         <h2 class="h2-responsive product-name">
                             <strong>{{$value->nama}}</strong>
                         </h2>
-                        {{--<h4 class="h4-responsive">--}}
-                            {{--<span class="green-text">--}}
-                                {{--@if($value->status == null)--}}
-                                    {{--<span></span>--}}
-                                {{--@elseif($value->status == 'aktif')--}}
-                                    {{--<button class="btn btn-sm btn-secondary btn-flat btn-rounded disabled" disabled>{{ ucwords($value->status) }}</button>--}}
-                                {{--@elseif($value->status == 'lulus')--}}
-                                    {{--<button class="btn btn-sm btn-danger btn-flat btn-rounded disabled" disabled>{{ ucwords($value->status) }}</button>--}}
-                                {{--@endif--}}
-                            {{--</span>--}}
-                        {{--</h4>--}}
 
                         <!--Accordion wrapper-->
                         <div class="accordion md-accordion" id="accordionEx" role="tablist" aria-multiselectable="true">
 
                             {{--info personal--}}
                             <div class="card">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h6 class="h2-responsive product-name">
-                                            <strong>Info Personal</strong>
-                                        </h6><hr>
-                                    </div>
-                                </div>
                                 <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h6 class="h2-responsive product-name">
+                                                <strong>Info Personal</strong>
+                                            </h6><hr>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <h6 class="h6-responsive">
@@ -294,10 +289,7 @@
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Jenjang pendidikan :</small><br>
-                                            <strong>@if($value->jenjang_ayah_id == null)
-                                                    <span>-</span>
-                                                @endif
-                                                {{$value->jenjangPendidikanA->nama_jenjang}}</strong>
+                                            <strong>{{isset($value->jenjangPendidikanA)?$value->jenjangPendidikanA->nama_jenjang:'-'}}</strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
@@ -311,18 +303,13 @@
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Penghasilan :</small><br>
-                                            <strong>@if($value->penghasilan_ayah_id == null)
-                                                    <span>-</span>
-                                                @endif
-                                                {{$value->penghasilanA->jumlah_penghasilan}}</strong>
+                                            <strong>{{isset($value->penghasilanA)?$value->penghasilanA->jumlah_penghasilan:'-'}}</strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Kebutuhan Khusus :</small><br>
-                                            <strong>@if($value->kebutuhan_ayah_id == null)
-                                                    <span>-</span>
-                                                @endif{{$value->kebutuhanKhususA->nama_kebutuhan}}</strong>
+                                            <strong>{{isset($value->kebutuhanKhususA)?$value->kebutuhanKhususA->nama_kebutuhan:'-'}}</strong>
                                         </h6>
                                     </div>
                                 </div>
@@ -365,10 +352,7 @@
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Jenjang pendidikan :</small><br>
-                                            <strong>@if($value->jenjang_ibu_id == null)
-                                                    <span>-</span>
-                                                @endif
-                                                {{$value->jenjangPendidikanI->nama_jenjang}}</strong>
+                                            <strong>{{isset($value->jenjangPendidikanI)?$value->jenjangPendidikanI->nama_jenjang:'-'}}</strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
@@ -382,18 +366,13 @@
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Penghasilan :</small><br>
-                                            <strong>@if($value->penghasilan_ibu_id == null)
-                                                    <span>-</span>
-                                                @endif
-                                                {{$value->penghasilanI->jumlah_penghasilan}}</strong>
+                                            <strong>{{isset($value->penghasilanI)?$value->penghasilanI->jumlah_penghasilan:'-'}}</strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Kebutuhan Khusus :</small><br>
-                                            <strong>@if($value->kebutuhan_ibu_id == null)
-                                                    <span>-</span>
-                                                @endif{{$value->kebutuhanKhususI->nama_kebutuhan}}</strong>
+                                            <strong>{{isset($value->kebutuhanKhususI)?$value->kebutuhanKhususI->nama_kebutuhan:'-'}}</strong>
                                         </h6>
                                     </div>
                                 </div>
@@ -438,10 +417,7 @@
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Jenjang pendidikan :</small><br>
-                                            <strong>@if($value->jenjang_wali_id == null)
-                                                    <span>-</span>
-                                                @endif
-                                                {{$value->jenjangPendidikanW->nama_jenjang}}</strong>
+                                            <strong>{{isset($value->jenjangPendidikanW)?$value->jenjangPendidikanW->nama_jenjang:'-'}}</strong>
                                         </h6>
                                     </div>
                                     <div class="col-md-3">
@@ -455,10 +431,7 @@
                                     <div class="col-md-3">
                                         <h6 class="h6-responsive">
                                             <small class="green-text">Penghasilan :</small><br>
-                                            <strong>@if($value->penghasilan_wali_id == null)
-                                                    <span>-</span>
-                                                @endif
-                                                {{$value->penghasilanW->jumlah_penghasilan}}</strong>
+                                            <strong>{{isset($value->penghasilanW)?$value->penghasilanW->jumlah_penghasilan:'-'}}</strong>
                                         </h6>
                                     </div>
                                 </div>

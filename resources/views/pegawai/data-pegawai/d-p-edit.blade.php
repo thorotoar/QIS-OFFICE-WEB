@@ -66,7 +66,7 @@
                                             <div class="form-group">
                                                 <label for="jenis-kelamin">Jenis Kelamin <span class="text-danger">*</span></label>
                                                 <div>
-                                                    <select class="form-control" id="jenis-kelamin" name="kelamin" required>
+                                                    <select class="form-control custom-select" id="jenis-kelamin" name="kelamin" required>
                                                         <option value=""  disabled>Pilih Jenis Kelamin</option>
                                                         @if($pegawai->kelamin == 'Laki-laki')
                                                             <option value="Laki-laki" selected>Laki-laki</option>
@@ -81,7 +81,7 @@
                                             <div class="form-group">
                                                 <label for="agama">Agama <span class="text-danger">*</span></label>
                                                 <div>
-                                                    <select class="form-control" id="agama" name="agama" required>
+                                                    <select class="form-control custom-select" id="agama" name="agama" required>
                                                         <option value="" disabled>Pilih Agama</option>
                                                         @foreach($agama as $agamav)
                                                             <option value="{{$agamav->id}}"
@@ -116,7 +116,7 @@
                                             <div class="form-group">
                                                 <label for="negara">Kewarganegaraan <span class="text-danger">*</span></label>
                                                 <div>
-                                                    <select class="form-control" id="negara" name="negara" required>
+                                                    <select class="form-control custom-select" id="negara" name="negara" required>
                                                         <option value=""  disabled>Pilih Kewarganegaraan</option>
                                                         @foreach($kewarganegaraan as $negara)
                                                             <option value="{{$negara->id}}"
@@ -131,7 +131,7 @@
                                             <div class="form-group">
                                                 <label for="status">Status Pernikahan <span class="text-danger">*</span></label>
                                                 <div>
-                                                    <select class="form-control" id="status" name="status" required>
+                                                    <select class="form-control custom-select" id="status" name="status" required>
                                                         <option value=""  disabled>Status</option>
                                                         @if($pegawai->status_pernikahan == 'Sudah Menikah')
                                                             <option value="Sudah Menikah" selected>Sudah Menikah</option>
@@ -162,7 +162,7 @@
                                             <div class="form-group">
                                                 <label for="bank">Bank</label>
                                                 <div>
-                                                    <select class="form-control" id="bank" name="bank">
+                                                    <select class="form-control custom-select" id="bank" name="bank">
                                                         <option value=""  disabled>Pilih Bank</option>
                                                         @foreach($bank as $bankv)
                                                             <option value="{{$bankv->id}}"
@@ -276,7 +276,7 @@
                                             <div class="form-group">
                                                 <label for="jabatanY">Jenis Kepegawaian Yayasan </label>
                                                 <div>
-                                                    <select class="form-control" id="jabatanY" name="jabatanY">
+                                                    <select class="form-control custom-select" id="jabatanY" name="jabatanY">
                                                         <option value="0" disabled readonly>Pilih Jenis</option>
                                                         @foreach ($jabaya as $value)
                                                             <option value="{{$value->id}}"
@@ -291,7 +291,7 @@
                                             <div class="form-group">
                                                 <label for="jabatan">Jenis Kepegawaian <span class="text-danger">*</span></label>
                                                 <div>
-                                                    <select class="form-control" id="jabatan" name="jabatan"  required>
+                                                    <select class="form-control custom-select" id="jabatan" name="jabatan"  required>
                                                         <option value=""  disabled readonly>Pilih Jenis</option>
                                                         @foreach ($jabatan as $value)
                                                             <option value="{{$value->id}}"

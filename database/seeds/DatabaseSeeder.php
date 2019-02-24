@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->call(jabayaSeeeder::class);
         $this->call(penghasilanSeeeder::class);
         $this->call(transportasiSeeeder::class);
-        $this->call(dokumenSeeder::class);
+//        $this->call(dokumenSeeder::class);
         $this->call(kebutuhanSeeeder::class);
     }
 }

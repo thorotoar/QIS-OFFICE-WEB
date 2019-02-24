@@ -80,7 +80,12 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Tanggal Lahir <span class="text-danger">*</span></label>
-                                                <input type="date" class="form-control input-sm" name="tgl_lahir" value="{{$peserta->tgl_lahir}}" required>
+                                                <div class="input-group date datepicker">
+                                                    <input type="text" class="form-control input-sm" name="tgl_lahir" value="{{$peserta->tgl_lahir}}" placeholder="tanggal/bulan/tahun" required>
+                                                    <div class="input-group-addon">
+                                                        &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="agama">Agama <span class="text-danger">*</span></label>
@@ -197,7 +202,12 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Tanggal Masuk <span class="text-danger">*</span></label>
-                                                <input type="date" class="form-control input-sm" name="tgl_masuk" value="{{ $peserta->tgl_masuk}}" required>
+                                                <div class="input-group date datepicker">
+                                                    <input type="text" class="form-control input-sm" name="tgl_masuk" value="{{$peserta->tgl_masuk}}" placeholder="tanggal/bulan/tahun" required>
+                                                    <div class="input-group-addon">
+                                                        &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label>Kode Pos </label>
@@ -353,7 +363,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Tahun Lahir Ayah </label>
-                                                <input type="text" class="yearpicker form-control input-sm" name="tahun_lahir_ayah" value="{{$peserta->tahun_lahir_ayah}}" required>
+                                                <input type="text" class=" form-control input-sm yearpicker" name="tahun_lahir_ayah" value="{{$peserta->tahun_lahir_ayah}}" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="jenjang-ayah">Jenjang Pendidikan Ayah </label>
@@ -428,7 +438,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Tahun Lahir Ibu </label>
-                                                <input type="text" class="yearpicker form-control input-sm" name="tahun_lahir_ibu" value="{{$peserta->tahun_lahir_ibu}}" required>
+                                                <input type="text" class=" form-control input-sm yearpicker" name="tahun_lahir_ibu" value="{{$peserta->tahun_lahir_ibu}}" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="jenjang-ibu">Jenjang Pendidikan Ibu </label>
@@ -503,7 +513,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Tahun Lahir Wali </label>
-                                                <input type="text" class="yearpicker form-control input-sm" name="tahun_lahir_wali" value="{{$peserta->tahun_lahir_wali}}" required>
+                                                <input type="text" class=" form-control input-sm yearpicker" name="tahun_lahir_wali" value="{{$peserta->tahun_lahir_wali}}" required>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -570,6 +580,7 @@
     </div>
     <!-- End Page wrapper  -->
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('js/lib/datepicker/bootstrap-datepicker.min.js')}}"></script>
 
     <script>
         var fForm = $('#form-editPeserta');
@@ -590,6 +601,24 @@
                 function(){
                     fForm.submit();
                 });
-        })
+        });
+
+        $('.datepicker').datepicker({
+            format: "dd MM yyyy"
+        });
+
+        $('.yearpicker').datepicker({
+            format: "yyyy",
+            viewMode: "years",
+            minViewMode: "years"
+        });
+
+        $(".years").datetimepicker({
+            format: "yyyy",
+            startView: 'decade',
+            minView: 'decade',
+            viewSelect: 'decade',
+            autoclose: true,
+        });
     </script>
 @endsection

@@ -14,7 +14,11 @@
                             <!--Slides-->
                             <div class="carousel-inner" role="listbox">
                                 <div class="carousel-item active">
-                                    <img class="d-block w-100" src="{{asset($value->pegawai->foto)}}" alt="First slide">
+                                    @if($value->pegawai->foto === null)
+                                        <img class="d-block w-100" src="{{asset('images/icon/no.png')}}" alt="First slide">
+                                    @else
+                                        <img class="d-block w-100" src="{{asset($value->pegawai->foto)}}" alt="First slide">
+                                    @endif
                                 </div>
                             </div>
                         </div>

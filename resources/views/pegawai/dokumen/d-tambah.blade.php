@@ -42,20 +42,30 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label>Nama File</label>
-                                                <input class="form-control" name="nama_dokumen" type="Text" value="">
+                                                <label>Nama File <span class="text-danger">*</span></label>
+                                                <input class="form-control input-sm" name="nama_dokumen" type="Text" value="" required>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Tanggal File</label>
-                                                <input type="date" class="form-control" name="tgl_file" placeholder="tanggal/bulan/tahun">
+                                                <label>Tanggal File <span class="text-danger">*</span></label>
+                                                <div class="input-group date" data-provide="datepicker">
+                                                    <input type="text" class="form-control input-sm datepick" name="tgl_file" placeholder="tanggal/bulan/tahun" required>
+                                                    <div class="input-group-addon">
+                                                        &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
-                                                <label>Tanggal Dicatat</label>
-                                                <input type="date" class="form-control" name="tgl_dicatat" placeholder="tanggal/bulan/tahun">
+                                                <label>Tanggal Dicatat <span class="text-danger">*</span></label>
+                                                <div class="input-group date" data-provide="datepicker">
+                                                    <input type="text" class="form-control input-sm datepick" name="tgl_dicatat" placeholder="tanggal/bulan/tahun" required>
+                                                    <div class="input-group-addon">
+                                                        &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -63,21 +73,16 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label>Keterangan</label>
-                                                <textarea class="form-control" rows="10" name="keterangan" placeholder=""></textarea>
+                                                <textarea class="form-control input-sm" rows="10" name="keterangan" placeholder=""></textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label>Upload File *</label>
-                                                {{--<div action="#" class="dropzone">--}}
-                                                    {{--<div class="fallback">--}}
-                                                        {{--<input name="file" type="file" multiple />--}}
-                                                    {{--</div>--}}
-                                                {{--</div>--}}
+                                                <label>Upload File <span class="text-danger">*</span></label>
                                                 <div>
-                                                    <input name="upload_file[]" type="file" class="form-control" multiple />
+                                                    <input name="upload_file[]" type="file" class="form-control input-sm" multiple required>
                                                 </div>
                                             </div>
                                         </div>
@@ -126,5 +131,7 @@
                     fForm.submit();
                 });
         })
+
+        $('.datepick').datetimepicker();
     </script>
 @endsection

@@ -15,7 +15,7 @@ class jenisSuratSeeder extends Seeder
     {
         $faker = Factory::create('id_ID');
 
-        for ($c = 0; $c < 9; $c++){
+        for ($c = 0; $c < 10; $c++){
             $jenis_surat = JenisSurat::create([
                 'nama_jenis_surat' => $faker->sentence('5', 'true'),
                 'created_by' => '',
@@ -48,7 +48,7 @@ class jenisSuratSeeder extends Seeder
         ]);
 
         JenisSurat::find(7)->update([
-            'nama_jenis_surat' => 'Surat Keputusan Instruktur',
+            'nama_jenis_surat' => 'Surat Keputusan Penyusun Instruktur',
         ]);
 
         JenisSurat::find(8)->update([
@@ -57,6 +57,10 @@ class jenisSuratSeeder extends Seeder
 
         JenisSurat::find(9)->update([
             'nama_jenis_surat' => 'Surat Keputusan Penyusun RPP',
+        ]);
+
+        JenisSurat::find(10)->update([
+            'nama_jenis_surat' => 'Surat Lain',
         ]);
     }
 }

@@ -48,8 +48,8 @@
                                     <div class="form-group row">
                                         <label class="col-lg-4 col-form-label" for="val-skill">Nama Pegawai <span class="text-danger">*</span></label>
                                         <div class="col-lg-6">
-                                            <select class="form-control" id="nama-pegawai" name="id_pegawai">
-                                                <option value="">Pilih Pegawai</option>
+                                            <select class="form-control custom-select" id="nama-pegawai" name="id_pegawai">
+                                                <option value="" disabled readonly>Pilih Pegawai</option>
                                                 @foreach(App\Pegawai::all() as $item)
                                                     <option value="{{$item->id}}">{{$item->nama}}</option>
                                                     @endforeach
@@ -71,8 +71,8 @@
                                     <div class="form-group row">
                                         <label class="col-lg-4 col-form-label" for="hak-akses">Hak Akses <span class="text-danger">*</span></label>
                                         <div class="col-lg-6">
-                                            <select class="form-control" id="hak-akses" name="hak_akses">
-                                                <option value="">Pilih hak akses</option>
+                                            <select class="form-control custom-select" id="hak-akses" name="hak_akses">
+                                                <option value="" disabled readonly>Pilih hak akses</option>
                                                 <option value="admin">Admin</option>
                                                 <option value="pegawai">Pegawai</option>
                                             </select>

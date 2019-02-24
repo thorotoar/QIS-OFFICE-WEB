@@ -66,11 +66,13 @@
                                                         {{csrf_field()}} {{method_field('DELETE')}}
                                                         {{--onclick="return confirm('Hapus data terpilih?')"--}}
                                                     </form>
-                                                    <button data-target="#test{{$value->id}}" type="submit" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="modal" data-placement="top" title="Lihat" data-id="pegawaiId">
+                                                    {{--<button data-target="#test{{$value->id}}" type="submit" class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="modal" data-placement="top" title="Lihat" data-id="pegawaiId">--}}
+                                                        {{--<i class="fa fa-eye"></i> Lihat--}}
+                                                    {{--</button>--}}
+                                                    <button type="button" data-id="{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat lihat" data-toggle="tooltip" data-placement="top" title="Lihat">
                                                         <i class="fa fa-eye"></i> Lihat
                                                     </button>
-                                                    <button type="button" data-id="{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat sweet-dokumen-edit" data-toggle="tooltip"
-                                                            data-placement="top" title="Edit">
+                                                    <button type="button" data-id="{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat sweet-dokumen-edit" data-toggle="tooltip" data-placement="top" title="Edit">
                                                         <i class="fa fa-edit"></i> Edit
                                                     </button>
                                                     <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
@@ -122,6 +124,11 @@
                     window.location='{{route('d-edit')}}'+'?id='+id;
                 }
             })
+        });
+
+        body.on('click','.lihat',function () {
+            id=$(this).data('id');
+            window.location='{{route('d-show')}}'+'?id='+id;
         });
 
         function deleteDataDokumen(id) {

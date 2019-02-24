@@ -46,7 +46,6 @@
                                 <table id="myTable" class="table table-bordered table-striped" cellspacing="0" width="100%">
                                     <thead>
                                     <tr>
-                                        <th width="50px"><input type="checkbox" id="master"></th>
                                         <th width="80px">No</th>
                                         <th>Nomor Surat</th>
                                         <th>Diterima</th>
@@ -57,8 +56,7 @@
                                     </thead>
                                     <tbody>
                                     @foreach($smasukView as $index => $value)
-                                        <tr id="tr_{{$value->id}}">
-                                            <td><input type="checkbox" class="sub_chk" data-id="{{$value->id}}"></td>
+                                        <tr >
                                             <th>{{ $index +1 }}</th>
                                             <th>{{ $value->no_surat }} </th>
                                             <th>{{ $value->tgl_diterima }}</th>

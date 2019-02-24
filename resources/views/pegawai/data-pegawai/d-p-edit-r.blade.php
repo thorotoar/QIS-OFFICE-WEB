@@ -64,7 +64,7 @@
                                             <div class="form-group">
                                                 <label for="bank">Jenjang Terakhir <span class="text-danger">*</span></label>
                                                 <div>
-                                                    <select class="form-control" id="bank" name="jenjang" required>
+                                                    <select class="form-control custom-select" id="bank" name="jenjang" required>
                                                         <option value="{{$rpegawai->jenjang_id}}">{{App\Jenjang::find($rpegawai->jenjang_id)->nama_jenjang}}</option>
                                                             @foreach($jenjang as $jenjangs)
                                                             <option value="{{$jenjangs->id}}">{{$jenjangs->nama_jenjang}}</option>
@@ -85,7 +85,7 @@
                                             <div class="form-group">
                                                 <label for="jurusan">Jurusan</label>
                                                 <div>
-                                                    <select class="form-control" id="jurusan" name="jurusan">
+                                                    <select class="form-control custom-select" id="jurusan" name="jurusan">
                                                         <option value="{{$rpegawai->jurusan_id}}">{{App\JurusanPendidikan::find($rpegawai->jurusan_id)->nama_jurusan_pendidikan}}</option>
                                                         @foreach($jurusan as $jurusan)
                                                             <option value="{{$jurusan->id}}">{{$jurusan->nama_jurusan_pendidikan}}</option>

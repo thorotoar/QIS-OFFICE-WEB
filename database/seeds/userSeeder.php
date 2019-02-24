@@ -23,6 +23,7 @@ class userSeeder extends Seeder
                 'password' => bcrypt('secret'),
                 'password_a' => 'secret',
                 'email_user' => '',
+                'foto_user' => '',
                 'type' => $faker->sentence('1', 'true'),
                 'created_by' => '',
                 'updated_by' => '',

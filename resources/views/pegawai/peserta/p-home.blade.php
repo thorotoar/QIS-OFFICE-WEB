@@ -55,11 +55,14 @@
                             <div class="button-list">
                                 <a class="btn btn-primary btn-flat" href="{{route('p-tambah')}}">
                                     <i class="fa fa-plus"></i>&nbsp;Tambah Peserta Didik</a>
+                                <a class="btn btn-primary btn-flat" href="{{route('p-print-all')}}">
+                                    <i class="fa fa-print"></i>&nbsp;Print All</a>
                             </div>
                             <div class="table-responsive m-t-40">
                                 <table id="myTable" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Foto</th>
                                         <th>Nama</th>
                                         <th>Jenis Kelamin</th>
@@ -72,7 +75,11 @@
                                     @foreach( $pesertaDidik as $index => $value)
                                         <tr>
                                             <th>{{ $index +1 }}</th>
-                                            <th><img src="{{asset($value->foto)}}" width="84" height="112"></th>
+                                            <th>@if($value->foto === null)
+                                                    <img src="{{asset('images/icon/no3x4.png')}}" width="84" height="112">
+                                                @else
+                                                    <img src="{{asset($value->foto)}}" width="84" height="112">
+                                                @endif</th>
                                             <th>{{ $value->nama }}</th>
                                             <th>{{ $value->kelamin }}</th>
                                             <th>{{ $value->tempat_lahir }}, {{ $value->tgl_lahir }}</th>
@@ -90,7 +97,7 @@
                                                             data-placement="top" title="Edit">
                                                         <i class="fa fa-edit"></i> Edit
                                                     </button>
-                                                    <button class="btn btn-sm btn-rounded btn-primary btn-flat" data-toggle="tooltip" data-placement="top" title="Print">
+                                                    <button type="button" data-id="{{$value->id}}" class="btn btn-sm btn-rounded btn-primary btn-flat sweet-print" data-toggle="tooltip" data-placement="top" title="Print">
                                                         <i class="fa fa-print"></i> Print
                                                     </button>
                                                     <button onclick="deleteDataPeserta('{{$value->id}}')" type="submit" class="btn btn-sm btn-rounded btn-danger btn-flat" data-toggle="tooltip" data-placement="top" title="Delete">
@@ -135,6 +142,11 @@
                     window.location='{{route('p-edit')}}'+'?id='+id;
                 }
             })
+        });
+
+        body.on('click','.sweet-print',function () {
+            id=$(this).data('id');
+            window.location='{{route('p-print')}}'+'?id='+id;
         });
 
         function deleteDataPeserta(id) {

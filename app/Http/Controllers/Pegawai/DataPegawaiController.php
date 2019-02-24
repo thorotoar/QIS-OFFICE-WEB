@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
+use PDF;
 
 
 class DataPegawaiController extends Controller
@@ -41,7 +42,7 @@ class DataPegawaiController extends Controller
         $kewarganegaraan = Kewarganegaraan::all();
         $agama = Agama::all();
         $bank = Bank::all();
-        $lembaga = Lembaga::all();
+        $lembaga = Lembaga::where('id', '!=', [1])->get();
         $jabaya = JabatanYayasan::all();
         return view('pegawai.data-pegawai.d-p-tambah', compact( 'agama', 'kewarganegaraan', 'bank', 'lembaga', 'jabaya'));
     }
@@ -276,6 +277,22 @@ class DataPegawaiController extends Controller
         $ser->delete();
 
         return back()->with('destroy', 'Data terpilih berhasil dihapus.');
+    }
+
+    public function print(Request $request){
+
+        $data = RiwayatPendidikan::find($request->id);
+        //dd($data);
+        //$pdf = PDF::loadView("pegawai.data-pegawai.d-p-print", compact('data'));
+        return view('pegawai.data-pegawai.d-p-print', compact('data'));
+    }
+
+    public function print_all(){
+
+        $data = RiwayatPendidikan::all();
+        $pdf = PDF::loadView("pegawai.data-pegawai.d-p-print-all", compact('data'));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream('daftar_pegawai.pdf');
     }
 
 }

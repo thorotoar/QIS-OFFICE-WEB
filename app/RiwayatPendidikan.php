@@ -26,4 +26,8 @@ class RiwayatPendidikan extends Model
     public function jurusan(){
         return $this->belongsTo(JurusanPendidikan::class, 'jurusan_id');
     }
+
+    public function isiSurat(){
+        return $this->hasMany(IsiSurat::class);
+    }
 }

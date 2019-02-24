@@ -1,23 +1,30 @@
 @extends('layout-master.app-pegawai')
 @section('title', 'QIS OFFICE | EDIT DOKUMEN')
 
+
 @section('content')
     <!-- Page wrapper  -->
     <div class="page-wrapper">
         <!-- Bread crumb -->
         <div class="row page-titles">
             <div class="col-md-5 align-self-center">
-                <h3 class="text-primary">Input Dokumen</h3> </div>
+                <h3 class="text-primary">Edit Dokumen</h3> </div>
             <div class="col-md-7 align-self-center">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript:void(0)">Dokumen</a></li>
-                    <li class="breadcrumb-item active">Input Dokumen</li>
+                    <li class="breadcrumb-item active">Edit Dokumen</li>
                 </ol>
             </div>
         </div>
         <!-- End Bread crumb -->
         <!-- Container fluid  -->
         <div class="container-fluid">
+            @if(session()->has('edit'))
+                <div class="alert alert-info alert-dismissible fade show">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{session()->get('edit')}}
+                </div>
+            @endif
             <!-- Start Page Content -->
             <div class="row">
                 <div class="col-lg-12">
@@ -29,20 +36,20 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label>Nama File</label>
-                                                <input class="form-control" name="nama_dokumen" type="Text" value="{{$dokumen->nama_dokumen}}">
+                                                <label>Nama File <span class="text-danger">*</span></label>
+                                                <input class="form-control input-sm" name="nama_dokumen" type="Text" value="{{$dokumen->nama_dokumen}}" required>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-group">
-                                                <label>Tanggal File</label>
-                                                <input type="date" class="form-control" name="tgl_file" placeholder="tanggal/bulan/tahun" value="{{$dokumen->tgl_file}}">
+                                                <label>Tanggal File <span class="text-danger">*</span></label>
+                                                <input type="date" class="form-control input-sm" name="tgl_file" placeholder="tanggal/bulan/tahun" value="{{$dokumen->tgl_file}}" required>
                                             </div>
                                         </div>
                                         <div class="col-lg-3">
                                             <div class="form-group">
-                                                <label>Tanggal Dicatat</label>
-                                                <input type="date" class="form-control" name="tgl_dicatat" placeholder="tanggal/bulan/tahun" value="{{$dokumen->tgl_dicatat}}">
+                                                <label>Tanggal Dicatat <span class="text-danger">*</span></label>
+                                                <input type="date" class="form-control input-sm" name="tgl_dicatat" placeholder="tanggal/bulan/tahun" value="{{$dokumen->tgl_dicatat}}" required>
                                             </div>
                                         </div>
                                     </div>
@@ -50,22 +57,34 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label>Keterangan</label>
-                                                <textarea class="form-control" rows="10" name="keterangan" placeholder="">{{$dokumen->keterangan}}</textarea>
+                                                <textarea class="form-control input-sm" rows="10" name="keterangan" placeholder="">{{$dokumen->keterangan}}</textarea>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            @foreach($fileDok as $value)
-                                                <img src="{{asset($value->upload_file)}}" width="84" height="112">
-                                            @endforeach
+                                            <div class="form-group">
+                                                <label><span class="text-danger">*</span> Tandai file yang ingin dhapus!</label><br>
+                                                <div class="multipl-image-checkbox">
+                                                    <ul>
+                                                        @foreach($fileDok as $index => $value)
+                                                            <li><input type="checkbox" id="cb{{$index +1}}" value="{{$value['id']}}" name="delete_file[]" />
+                                                                <label for="cb{{$index +1}}">
+                                                                    <img src="{{strtolower(pathinfo($value['upload_file'], PATHINFO_EXTENSION)) == "jpg" || strtolower(pathinfo($value['upload_file'], PATHINFO_EXTENSION)) == "jpeg"|| strtolower(pathinfo($value['upload_file'], PATHINFO_EXTENSION)) == "png" || strtolower(pathinfo($value['upload_file'], PATHINFO_EXTENSION)) == "gif" ? asset($value['upload_file']) :  asset('images/icon/file.png')}}"><br>
+                                                                    <small>{{substr(str_limit($value['title'], 18, '...'), 4)}}</small>
+                                                                </label>
+                                                            </li>
+
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label>Upload File *</label><b><i>{{$fileDok->upload_file}}</i>)
-                                                </b><input type="hidden" value="{{$fileDok->upload_file}}" name="upload_file[]">
+                                                <label>Upload File <span class="text-danger">*</span></label>
                                                 <div>
-                                                    <input name="upload_file_new[]" type="file" class="form-control" multiple />
+                                                    <input name="upload_file[]" type="file" class="form-control input-sm" multiple required>
                                                 </div>
                                             </div>
                                         </div>

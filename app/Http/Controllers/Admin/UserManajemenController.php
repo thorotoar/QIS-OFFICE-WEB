@@ -41,6 +41,7 @@ class UserManajemenController extends Controller
             'password' => bcrypt($request->password),
             'password_a' => $request->password,
             'email_user' => $employee->email,
+            'foto' => $employee->foto,
             'type' => $request->hak_akses,
             'created_by' => Auth::user()->nama_user,
         ]);
@@ -79,6 +80,7 @@ class UserManajemenController extends Controller
             'password' => bcrypt($request->password),
             'password_a' => $request->password,
             'email_user' => $employee->email,
+            'foto_user' => $employee->foto,
             'type' => $request->hak_akses,
             'updated_by' => Auth::user()->nama_user,
         ]);
@@ -86,6 +88,8 @@ class UserManajemenController extends Controller
         $employee->update([
             'user_id' => $user->id,
         ]);
+
+        //dd($user->email);
         return redirect()->route('um-home')->with('edit','User berhasil diubah.');
 
     }

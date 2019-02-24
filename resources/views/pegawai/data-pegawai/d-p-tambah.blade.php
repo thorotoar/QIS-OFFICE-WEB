@@ -49,7 +49,7 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>NIK <span class="text-danger">*</span></label>
-                                                <input type="number" class="form-control" name="nik" value="" required>
+                                                <input type="text" class="form-control" name="nik" value="" onkeypress="return numberOnly(event, false)" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>Nama <span class="text-danger">*</span></label>
@@ -61,12 +61,17 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Tanggal Lahir <span class="text-danger">*</span></label>
-                                                <input type="date" class="form-control" name="tanggal_lahir" value="" required>
+                                                <div class="input-group date datepicker">
+                                                    <input type="text" class="form-control" name="tanggal_lahir" placeholder="tanggal/bulan/tahun" required>
+                                                    <div class="input-group-addon">
+                                                        &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="jenis-kelamin">Jenis Kelamin <span class="text-danger">*</span></label>
                                                 <div>
-                                                    <select class="form-control" id="jenis-kelamin" name="kelamin" required>
+                                                    <select class="form-control custom-select" id="jenis-kelamin" name="kelamin" required>
                                                         <option value="" disabled selected>Pilih Jenis Kelamin</option>
                                                         <option value="Laki-laki">Laki-laki</option>
                                                         <option value="Perempuan">Perempuan</option>
@@ -76,7 +81,7 @@
                                             <div class="form-group">
                                                 <label for="agama">Agama <span class="text-danger">*</span></label>
                                                 <div>
-                                                    <select class="form-control" id="agama" name="agama" required>
+                                                    <select class="form-control custom-select" id="agama" name="agama" required>
                                                         <option value="" disabled selected>Pilih Agama</option>
                                                         @foreach($agama as $agamav)
                                                             <option value="{{$agamav->id}}">{{$agamav->nama_agama}}</option>
@@ -89,15 +94,6 @@
                                                 <div>
                                                     <input type="file" name="foto" class="form-control">
                                                 </div>
-                                                {{--<div class="input-group">--}}
-                                                    {{--<div class="input-group-prepend">--}}
-                                                        {{--<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>--}}
-                                                    {{--</div>--}}
-                                                    {{--<div class="custom-file">--}}
-                                                        {{--<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01" name="foto">--}}
-                                                        {{--<label class="custom-file-label" for="inputGroupFile01">Choose file</label>--}}
-                                                    {{--</div>--}}
-                                                {{--</div>--}}
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -107,7 +103,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>No. Telp <span class="text-danger">*</span></label>
-                                                <input class="form-control" type="number" name="no_telp" value="" required>
+                                                <input class="form-control" type="text" name="no_telp" value="" onkeypress="return numberOnly(event, false)" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>Email <span class="text-danger">*</span></label>
@@ -116,8 +112,8 @@
                                             <div class="form-group">
                                                 <label for="negara">Kewarganegaraan <span class="text-danger">*</span></label>
                                                 <div>
-                                                    <select class="form-control" id="negara" name="negara" required>
-                                                        <option value="" disabled selected>Pilih Kewarganegaraan</option>
+                                                    <select class="form-control custom-select" id="negara" name="negara" required>
+                                                        <option value="" disabled selected readonly>Pilih Kewarganegaraan</option>
                                                         @foreach($kewarganegaraan as $negara)
                                                             <option value="{{$negara->id}}">{{$negara->nama_negara}}</option>
                                                         @endforeach
@@ -127,8 +123,8 @@
                                             <div class="form-group">
                                                 <label for="status">Status Pernikahan <span class="text-danger">*</span></label>
                                                 <div>
-                                                    <select class="form-control" id="status" name="status" required>
-                                                        <option value="" disabled selected>Status</option>
+                                                    <select class="form-control custom-select" id="status" name="status" required>
+                                                        <option value="" disabled selected readonly="">Status</option>
                                                         <option value="Sudah Menikah">Sudah Menikah</option>
                                                         <option value="Belum Menikah">Belum Menikah</option>
                                                     </select>
@@ -158,13 +154,13 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Nomor Rekening</label>
-                                                <input type="number" class="form-control" name="no_rek" value="">
+                                                <input type="text" class="form-control" name="no_rek" value="" onkeypress="return numberOnly(event, false)">
                                             </div>
                                             <div class="form-group">
                                                 <label for="bank">Bank</label>
                                                 <div>
-                                                    <select class="form-control" id="bank" name="bank">
-                                                        <option value="" disabled selected>Pilih Bank</option>
+                                                    <select class="form-control custom-select" id="bank" name="bank">
+                                                        <option value="" disabled selected readonly="">Pilih Bank</option>
                                                         @foreach($bank as $bankv)
                                                             <option value="{{$bankv->id}}">{{$bankv->nama_bank}}</option>
                                                         @endforeach
@@ -191,17 +187,17 @@
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>NIK Ibu <span class="text-danger">*</span></label>
-                                                <input type="number" class="form-control" name="nik_ibu" value="" required>
+                                                <input type="text" class="form-control" name="nik_ibu" value="" onkeypress="return numberOnly(event, false)" required>
                                             </div>
                                             <div class="form-group">
-                                                <label>NIK Ayah <span class="text-danger">*</span></label>
-                                                <input type="number" class="form-control" name="nik_ayah" value="" required>
+                                                <label>Nama Ibu <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="nama_ibu" value="" required>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="form-group">
-                                                <label>Nama Ibu <span class="text-danger">*</span></label>
-                                                <input type="text" class="form-control" name="nama_ibu" value="" required>
+                                                <label>NIK Ayah <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="nik_ayah" value="" onkeypress="return numberOnly(event, false)" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>Nama Ayah <span class="text-danger">*</span></label>
@@ -247,13 +243,18 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Tanggal Masuk <span class="text-danger">*</span></label>
-                                                <input type="date" class="form-control" name="tanggal_masuk" value="" required>
+                                                <div class="input-group date datepicker">
+                                                    <input type="text" class="form-control" name="tanggal_masuk" placeholder="tanggal/bulan/tahun" required>
+                                                    <div class="input-group-addon">
+                                                        &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="lembaga">Lembaga <span class="text-danger">*</span></label>
                                                 <div>
-                                                    <select class="form-control" id="lembaga" name="lembaga"  required>
-                                                        <option readonly="true" selected>Pilih Jenis</option>
+                                                    <select class="form-control custom-select" id="lembaga" name="lembaga"  required>
+                                                        <option readonly="true" selected disabled>Pilih Jenis</option>
                                                         @foreach ($lembaga as $key => $lembagas)
                                                             <option value="{{$lembagas->id}}">{{$lembagas->nama_lembaga}}</option>
                                                         @endforeach
@@ -269,8 +270,8 @@
                                             <div class="form-group">
                                                 <label for="jabatanY">Jenis Kepegawaian Yayasan </label>
                                                 <div>
-                                                    <select class="form-control" id="jabatanY" name="jabatanY">
-                                                        <option value="0" disabled selected>Pilih Jenis</option>
+                                                    <select class="form-control custom-select" id="jabatanY" name="jabatanY">
+                                                        <option value="0" readonly disabled selected>Pilih Jenis</option>
                                                         @foreach ($jabaya as $jabayas)
                                                             <option value="{{$jabayas->id}}">{{$jabayas->nama_jabatan_yayasan}}</option>
                                                         @endforeach
@@ -280,8 +281,8 @@
                                             <div class="form-group">
                                                 <label for="jenis-p">Jenis Kepegawaian Lembaga <span class="text-danger">*</span></label>
                                                 <div>
-                                                    <select class="form-control" id="jabatan" name="jabatan"  required>
-                                                        <option value="0" disabled selected>Pilih Jenis</option>
+                                                    <select class="form-control custom-select" id="jabatan" name="jabatan"  required>
+                                                        <option value="0" readonly disabled selected>Pilih Jenis</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -312,7 +313,7 @@
     </div>
     <!-- End Page wrapper  -->
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
-
+    <script src="{{asset('js/lib/datepicker/bootstrap-datepicker.min.js')}}"></script>
     <script>
         $('#lembaga').on('change', function(e){
             console.log(e);
@@ -357,5 +358,10 @@
                 objChange.prop('readonly',true);
             }
         });
+
+        $('.datepicker').datepicker({
+            format: "dd MM yyyy"
+        });
+
     </script>
 @endsection

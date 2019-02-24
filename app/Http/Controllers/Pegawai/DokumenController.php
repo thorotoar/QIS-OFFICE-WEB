@@ -19,7 +19,21 @@ class DokumenController extends Controller
 
     public function index(){
         $dokumenV = Dokumen::orderBy('created_at', 'ASC')->get();
-        return view('pegawai.dokumen.d-home', compact('dokumenV'));
+//        $fileDok = FileDokumen::where('dokumen_id', $dokumenV)->get()->toArray();
+        return view('pegawai.dokumen.d-home', compact('dokumenV', 'fileDok'));
+    }
+
+    public function show(Request $request){
+        $dokumen = Dokumen::find($request->id);
+        $fileDok = FileDokumen::where('dokumen_id', $dokumen->id)->get()->toArray();
+
+        return view('pegawai.dokumen.d-show-page', compact('dokumen', 'fileDok'));
+    }
+
+    public  function download(Request $request){
+        $dl = FileDokumen::find($request->id);
+
+        return response()->download($dl->upload_file, substr($dl->title, 2));
     }
 
     public function create(){
@@ -31,19 +45,14 @@ class DokumenController extends Controller
     {
         $request->validate([
             'nama_dokumen' => 'required|unique:dokumens,nama_dokumen',
-            'tgl_dicatat' => 'required|unique:dokumens,tgl_dicatat',
-            'keterangan' => 'required|unique:dokumens,keterangan',
+            'keterangan' => 'nullable|unique:dokumens,keterangan',
             'upload_file' => 'required',
-            'upload_file.*' => 'mimes:jpg,jpeg,gif,png,pdf,doc,docx,txt,zip,rar,xls,xlsx,odt,ppt,pptx,video/avi,video/mpeg,video/quicktime|max:5120',
+            'upload_file.*' => 'mimes:jpg,jpeg,gif,png,pdf,doc,docx,txt,zip,rar,xls,xlsx,odt,ppt,pptx,video/avi,video/mpeg,video/quicktime|max:10000',
         ],[
             'nama_dokumen.required' => 'Nama dokumen belum anda isi, silahkan isi terlebih dahulu!.',
-            'tgl_dicatat.required' => 'Tanggal dicatat belum anda isi, silahkan isi terlebih dahulu!.',
-            'keterangan.required' => 'Keterangan belum anda isi, silahkan isi terlebih dahulu!.',
             'upload_file.required' => 'File dokumen belum anda isi, silahkan isi terlebih dahulu!.',
             'nama_dokumen.unique' => 'Nama dokumen yang anda tambahkan sudah tersedia, masukan nama dokumen lain!.',
-            'tgl_dicatat.unique' => 'Tanggal dicatat yang anda tambahkan sudah tersedia, masukan tanggal dicatat lain!.',
             'keterangan.unique' => 'Keterangan yang anda tambahkan sudah tersedia, masukan keterangan lain!.',
-            'upload_file.max:5120' => 'Ukuran file yang anda upload terlalu besar.',
         ]);
 
         $nama = $request->nama_dokumen;
@@ -61,10 +70,11 @@ class DokumenController extends Controller
         if (Input::has('upload_file')) {
             //$user = Dokumen::find($request->id);
             foreach ($request->file('upload_file') as $files){
-                $name = str_replace(' ', '_', str_random(4) . '' . $files->getClientOriginalName());
+                $name = str_replace(' ', '_', str_random(2) . '' . $files->getClientOriginalName());
                 $files->move('images/file-dokumen/', $name);
                 FileDokumen::create([
                     'dokumen_id' => $dokumen->id,
+                    'title' => $name,
                     'upload_file' => 'images/file-dokumen/' . $name,
                 ]);
             }
@@ -77,7 +87,8 @@ class DokumenController extends Controller
     public function edit(Request $request){
 
         $dokumen = Dokumen::find($request->id);
-        $fileDok = FileDokumen::where('dokumen_id', $dokumen->id)->get();
+        $fileDok = FileDokumen::where('dokumen_id', $dokumen->id)->get()->toArray();
+        //dd($fileDok);
 
         return view('pegawai.dokumen.d-edit', compact('dokumen', 'fileDok'));
     }
@@ -98,24 +109,31 @@ class DokumenController extends Controller
             'updated_by' => Auth::user()->nama_user,
         ]);
 
-        if (Input::has('upload_file_new')) {
-            foreach ($fileDok as $files){
-                File::delete($files->upload_file);
-                $files->delete();
+        if (Input::has('delete_file')) {
+            $checked = $request->delete_file;
+            $file = FileDokumen::whereIn('id',$checked)->pluck('upload_file');
+            foreach ($file as $item){
+                File::delete($item);
+                $doc = FileDokumen::where('upload_file',$item)->first();
+                $doc->delete();
             }
-            foreach ($request->file('upload_file_new') as $files){
-                $name = str_replace(' ', '_', str_random(4) . '' . $files->getClientOriginalName());
+        }
+
+        if (Input::has('upload_file')) {
+            //$user = Dokumen::find($request->id);
+            foreach ($request->file('upload_file') as $files){
+                $name = str_replace(' ', '_', str_random(2) . '' . $files->getClientOriginalName());
                 $files->move('images/file-dokumen/', $name);
                 FileDokumen::create([
                     'dokumen_id' => $dokumen->id,
+                    'title' => $name,
                     'upload_file' => 'images/file-dokumen/' . $name,
                 ]);
             }
         }
 
-//        dd($request->all());
-
-        return redirect()->route('d-home')->with('edit', 'Dokumen berhasil diubah.'); //Lanjutkan dengan mengisi riwayat pendidikan.
+//        return redirect()->route('d-home')->with('edit', 'Dokumen berhasil diubah.'); //Lanjutkan dengan mengisi riwayat pendidikan.
+        return back()->with('edit', 'Dokumen berhasil diubah.');;
     }
 
     public function destroy($id){

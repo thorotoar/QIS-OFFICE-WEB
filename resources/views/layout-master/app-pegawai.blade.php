@@ -15,12 +15,77 @@
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('css/lib/dropzone/dropzone.css')}}" rel="stylesheet">
     <link href="{{asset('css/lib/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/lib/datepicker/bootstrap-datepicker3.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('timepicker/wickedpicker.min.css')}}">
     <!-- Custom CSS -->
     <link href="{{asset('css/lib/owl.carousel.min.css')}}" rel="stylesheet" />
     <link href="{{asset('css/lib/owl.theme.default.min.css')}}" rel="stylesheet" />
     <link href="{{asset('css/helper.css')}}" rel="stylesheet">
     <link href="{{asset('css/style.css')}}" rel="stylesheet">
     {{--modal--}}
+    <style>
+        .multipl-image-checkbox ul {
+            list-style-type: none;
+        }
+
+        .multipl-image-checkbox  li {
+            display: inline-block;
+        }
+
+        .multipl-image-checkbox  input[type="checkbox"][id^="cb"] {
+            display: none;
+        }
+
+        .multipl-image-checkbox  label {
+            border: 1px solid #fff;
+            padding: 10px;
+            display: block;
+            position: relative;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .multipl-image-checkbox  label:before {
+            background-color: white;
+            color: white;
+            content: " ";
+            display: block;
+            border-radius: 50%;
+            border: 1px solid grey;
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 25px;
+            height: 25px;
+            text-align: center;
+            line-height: 28px;
+            transition-duration: 0.4s;
+            transform: scale(0);
+        }
+
+        .multipl-image-checkbox  label img {
+            height: 100px;
+            width: 100px;
+            transition-duration: 0.2s;
+            transform-origin: 50% 50%;
+        }
+
+        .multipl-image-checkbox :checked + label {
+            border-color: #ddd;
+        }
+
+        .multipl-image-checkbox  :checked + label:before {
+            content: "✓";
+            background-color: grey;
+            transform: scale(1);
+        }
+
+        .multipl-image-checkbox :checked + label img {
+            transform: scale(0.9);
+            box-shadow: 0 0 5px #333;
+            z-index: -1;
+        }
+    </style>
     <style>
         .modal{
             overflow-y:auto;
@@ -74,17 +139,10 @@
                 </ul>
                 <!-- User profile and search -->
                 <ul class="navbar-nav my-lg-0">
-
-                    <!--Hidden Button-->
-                    <!--<li class="nav-item m-l-10"> <a class="nav-link sidebartoggler hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-menu"></i></a> </li>-->
-                    <!-- Search -->
-                    <!--<li class="nav-item hidden-sm-down search-box"> <a class="nav-link hidden-sm-down text-muted  " href="javascript:void(0)"><i class="ti-search"></i></a>-->
-                    <!--<form class="app-search">-->
-                    <!--<input type="text" class="form-control" placeholder="Search here"> <a class="srh-btn"><i class="ti-close"></i></a> </form>-->
-                    <!--</li>-->
-                    <!-- Profile -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset('images/users/5.jpg')}}" alt="user" class="profile-pic" /></a>
+                        <a class="nav-link dropdown-toggle text-muted" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset(Auth::user()->foto_user)}}" alt="user" class="profile-pic" /></a>
+                        {{--<img src="{{asset(Auth::user()->foto)}}" alt="user" class="profile-pic" />--}}
+                        {{--<button class="btn btn-info btn-flat btn-sm btn-rounded">{{Auth::user()->nama_user}}</button>--}}
                         <div class="dropdown-menu dropdown-menu-right animated zoomIn">
                             <ul class="dropdown-user">
                                 <li><a href="{{route('upass-pegawai')}}"><i class="ti-key"></i> Change Password</a></li>
@@ -120,20 +178,34 @@
                     <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-envelope-square"></i><span class="hide-menu">Kelola Surat</span></a>
                         <ul aria-expanded="false" class="collapse">
                             <li><a href="{{route('surm-home')}}"><i class="fa fa-envelope-open"></i> Surat Masuk</a></li>
-                            <li><a href="{{route('surat-keluar-pegawai')}}"><i class="fa fa-envelope"></i> Surat Keluar</a></li>
+                            <li><a href="{{route('surk-home')}}"><i class="fa fa-envelope"></i> Surat Keluar</a></li>
+                            {{--<li><a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-envelope"></i> Surat Keluar</a>--}}
+                                {{--<ul aria-expanded="false" class="collapse">--}}
+                                    {{--<li><a href="{{route('surp-home')}}"> Surat Pemberitahuan</a></li>--}}
+                                    {{--<li><a href="{{route('surpena-home')}}"> Surat Penagihan</a></li>--}}
+                                    {{--<li><a href="{{route('surper-home')}}"> Surat Peringatan</a></li>--}}
+                                    {{--<li><a href="{{route('surpenga-home')}}"> Surat Pengajuan Dana</a></li>--}}
+                                    {{--<li><a href="{{route('surpengang-home')}}"> Surat Pengangkatan</a></li>--}}
+                                    {{--<li><a href="{{route('surpengal-home')}}"> Surat Keterangan <br>Pengalaman</a></li>--}}
+                                    {{--<li><a href="{{route('surke-home')}}"> Surat Keputusan <br>Instruktur Madya</a></li>--}}
+                                    {{--<li><a href="{{route('sursy-home')}}"> Surat Keputusan <br>Penyusun Sylabus</a></li>--}}
+                                    {{--<li><a href="{{route('surpp-home')}}"> Surat Keputusan <br>Penyusun RPP</a></li>--}}
+                                    {{--<li><a href="{{route('surl-home')}}"> Surat Lain</a></li>--}}
+                                {{--</ul>--}}
+                            {{--</li>--}}
                         </ul>
                     </li>
                     <li>
-                        <a class="has-arrow  " href="{{route('p-home')}}" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Kelola Peserta Didik</span></a>
+                        <a class="" href="{{route('p-home')}}" aria-expanded="false"><i class="fa fa-user"></i><span class="hide-menu">Kelola Peserta Didik</span></a>
                     </li>
                     <li>
-                        <a class="has-arrow  " href="{{route('d-pegawai')}}" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Kelola Pegawai</span></a>
+                        <a class="" href="{{route('d-pegawai')}}" aria-expanded="false"><i class="fa fa-users"></i><span class="hide-menu">Kelola Pegawai</span></a>
                     </li>
                     <li>
-                        <a class="has-arrow  " href="{{url('/homek')}}" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Kelola Kurikulum</span></a>
+                        <a class="" href="{{url('/homek')}}" aria-expanded="false"><i class="fa fa-book"></i><span class="hide-menu">Kelola Kurikulum</span></a>
                     </li>
                     <li>
-                        <a class="has-arrow  " href="{{route('d-home')}}" aria-expanded="false"><i class="fa fa-archive"></i><span class="hide-menu">Kelola Dokumen</span></a>
+                        <a class="" href="{{route('d-home')}}" aria-expanded="false"><i class="fa fa-archive"></i><span class="hide-menu">Kelola Dokumen</span></a>
                     </li>
                 </ul>
             </nav>
@@ -169,9 +241,6 @@
 {{--sweatalert--}}
 <script src="{{asset('js/lib/sweetalert/sweetalert.min.js')}}"></script>
 
-{{--yearpicker--}}
-<script src="{{asset('js/yearpicker.js')}}"></script>
-
 {{--dropzone--}}
 <script src="{{asset('js/lib/dropzone/dropzone.js')}}"></script>
 
@@ -186,21 +255,6 @@
 <script src="{{asset('js/lib/datatables/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js')}}"></script>
 <script src="{{asset('js/lib/datatables/datatables-init.js')}}"></script>
 
-{{--textarea--}}
-<script src="{{asset('tinymce/tinymce.min.js')}}"></script>
-<script>
-    tinymce.init({
-        selector: '#textarea',
-        plugins: [
-            "autolink link image charmap print preview hr anchor pagebreak",
-            "wordcount visualblocks code fullscreen",
-            "insertdatetime media nonbreaking save table contextmenu directionality",
-            "template paste textcolor colorpicker textpattern"
-        ],
-        toolbar: "insertfile undo redo | styleselect | bold italic | alignmentleft alignmentceter alignmentright " +
-        "alignmentjustify | bullist numlist outdent indent | link image media"
-    });
-</script>
 </body>
 
 </html>
