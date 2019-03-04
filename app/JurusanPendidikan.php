@@ -15,7 +15,7 @@ class JurusanPendidikan extends Model
     //"$guarded" kolom yang tidak dapat diisi secara manual
     protected $guarded = ['id'];
 
-    public function r_jurusan(){
-        return $this->hasMany(RiwayatPendidikan::class);
+    public function jurusan(){
+        return $this->hasMany(Pegawai::class);
     }
 }

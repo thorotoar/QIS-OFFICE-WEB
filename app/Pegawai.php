@@ -46,4 +46,16 @@ class Pegawai extends Model
     public function pegawai_r(){
         return $this->hasOne(RiwayatPendidikan::class);
     }
+
+    public function jenjang(){
+        return $this->belongsTo(Jenjang::class, 'jenjang_id');
+    }
+
+    public function jurusan(){
+        return $this->belongsTo(JurusanPendidikan::class, 'jurusan_id');
+    }
+
+    public function isiSurat(){
+        return $this->hasMany(IsiSurat::class);
+    }
 }

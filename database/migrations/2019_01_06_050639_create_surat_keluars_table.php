@@ -23,9 +23,11 @@ class CreateSuratKeluarsTable extends Migration
             $table->string('kode_surat')->nullable();
             $table->string('tempat')->nullable();
             $table->string('perihal')->nullable();
+            $table->string('lampiran')->nullable();
             $table->string('tujuan')->nullable();
             $table->string('bagian_tujuan')->nullable();
             $table->text('alamat_tujuan')->nullable();
+            $table->string('tempat_tujuan')->nullable();
             $table->string('tgl_keluar')->nullable();
             $table->string('tgl_dicatat')->nullable();
             $table->string('created_by')->nullable();

@@ -43,8 +43,13 @@ class DataPegawaiController extends Controller
         $agama = Agama::all();
         $bank = Bank::all();
         $lembaga = Lembaga::where('id', '!=', [1])->get();
-        $jabaya = JabatanYayasan::all();
-        return view('pegawai.data-pegawai.d-p-tambah', compact( 'agama', 'kewarganegaraan', 'bank', 'lembaga', 'jabaya'));
+        $lemb = Lembaga::where('id', '=', [1])->firstOrFail();
+        $jabaya = Jabatan::where('lembaga_id', '=', 1)->get();
+        $jenjang = Jenjang::whereIn('id', [8,9,10,11,12,13,14,15,16,17,18,19,20])->get();
+        $jurusan = JurusanPendidikan::all();
+
+
+        return view('pegawai.data-pegawai.d-p-tambah', compact( 'agama', 'kewarganegaraan', 'bank', 'lembaga', 'jabaya', 'jenjang', 'jurusan'));
     }
 
     public function jabatan(){
@@ -63,15 +68,6 @@ class DataPegawaiController extends Controller
 
     public function store(Request $request)
     {
-        //dd($request->all());
-//       $photos = $request->file('foto'); //store('foto') //storeAs('foto', 'foto-pegawai')
-//       $input['imagename'] = time() . '.' . $photos->getClientOriginalExtension();
-//       $destinationPath = public_path('/images/foto-pegawai');
-//       $fotos = $request->file('foto')->storeAs('foto_pegawai','foto.', $request->user()->id);
-
-
-        //dd($request->all()); //$photos->move($destinationPath, $input['imagename'])
-
         $request->validate([
             'nik' => 'required|unique:pegawais,nik',
             'no_telp' => 'required|unique:pegawais,telpon',
@@ -122,6 +118,10 @@ class DataPegawaiController extends Controller
           'jabatan_yayasan_id' => $request->jabatanY,
           'jabatan_id' => $request->jabatan,
           'lembaga_id' => $request->lembaga,
+          'jenjang_id' => $request->jenjang,
+          'jurusan_id' => $request->jurusan,
+          'instansi' => $request->instansi,
+          'thn_lulus' => $request->thn_lulus,
           'created_by' => Auth::user()->nama_user,
 
         ]);
@@ -134,8 +134,8 @@ class DataPegawaiController extends Controller
             ]);
         }
 
-
-        return redirect()->route('d-p-tambah-r')->with('pendidikan','Lanjutkan dengan mengisi riwayat pendidikan');
+//        return redirect()->route('d-p-tambah-r')->with('pendidikan','Lanjutkan dengan mengisi riwayat pendidikan');
+        return redirect()->route('d-pegawai')->with('pegawai','Data ' . $pegawai->nama . 'pegawai berhasil ditambahkan.');
     }
 
     public function store_r(Request $request)
@@ -153,7 +153,7 @@ class DataPegawaiController extends Controller
 
         ]);
 
-        return redirect()->route('d-pegawai')->with('pegawai','Data pegawai berhasil ditambahkan.');
+        return redirect()->route('d-pegawai')->with('pegawai','Data ' . $pegawai->nama . 'pegawai berhasil ditambahkan.');
     }
 
     public function edit(Request $request, RiwayatPendidikan $rpegawai){
@@ -163,10 +163,12 @@ class DataPegawaiController extends Controller
         $kewarganegaraan = Kewarganegaraan::all();
         $agama = Agama::all();
         $bank = Bank::all();
-        $lembaga = Lembaga::all();
+        $lembaga = Lembaga::where('id', '!=', [1])->get();
         $jabaya = JabatanYayasan::all();
+        $jenjang = Jenjang::whereIn('id', [8,9,10,11,12,13,14,15,16,17,18,19,20])->get();
+        $jurusan = JurusanPendidikan::all();
 
-        return view('pegawai.data-pegawai.d-p-edit', compact('pegawai', 'rpegawai', 'jabatan', 'kewarganegaraan', 'agama', 'bank', 'lembaga', 'jabaya'));
+        return view('pegawai.data-pegawai.d-p-edit', compact('pegawai', 'rpegawai', 'jabatan', 'kewarganegaraan', 'agama', 'bank', 'lembaga', 'jabaya', 'jenjang', 'jurusan',));
     }
 
     public function edit_r(Request $request, RiwayatPendidikan $pegawai){
@@ -237,6 +239,10 @@ class DataPegawaiController extends Controller
             'jabatan_yayasan_id' => $request->jabatanY,
             'jabatan_id' => $request->jabatan,
             'lembaga_id' => $request->lembaga,
+            'jenjang_id' => $request->jenjang,
+            'jurusan_id' => $request->jurusan,
+            'instansi' => $request->instansi,
+            'thn_lulus' => $request->thn_lulus,
             'updated_by' => Auth::user()->nama_user,
         ]);
 
@@ -251,9 +257,10 @@ class DataPegawaiController extends Controller
             ]);
         }
 
-        $id = Pegawai::find($id);
+//        $id = Pegawai::find($id);
 
-        return redirect()->route('d-p-edit-r',compact('id'))->with('pendidikan', 'Lanjutkan dengan mengisi riwayat pendidikan.'); //Lanjutkan dengan mengisi riwayat pendidikan.
+//        return redirect()->route('d-p-edit-r',compact('id'))->with('pendidikan', 'Lanjutkan dengan mengisi riwayat pendidikan.'); //Lanjutkan dengan mengisi riwayat pendidikan.
+        return redirect()->route('d-pegawai')->with('update_r', 'Data ' . $pegawai->nama . 'berhasil diupdate.');
     }
 
     public function update_r(Request $request){
@@ -266,7 +273,9 @@ class DataPegawaiController extends Controller
             'thn_lulus' => $request->thn_lulus,
         ]);
 
-        return redirect()->route('d-pegawai')->with('update_r', 'Data pegawai berhasil diupdate.');
+        $pegawai = Pegawai::where('id', $rpegawai->pegawai_id)->firstOrFail();
+
+        return redirect()->route('d-pegawai')->with('update_r', 'Data ' . $pegawai->nama . 'berhasil diupdate.');
     }
 
     public function destroy($id){
@@ -276,7 +285,7 @@ class DataPegawaiController extends Controller
         File::delete($file);
         $ser->delete();
 
-        return back()->with('destroy', 'Data terpilih berhasil dihapus.');
+        return back()->with('destroy', 'Data ' . $ser->nama . 'terpilih berhasil dihapus.');
     }
 
     public function print(Request $request){
@@ -288,10 +297,10 @@ class DataPegawaiController extends Controller
     }
 
     public function print_all(){
-
         $data = RiwayatPendidikan::all();
         $pdf = PDF::loadView("pegawai.data-pegawai.d-p-print-all", compact('data'));
         $pdf->setPaper('A4', 'landscape');
+
         return $pdf->stream('daftar_pegawai.pdf');
     }
 

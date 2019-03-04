@@ -64,17 +64,7 @@
                     <tr style="font-family: Calibri">
                         <td>Nomor</td>
                         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
-                        <td>{{$data->no_surat}}{{$data->kode_surat}}</td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{$sKeluar->no_surat}}{{$sKeluar->kode_surat}}</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -84,14 +74,24 @@
                     <tr style="font-family: Calibri">
                         <td>Perihal</td>
                         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
-                        <td>{{$data->perihal}}</td>
+                        <td>{{$sKeluar->perihal}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr style="font-family: Calibri">
+                        <td>Lampiran</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
+                        <td>{{$sKeluar->lampiran}}</td>
                     </tr>
                 </table>
             </td>
             <td align="center">
             </td>
             <td align="left" style="width: 40%;">
-                {{$data->tempat}}, {{$data->tgl_dicaat}}
+                {{$sKeluar->tempat}}, {{$sKeluar->tgl_dicatat}}
             </td>
         </tr>
     </table>
@@ -108,7 +108,7 @@
         <tr><td></td></tr>
         <tr><td></td></tr>
         <tr>
-            <td><b>{{$data->nama_peserta}}</b></td>
+            <td><b>{{$iKeluar->nama_peserta}}</b></td>
         </tr>
         <tr><td></td></tr>
         <tr><td></td></tr>
@@ -119,12 +119,38 @@
     {{--isi dan penutup--}}
     <table width="84%" style="margin-top: 30px" class="margin-left margin-right">
         <tr>
-            <td class="clean"><p>Sehubungan dengan beredarnya surat ini, kami dari Quali International Surabaya memberitahukan bahwa Ananda <b>{{$data->nama_peserta}}</b> telah melalui program pendidikan Bahasa Inggris di tempat kami Kampung Inggris Surabaya dengan mengambil 1 kali program.</p></td>
+            <td class="clean">Sehubungan dengan beredarnya surat ini, kami dari Quali International Surabaya memberitahukan bahwa Ananda <b>{{$iKeluar->nama_peserta}}</b> telah melalui program pendidikan Bahasa Inggris di tempat kami Kampung Inggris Surabaya dengan mengambil {{$iKeluar->jumlah_program}} kali program.</td>
         </tr>
         <tr><td></td></tr>
         <tr><td></td></tr>
         <tr>
-            <td class="clean"><p>Program kami yakni <b>Flash Fun For Kids</b> yang berlangsung selama 2 bulan 24 kali pertemuan. Di dalam pembelajaran telah diselenggarakan evalusi berupa <b>Maju Di Setiap Pembelajaran</b>. Berdasarkan hasil evaluasi Ananda cukup mampu dalam penggunaan grammar, conversation, comprehension.</p></td>
+            <td class="clean">Program kami yakni @if($kKeluar >= 1)
+                    @php
+                        $a = count($kKeluar) -1;
+                        $b = count($kKeluar);
+                    foreach( $kKeluar as $index => $keluars){
+                        if ($a == $index){
+                        echo "<b>dan</b>";
+                        }
+                        echo "<b>". " " . $a . " " .$keluars['jenis_program'] . "</b>,";
+                    }
+                    @endphp
+                @elseif($kKeluar == 1)
+                    <b>{{$kKeluar['jenis_program']}}</b>
+                @endif yang berlangsung selama
+                @if($kKeluar >= 1)
+                    @php
+                        $a = count($kKeluar) -1;
+                    foreach( $kKeluar as $index => $keluars){
+                        if ($a === $index){
+                        echo "dan";
+                        }
+                        echo $a. " " .$keluars['lama_program'] . " ";
+                    }
+                    @endphp
+                @elseif($kKeluar == 1)
+                    {{$kKeluar['lama_program']}}
+                @endif. Di dalam pembelajaran telah diselenggarakan evalusi berupa <b>Maju Di Setiap Pembelajaran</b>. Berdasarkan hasil evaluasi Ananda cukup mampu dalam penggunaan grammar, conversation, comprehension.</td>
         </tr>
         <tr><td></td></tr>
         <tr><td></td></tr>
@@ -156,17 +182,17 @@
             <td align="center" style="width: 40%;"></td>
         </tr>
         <tr>
-            <td align="center" style="width: 40%;">Bagian Pengajaran</td>
+            <td align="center" style="width: 60%;">Bagian Pengajaran</td>
             <td align="center" style="width: 40%;"></td>
-            <td align="center" style="width: 40%;">Instruktur Kelas</td>
+            <td align="center" style="width: 60%;">Instruktur Kelas</td>
         </tr>
     </table>
     <br><br><br><br>
     <table align="center" width="84%" class="margin-left margin-right">
         <tr>
-            <td align="center" style="width: 40%;"><b><u><b>Farah Nur Jihan</b></u></b></td>
+            <td align="center" style="width: 60%;"><b><u><b>{{$pengajaran->nama}}</b></u></b></td>
             <td align="center" style="width: 40%;"></td>
-            <td align="center" style="width: 40%;"><u><b>Khoerun Nikmah</b></u></td>
+            <td align="center" style="width: 60%;"><u><b>{{$iKeluar->instruktur}}</b></u></td>
         </tr>
     </table>
 </div>

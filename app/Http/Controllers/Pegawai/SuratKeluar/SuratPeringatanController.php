@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Pegawai\SuratKeluar;
 
+use App\IsiSurat;
 Use App\JenisSurat;
 use App\PesertaDidik;
 use App\SuratKeluar;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
-use PDF;
 
 class SuratPeringatanController extends Controller
 {
@@ -19,111 +18,78 @@ class SuratPeringatanController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
-        $smasukView = SuratKeluar::orderBy('created_at', 'ASC')->get();
-        $jenisSurat = JenisSurat::all();
-        return view('pegawai.surat-keluar.k-peringatan.peringatan-home', compact('smasukView', 'jenisSurat'));
-    }
-
-    public function create(){
-        $kode = 'QIS';
-        // karna array dimulai dari 0 maka kita tambah di awal data kosong
-        // bisa juga mulai dari "1"=>"I"
-        $bulanRomawi = array("", "I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII");
-        $noUrutAkhir = SuratKeluar::max('no_surat');
-        $no = 1;
-
-        if($noUrutAkhir) {
-            $value =  sprintf("%03s", abs($noUrutAkhir + 1));
-            $kodeSurat = '/' . $kode .'/' . $bulanRomawi[date('n')] .'/' . date('Y');
-        }
-        else {
-            $value = sprintf("%03s", $no);
-            $kodeSurat = '/' . $kode .'/' . $bulanRomawi[date('n')] .'/' . date('Y');
-        }
-
-        $peserta = PesertaDidik::all();
-        return view('pegawai.surat-keluar.k-peringatan.peringatan-tambah', compact('peserta', 'value', 'kodeSurat'));
-    }
-
     public function store(Request $request){
         $peserta = PesertaDidik::find($request->peserta_didik);
+        $jenisur = JenisSurat::find($request->id);
+
+        //dd($jenisur->id);
 
         $suratK = SuratKeluar::create([
             'user_id' => Auth::user()->id,
+            'jenis_id' => $jenisur->id,
             'no_surat' => $request->no_surat,
             'kode_surat' => $request->kode_surat,
+            'lampiran' => $request->lampiran,
             'perihal' => $request->perihal,
-            'nama_peserta' => $peserta->nama,
             'tempat' => $request->tempat,
             'tgl_keluar' => $request->tgl_keluar,
-            'tgl_dicaat' => $request->tgl_dicatat,
+            'tgl_dicatat' => $request->tgl_dicatat,
             'created_by' => Auth::user()->nama_user,
 
         ]);
 
-
-        return redirect()->route('surper-home')->with('sukses','Data surat keluar berhasil ditambahkan.');
-    }
-
-    public function edit(Request $request){
-
-        $suratM = SuratKeluar::find($request->id);
-
-        return view('pegawai.surat-keluar.k-peringatan.peringatan-edit', compact('suratM'));
-    }
-
-
-    public function update(Request $request, $id){
-
-        $suratM = SuratKeluar::find($id);
-        //dd($pegawai);
-        $suratM->update([
-            'user_id' => Auth::user()->id,
-            'no_surat' => $request->no_surat,
-            'tgl_diterima' => $request->tgl_diterima,
-            'tgl_dicatat' => $request->tgl_dicatat,
-            'pengirim' => $request->pengirim,
-            'penerima' => $request->penerima,
-            'prihal' => $request->prihal,
-            'updated_by' => Auth::user()->nama_user,
-        ]);
-
-        if (Input::has('upload_file_new')) {
-
-            File::delete($suratM->upload_file);
-            $file = str_replace(' ', '_', str_random(4) . '' . $request->file('upload_file_new')->getClientOriginalName());
-            Input::file('upload_file_new')->move('images/file-surat-masuk/', $file);
-
-            $suratM->update([
-                'upload_file' => 'images/file-surat-masuk/' . $file,
+        if (Input::has('peserta_didik')) {
+            IsiSurat::create([
+                'surat_keluar_id' => $suratK->id,
+                'nama_peserta' => $peserta->nama,
+                'provinsi_peserta' => $peserta->provinsi,
+                'kabupaten_peserta' => $peserta->kabupaten,
+                'hari_tanggal_1' => $request->tgl_rapat,
+                'hari_tanggal_2' => $request->tgl_kembali,
+                'jam_kembali' => $request->jam_kembali,
+                'created_by' => Auth::user()->nama_user,
             ]);
         }
 
-        return redirect()->route('surper-home')->with('edit', 'Data surat masuk berhasil diubah.'); //Lanjutkan dengan mengisi riwayat pendidikan.
+
+        return redirect()->route('surk-home')->with('sukses', $jenisur->nama_jenis_surat.'_'.$suratK->no_surat. ' berhasil ditambahkan.');
     }
 
-    public function destroy($id){
+    public function update(Request $request, $id){
+        $peserta = PesertaDidik::find($request->peserta_didik);
 
-        $surM = SuratKeluar::find($id);
-        $file = $surM->upload_file;
-        File::delete($file);
-        $surM->delete();
+        $sKeluar = SuratKeluar::find($id);
+        $iKeluar = IsiSurat::where('surat_keluar_id', $sKeluar->id)->firstOrFail();
 
-        return redirect()->route('surper-home')->with('hapus', 'Data terpilih berhasil dihapus.');
-    }
+        $jenis = JenisSurat::where('id', $sKeluar->jenis_id)->firstOrFail();
 
-    public function print(Request $request){
+//        dd($kKeluar->isi_id);
 
-        $data = SuratKeluar::find($request->id);
-        $no = $data->no_surat;
-        //dd($data);
-        $pdf = PDF::setOptions(['font' => 'calibri', 'images' => true]);
-        $pdf->loadView("pegawai.surat-keluar.k-peringatan.peringatan-print", compact('data'));
-        $pdf->setPaper('A4', 'portrait');
-        return $pdf->stream('surat_peringatan_'.$no.'.pdf');
+        $sKeluar->update([
+            'user_id' => Auth::user()->id,
+            'no_surat' => $request->no_surat,
+            'kode_surat' => $request->kode_surat,
+            'lampiran' => $request->lampiran,
+            'perihal' => $request->perihal,
+            'tempat' => $request->tempat,
+            'tgl_keluar' => $request->tgl_keluar,
+            'tgl_dicatat' => $request->tgl_dicatat,
+            'updated_by' => Auth::user()->nama_user,
 
-//        return view('pegawai.surat-keluar.k-peringatan.peringatan-print');
+        ]);
 
+        if (Input::has('peserta_didik')) {
+            $iKeluar->update([
+                'nama_peserta' => $peserta->nama,
+                'provinsi_peserta' => $peserta->provinsi,
+                'kabupaten_peserta' => $peserta->kabupaten,
+                'hari_tanggal_1' => $request->tgl_rapat,
+                'hari_tanggal_2' => $request->tgl_kembali,
+                'jam_kembali' => $request->jam_kembali,
+                'updated_by' => Auth::user()->nama_user,
+            ]);
+        }
+
+        return redirect()->route('surk-home')->with('edit', $jenis . '_' . $sKeluar->no_surat . ' berhasil diubah.');
     }
 }

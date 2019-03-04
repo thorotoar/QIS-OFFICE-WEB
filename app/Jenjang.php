@@ -15,8 +15,8 @@ class Jenjang extends Model
     //"$guarded" kolom yang tidak dapat diisi secara manual
     protected $guarded = ['id'];
 
-    public function r_jenjang(){
-        return $this->hasMany(RiwayatPendidikan::class);
+    public function jenjang(){
+        return $this->hasMany(Pegawai::class);
     }
 
     public function pesertaDidik(){

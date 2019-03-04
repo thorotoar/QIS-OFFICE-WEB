@@ -64,24 +64,27 @@
                     <tr style="font-family: Calibri">
                         <td>Nomor</td>
                         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
-                        <td>{{$data->no_surat}}{{$data->kode_surat}}</td>
+                        <td>{{$sKeluar->no_surat}}{{$sKeluar->kode_surat}}</td>
                     </tr>
                     <tr style="font-family: Calibri">
                         <td>Perihal</td>
                         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
-                        <td>{{$data->perihal}}</td>
+                        <td>{{$sKeluar->perihal}}</td>
                     </tr>
                     <tr style="font-family: Calibri">
                         <td>Lampiran</td>
                         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
-                        <td>&nbsp;-</td>
+                        <td>@if($sKeluar->laprian == null)
+                                &nbsp;-
+                            @endif
+                            {{$sKeluar->lampiran}}</td>
                     </tr>
                 </table>
             </td>
             <td align="center">
             </td>
             <td align="left" style="width: 40%;">
-                {{$data->tempat}}, {{$data->tgl_dicaat}}
+                {{$sKeluar->tempat}}, {{$sKeluar->tgl_dicatat}}
             </td>
         </tr>
     </table>
@@ -93,14 +96,13 @@
                     <tr>
                         <td><b>Kepada</b></td>
                         <td>&nbsp;<b>:</b></td>
-                        <td><b>Yth. Bagian Keuangan <br>SIKES MUHAMMADIYAH LAMONGAN</b></td>
+                        <td><b>Yth. {{$sKeluar->bagian_tujuan}} <br>{{$sKeluar->tujuan}}</b></td>
 
                     </tr>
                     <tr>
                         <td></td>
                         <td></td>
-                        <td>Jl.Raya Plalangan Plosowahyu Km 3
-                            Di Lamongan</td>
+                        <td>{{$sKeluar->alamat_tujuan}}</td>
                     </tr>
                 </table>
             </td>
@@ -116,12 +118,12 @@
             <td><b>Dengan hormat</b><br></td>
         </tr>
         <tr>
-            <td class="clean"><p>Bersama surat ini, kami memberitahukan bahwa berdasarkan surat Perjanjian Kerjasama No 03/QI - SBY/IX/2014 antara Quali International Surabaya dan Stikes Muhammadiyah Lamongan, kami mengingatkan kepada STIKES Muhammadiyah Lamongan untuk menyelesaikan kekurangan biaya program pembelajaran Bahasa Inggris Komunitas.</p>
+            <td class="clean"><p>Bersama surat ini, kami memberitahukan bahwa berdasarkan surat Perjanjian Kerjasama No 03/QI - SBY/IX/2014 antara Quali International Surabaya dan Stikes Muhammadiyah Lamongan, kami mengingatkan kepada {{$sKeluar->tujuan}} untuk menyelesaikan kekurangan biaya program pembelajaran Bahasa Inggris Komunitas.</p>
             </td>
         </tr>
         <tr>
-            <td class="clean">Adapun biaya yang harus diselesaikan adalah biaya program sebesar @ Rp 500.000,00
-                dengan peserta sebanyak 82 peserta, maka :
+            <td class="clean">Adapun biaya yang harus diselesaikan adalah biaya program sebesar @ Rp {{number_format ( $iKeluar->besar_biyaya, 2, ",", ".")}}
+                dengan peserta sebanyak {{$iKeluar->jumlah_peserta}} peserta, maka :
             </td>
         </tr>
     </table>
@@ -133,15 +135,15 @@
             <td id="konten" style="width: 50%;">&nbsp;Jumlah</td>
         </tr>
         <tr>
-            <td id="konten" style="width: 50%;">&nbsp;Rp 500.000,-</td>
-            <td id="konten" style="width: 50%;">&nbsp;22 orang Dosen <br>60 orang mahasiswa</td>
-            <td id="konten" style="width: 50%;">&nbsp;Rp 41.000.000,-</td>
+            <td id="konten" style="width: 50%;">&nbsp;Rp {{number_format ( $iKeluar->besar_biyaya, 0, ",", ".")}},-</td>
+            <td id="konten" style="width: 50%;">&nbsp;{{$iKeluar->deskripsi_peserta}}</td>
+            <td id="konten" style="width: 50%;">&nbsp;Rp {{number_format ($total, 0, ",", ".")}},-</td>
         </tr>
     </table>
     {{--penutup--}}
     <table width="84%" class="margin-left margin-right">
         <tr>
-            <td><b>Terbilang : Empat puluh satu Juta rupiah.</b><br></td>
+            <td><b>Terbilang : {{\App\Helpers\Terbilang::terbilang($total)}} Rupiah.</b><br></td>
         </tr>
         <tr>
             <td class="clean"><p>Pembayaran mohon dilakukan selambat-lambatnya pada hari Senin tanggal 29 September 2014 melalui transfer antar bank ke nomor rekening BRI : 0096-01-065791-50-4 an. Lili Musyafa’ah.</p></td>
