@@ -146,6 +146,50 @@
                                         </div>
                                     </div>
 
+                                    {{--Pendidikan Info--}}
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h3 class="card-title m-t-15">Info Riwayat Pendidikan</h3>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="bank">Jenjang Terakhir <span class="text-danger">*</span></label>
+                                                <div>
+                                                    <select class="form-control custom-select" id="bank" name="jenjang" required>
+                                                        <option value="{{$pegawai->jenjang_id}}">{{App\Jenjang::find($pegawai->jenjang_id)->nama_jenjang}}</option>
+                                                        @foreach($jenjang as $jenjangs)
+                                                            <option value="{{$jenjangs->id}}">{{$jenjangs->nama_jenjang}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Instansi </label>
+                                                <input type="text" class="form-control" name="instansi" value="{{$pegawai->instansi}}" >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Tahun Lulus <span class="text-danger">*</span></label>
+                                                <input type="text" class="yearpicker form-control" name="thn_lulus" value="{{$pegawai->thn_lulus}}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="jurusan">Jurusan</label>
+                                                <div>
+                                                    <select class="form-control custom-select" id="jurusan" name="jurusan">
+                                                        <option value="{{$pegawai->jurusan_id}}">{{App\JurusanPendidikan::find($pegawai->jurusan_id)->nama_jurusan_pendidikan}}</option>
+                                                        @foreach($jurusan as $jurusans)
+                                                            <option value="{{$jurusans->id}}">{{$jurusans->nama_jurusan_pendidikan}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     {{--Bank Info--}}
                                     <div class="row">
                                         <div class="col-lg-12">

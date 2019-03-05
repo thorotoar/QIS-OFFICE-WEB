@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers\Pegawai\SuratKeluar;
 
+use App\IsiSurat;
 use App\Jabatan;
-use App\JabatanYayasan;
 Use App\JenisSurat;
+use App\Jenjang;
+use App\JurusanPendidikan;
 use App\Lembaga;
-use App\PesertaDidik;
+use App\Pegawai;
 use App\RiwayatPendidikan;
 use App\SuratKeluar;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Input;
-use PDF;
 
 class SuratPengangkatanController extends Controller
 {
@@ -23,119 +23,92 @@ class SuratPengangkatanController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
-        $smasukView = SuratKeluar::orderBy('created_at', 'ASC')->get();
-        $jenisSurat = JenisSurat::all();
-        return view('pegawai.surat-keluar.k-pengangkatan.pengangkatan-home', compact('smasukView', 'jenisSurat'));
-    }
-
-    public function create(){
-        $kode = 'QIS';
-        // karna array dimulai dari 0 maka kita tambah di awal data kosong
-        // bisa juga mulai dari "1"=>"I"
-        $bulanRomawi = array("", "I","II","III", "IV", "V","VI","VII","VIII","IX","X", "XI","XII");
-        $noUrutAkhir = SuratKeluar::max('no_surat');
-        $no = 1;
-
-        if($noUrutAkhir) {
-            $value =  sprintf("%03s", abs($noUrutAkhir + 1));
-            $kodeSurat = '/' . $kode .'/' . $bulanRomawi[date('n')] .'/' . date('Y');
-        }
-        else {
-            $value = sprintf("%03s", $no);
-            $kodeSurat = '/' . $kode .'/' . $bulanRomawi[date('n')] .'/' . date('Y');
-        }
-
-        $pegawai = RiwayatPendidikan::all();
-        $jabatanY = JabatanYayasan::all();
-        $lembaga = Lembaga::all();
-        return view('pegawai.surat-keluar.k-pengangkatan.pengangkatan-tambah', compact('pegawai', 'jabatanY', 'lembaga', 'value', 'kodeSurat'));
-    }
-
-    public function jabatan(){
-        $lembaga_id = Input::get('lembaga_id');
-        $jabatan = Jabatan::where('lembaga_id', '=', $lembaga_id)->get();
-        return response()->json($jabatan);
-    }
-
     public function store(Request $request){
-        $peserta = PesertaDidik::find($request->peserta_didik);
+        $pegawai = Pegawai::find($request->nama_pegawai);
+        $riwaPegawai = RiwayatPendidikan::where('pegawai_id', $pegawai->id)->firstOrFail();
+        $jurusan = JurusanPendidikan::where('id', $riwaPegawai->jurusan_id)->firstOrFail();
+        $jenjang = Jenjang::where('id', $riwaPegawai->jenjang_id)->firstOrFail();
+        $jenisur = JenisSurat::find($request->id);
+        $lembaga = Lembaga::find($request->lembaga);
+        $jabatan = Jabatan::find($request->jabatan_lembaga);
+
+        dd($request->all());
 
         $suratK = SuratKeluar::create([
             'user_id' => Auth::user()->id,
+            'jenis_id' => $jenisur->id,
             'no_surat' => $request->no_surat,
             'kode_surat' => $request->kode_surat,
-            'perihal' => $request->perihal,
-            'nama_peserta' => $peserta->nama,
             'tempat' => $request->tempat,
             'tgl_keluar' => $request->tgl_keluar,
-            'tgl_dicaat' => $request->tgl_dicatat,
-            'created_by' => Auth::user()->nama_user,
-
-        ]);
-
-
-        return redirect()->route('surpengang-home')->with('sukses','Data surat keluar berhasil ditambahkan.');
-    }
-
-    public function edit(Request $request){
-
-        $suratM = SuratKeluar::find($request->id);
-
-        return view('pegawai.surat-keluar.k-pengangkatan.pengangkatan-edit', compact('suratM'));
-    }
-
-
-    public function update(Request $request, $id){
-
-        $suratM = SuratKeluar::find($id);
-        //dd($pegawai);
-        $suratM->update([
-            'user_id' => Auth::user()->id,
-            'no_surat' => $request->no_surat,
-            'tgl_diterima' => $request->tgl_diterima,
             'tgl_dicatat' => $request->tgl_dicatat,
-            'pengirim' => $request->pengirim,
-            'penerima' => $request->penerima,
-            'prihal' => $request->prihal,
-            'updated_by' => Auth::user()->nama_user,
+            'created_by' => Auth::user()->nama_user,
         ]);
 
-        if (Input::has('upload_file_new')) {
-
-            File::delete($suratM->upload_file);
-            $file = str_replace(' ', '_', str_random(4) . '' . $request->file('upload_file_new')->getClientOriginalName());
-            Input::file('upload_file_new')->move('images/file-surat-masuk/', $file);
-
-            $suratM->update([
-                'upload_file' => 'images/file-surat-masuk/' . $file,
+        if (Input::has('nama_pegawai')) {
+            IsiSurat::create([
+                'surat_keluar_id' => $suratK->id,
+                'nama_pegawai' => $pegawai->nama,
+                'tempat_lahir_pegawai' => $pegawai->tempat_lahir,
+                'tanggal_lahir_pegawai' => $pegawai->tgl_lahir,
+                'jurusan_pegawai' => $jurusan->nama_jurusan_pendidikan,
+                'jenjang_pegawai' => $jenjang->nama_jenjang,
+                'institur_pegawai' => $riwaPegawai->instansi,
+                'tahun_lulus_pegawai' => $riwaPegawai->thn_lulus,
+                'hari_tanggal_1' => $request->tgl_rapat,
+                'lembaga' => $lembaga->nama_lembaga,
+                'jabatan' => $jabatan->nama_jabatan,
+                'created_by' => Auth::user()->nama_user,
             ]);
         }
 
-        return redirect()->route('surpengang-home')->with('edit', 'Data surat masuk berhasil diubah.'); //Lanjutkan dengan mengisi riwayat pendidikan.
+
+        return redirect()->route('surk-home')->with('sukses', $jenisur->nama_jenis_surat.'_'.$suratK->no_surat. 'berhasil ditambahkan.');
     }
 
-    public function destroy($id){
+    public function update(Request $request, $id){
+        $pegawai = Pegawai::find($request->nama_pegawai);
+        $riwaPegawai = RiwayatPendidikan::where('pegawai_id', $pegawai->id)->firstOrFail();
+        $jurusan = JurusanPendidikan::where('id', $riwaPegawai->jurusan_id)->firstOrFail();
+        $jenjang = Jenjang::where('id', $riwaPegawai->jenjang_id)->firstOrFail();
+        $lembaga = Lembaga::find($request->lembaga);
+        $jabatan = Jabatan::find($request->jabatan_lembaga);
 
-        $surM = SuratKeluar::find($id);
-        $file = $surM->upload_file;
-        File::delete($file);
-        $surM->delete();
+        $sKeluar = SuratKeluar::find($id);
+        $iKeluar = IsiSurat::where('surat_keluar_id', $sKeluar->id)->firstOrFail();
 
-        return redirect()->route('surpengang-home')->with('hapus', 'Data terpilih berhasil dihapus.');
-    }
+        $jenis = JenisSurat::where('id', $sKeluar->jenis_id)->firstOrFail();
 
-    public function print(Request $request){
+//        dd($kKeluar->isi_id);
 
-        $data = SuratKeluar::find($request->id);
-        $no = $data->no_surat;
-        //dd($data);
-        $pdf = PDF::setOptions(['font' => 'calibri', 'images' => true]);
-        $pdf->loadView("pegawai.surat-keluar.k-pengangkatan.pengangkatan-print", compact('data'));
-        $pdf->setPaper('A4', 'portrait');
-        return $pdf->stream('surat_pengangkatan_'.$no);
+        $sKeluar->update([
+            'user_id' => Auth::user()->id,
+            'no_surat' => $request->no_surat,
+            'kode_surat' => $request->kode_surat,
+            'tempat' => $request->tempat,
+            'tgl_keluar' => $request->tgl_keluar,
+            'tgl_dicatat' => $request->tgl_dicatat,
+            'updated_by' => Auth::user()->nama_user,
 
-//        return view('pegawai.surat-keluar.k-pengangkatan.pengangkatan-print');
+        ]);
 
+        if (Input::has('nama_pegawai')) {
+            $iKeluar->update([
+                'surat_keluar_id' => $sKeluar->id,
+                'nama_pegawai' => $pegawai->nama,
+                'tempat_lahir_pegawai' => $pegawai->tempat_lahir,
+                'tanggal_lahir_pegawai' => $pegawai->tgl_lahir,
+                'jurusan_pegawai' => $jurusan->nama_jurusan_pendidikan,
+                'jenjang_pegawai' => $jenjang->nama_jenjang,
+                'institur_pegawai' => $riwaPegawai->instansi,
+                'tahun_lulus_pegawai' => $riwaPegawai->thn_lulus,
+                'hari_tanggal_1' => $request->tgl_rapat,
+                'lembaga' => $lembaga->nama_lembaga,
+                'jabatan' => $jabatan->nama_jabatan,
+                'updated_by' => Auth::user()->nama_user,
+            ]);
+        }
+
+        return redirect()->route('surk-home')->with('edit', $jenis . '_' . $sKeluar->no_surat . 'masuk berhasil diubah.');
     }
 }

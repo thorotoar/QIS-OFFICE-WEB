@@ -143,6 +143,50 @@
                                         {{--</div>--}}
                                     </div>
 
+                                    {{--Pendidikan Info--}}
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h3 class="card-title m-t-15">Info Riwayat Pendidikan</h3>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label for="bank">Jenjang Terakhir <span class="text-danger">*</span></label>
+                                                <div>
+                                                    <select class="form-control custom-select" id="bank" name="jenjang" required>
+                                                        <option value="" disabled selected>Pilih Jenjang</option>
+                                                        @foreach($jenjang as $jenjangv)
+                                                            <option value="{{$jenjangv->id}}">{{$jenjangv->nama_jenjang}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Instansi </label>
+                                                <input type="text" class="form-control" name="instansi" value="" >
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label>Tahun Lulus <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control yearpicker" name="thn_lulus" value="" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="jurusan">Jurusan</label>
+                                                <div>
+                                                    <select class="form-control custom-select" id="jurusan" name="jurusan">
+                                                        <option value=""  disabled selected>Pilih Jurusan</option>
+                                                        @foreach($jurusan as $jurusanv)
+                                                            <option value="{{$jurusanv->id}}">{{$jurusanv->nama_jurusan_pendidikan}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     {{--Bank Info--}}
                                     <div class="row">
                                         <div class="col-lg-12">
@@ -273,7 +317,7 @@
                                                     <select class="form-control custom-select" id="jabatanY" name="jabatanY">
                                                         <option value="0" readonly disabled selected>Pilih Jenis</option>
                                                         @foreach ($jabaya as $jabayas)
-                                                            <option value="{{$jabayas->id}}">{{$jabayas->nama_jabatan_yayasan}}</option>
+                                                            <option value="{{$jabayas->id}}">{{$jabayas->nama_jabatan}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

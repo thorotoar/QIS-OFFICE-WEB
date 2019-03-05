@@ -308,7 +308,15 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'surk-hapus'
         ]);
 
+        Route::get('/surat-keputusan-print', [
+            'uses' => 'SuratKeluarController@print',
+            'as' => 'surk-print'
+        ]);
 
+        Route::get('/jabatan', [
+            'uses' => 'SuratKeluarController@jabatan',
+            'as' => 'json-jabatan'
+        ]);
     });
 
     Route::group(['prefix' => 'surat-masuk'], function (){
@@ -347,24 +355,9 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
 
     Route::group(['prefix' => 'surat-keputusan'], function (){
 
-        Route::get('/', [
-            'uses' => 'SuratKeluar\SuratKeputusanController@index',
-            'as' => 'surke-home'
-        ]);
-
-        Route::get('/data-surat-keputusan-tambah', [
-            'uses' => 'SuratKeluar\SuratKeputusanController@create',
-            'as' => 'surke-tambah'
-        ]);
-
         Route::post('/tambah-surat-keputusan', [
             'uses' => 'SuratKeluar\SuratKeputusanController@store',
             'as' => 'surke-tambah-selesai'
-        ]);
-
-        Route::get('/surat-keputusan-edit', [
-            'uses' => 'SuratKeluar\SuratKeputusanController@edit',
-            'as' => 'surke-edit'
         ]);
 
         Route::post('/update-surat-keputusan/{id}', [
@@ -377,11 +370,6 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'surke-hapus'
         ]);
 
-        Route::get('/surat-keputusan-print', [
-            'uses' => 'SuratKeluar\SuratKeputusanController@print',
-            'as' => 'surke-print'
-        ]);
-
         Route::get('/surat-keputusan-print-all', [
             'uses' => 'SuratKeluar\SuratKeputusanController@print_all',
             'as' => 'surke-print-all'
@@ -391,24 +379,9 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
 
     Route::group(['prefix' => 'surat-lain'], function (){
 
-        Route::get('/', [
-            'uses' => 'SuratKeluar\SuratLainController@index',
-            'as' => 'surl-home'
-        ]);
-
-        Route::get('/data-surat-lain-tambah', [
-            'uses' => 'SuratKeluar\SuratLainController@create',
-            'as' => 'surl-tambah'
-        ]);
-
         Route::post('/tambah-surat-lain', [
             'uses' => 'SuratKeluar\SuratLainController@store',
             'as' => 'surl-tambah-selesai'
-        ]);
-
-        Route::get('/surat-lain-edit', [
-            'uses' => 'SuratKeluar\SuratLainController@edit',
-            'as' => 'surl-edit'
         ]);
 
         Route::post('/update-surat-lain/{id}', [
@@ -416,31 +389,11 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'surl-update'
         ]);
 
-        Route::delete('/hapus-lain-masuk/{id}', [
-            'uses' => 'SuratKeluar\SuratLainController@destroy',
-            'as' => 'surl-hapus'
-        ]);
-
-        Route::get('/surat-lain-print', [
-            'uses' => 'SuratKeluar\SuratLainController@print',
-            'as' => 'surl-print'
-        ]);
-
-        Route::get('/surat-lain-print-all', [
-            'uses' => 'SuratKeluar\SuratLainController@print_all',
-            'as' => 'surl-print-all'
-        ]);
-
     });
 
     Route::group(['prefix' => 'surat-pemberitahuan'], function (){
 
-        Route::get('/', [
-            'uses' => 'SuratKeluar\SuratPemberitahuanController@index',
-            'as' => 'surp-home'
-        ]);
-
-        Route::post('/tambah-surat-pemberitahuan', [
+        Route::post('/tambah-pemberitahuan-lain', [
             'uses' => 'SuratKeluar\SuratPemberitahuanController@store',
             'as' => 'surp-tambah-selesai'
         ]);
@@ -455,11 +408,6 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'surp-hapus'
         ]);
 
-        Route::get('/surat-pemberitahuan-print', [
-            'uses' => 'SuratKeluar\SuratPemberitahuanController@print',
-            'as' => 'surp-print'
-        ]);
-
         Route::get('/surat-pemberitahuan-print-all', [
             'uses' => 'SuratKeluar\SuratPemberitahuanController@print_all',
             'as' => 'surp-print-all'
@@ -469,24 +417,9 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
 
     Route::group(['prefix' => 'surat-penagihan'], function (){
 
-        Route::get('/', [
-            'uses' => 'SuratKeluar\SuratPenagihanController@index',
-            'as' => 'surpena-home'
-        ]);
-
-        Route::get('/data-surat-penagihan-tambah', [
-            'uses' => 'SuratKeluar\SuratPenagihanController@create',
-            'as' => 'surpena-tambah'
-        ]);
-
         Route::post('/tambah-surat-penagihan', [
             'uses' => 'SuratKeluar\SuratPenagihanController@store',
             'as' => 'surpena-tambah-selesai'
-        ]);
-
-        Route::get('/surat-penagihan-edit', [
-            'uses' => 'SuratKeluar\SuratPenagihanController@edit',
-            'as' => 'surpena-edit'
         ]);
 
         Route::post('/update-surat-penagihan/{id}', [
@@ -499,11 +432,6 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'surpena-hapus'
         ]);
 
-        Route::get('/surat-penagihan-print', [
-            'uses' => 'SuratKeluar\SuratPenagihanController@print',
-            'as' => 'surpena-print'
-        ]);
-
         Route::get('/surat-penagihan-print-all', [
             'uses' => 'SuratKeluar\SuratPenagihanController@print_all',
             'as' => 'surpena-print-all'
@@ -513,27 +441,10 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
 
     Route::group(['prefix' => 'surat-pengajuan'], function (){
 
-        Route::get('/', [
-            'uses' => 'SuratKeluar\SuratPengajuanController@index',
-            'as' => 'surpenga-home'
-        ]);
-
-        Route::get('/data-surat-pengajuan-tambah', [
-            'uses' => 'SuratKeluar\SuratPengajuanController@create',
-            'as' => 'surpenga-tambah'
-        ]);
-
         Route::post('/tambah-surat-pengajuan', [
             'uses' => 'SuratKeluar\SuratPengajuanController@store',
             'as' => 'surpenga-tambah-selesai'
-        ]);
-
-        Route::get('/surat-pengajuan-edit', [
-            'uses' => 'SuratKeluar\SuratPengajuanController@edit',
-            'as' => 'surpenga-edit'
-        ]);
-
-        Route::post('/update-surat-pengajuan/{id}', [
+        ]);Route::post('/update-surat-pengajuan/{id}', [
             'uses' => 'SuratKeluar\SuratPengajuanController@update',
             'as' => 'surpenga-update'
         ]);
@@ -541,11 +452,6 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
         Route::delete('/hapus-pengajuan-masuk/{id}', [
             'uses' => 'SuratKeluar\SuratPengajuanController@destroy',
             'as' => 'surpenga-hapus'
-        ]);
-
-        Route::get('/surat-pengajuan-print', [
-            'uses' => 'SuratKeluar\SuratPengajuanController@print',
-            'as' => 'surpenga-print'
         ]);
 
         Route::get('/surat-pengajuan-print-all', [
@@ -557,24 +463,9 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
 
     Route::group(['prefix' => 'surat-pengalaman'], function (){
 
-        Route::get('/', [
-            'uses' => 'SuratKeluar\SuratPengalamanController@index',
-            'as' => 'surpengal-home'
-        ]);
-
-        Route::get('/data-surat-pengalaman-tambah', [
-            'uses' => 'SuratKeluar\SuratPengalamanController@create',
-            'as' => 'surpengal-tambah'
-        ]);
-
         Route::post('/tambah-surat-pengalaman', [
             'uses' => 'SuratKeluar\SuratPengalamanController@store',
             'as' => 'surpengal-tambah-selesai'
-        ]);
-
-        Route::get('/surat-pengalaman-edit', [
-            'uses' => 'SuratKeluar\SuratPengalamanController@edit',
-            'as' => 'surpengal-edit'
         ]);
 
         Route::post('/update-surat-pengalaman/{id}', [
@@ -587,11 +478,6 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'surpengal-hapus'
         ]);
 
-        Route::get('/surat-pengalaman-print', [
-            'uses' => 'SuratKeluar\SuratPengalamanController@print',
-            'as' => 'surpengal-print'
-        ]);
-
         Route::get('/surat-pengalaman-print-all', [
             'uses' => 'SuratKeluar\SuratPengalamanController@print_all',
             'as' => 'surpengal-print-all'
@@ -601,29 +487,9 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
 
     Route::group(['prefix' => 'surat-pengangkatan'], function (){
 
-        Route::get('/', [
-            'uses' => 'SuratKeluar\SuratPengangkatanController@index',
-            'as' => 'surpengang-home'
-        ]);
-
-        Route::get('/data-surat-pengangkatan-tambah', [
-            'uses' => 'SuratKeluar\SuratPengangkatanController@create',
-            'as' => 'surpengang-tambah'
-        ]);
-
-        Route::get('/jabatan', [
-            'uses' => 'SuratKeluar\SuratPengangkatanController@jabatan',
-            'as' => 'json-jabatan'
-        ]);
-
         Route::post('/tambah-surat-pengangkatan', [
             'uses' => 'SuratKeluar\SuratPengangkatanController@store',
             'as' => 'surpengang-tambah-selesai'
-        ]);
-
-        Route::get('/surat-pengangkatan-edit', [
-            'uses' => 'SuratKeluar\SuratPengangkatanController@edit',
-            'as' => 'surpengang-edit'
         ]);
 
         Route::post('/update-surat-pengangkatan/{id}', [
@@ -636,11 +502,6 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'surpengang-hapus'
         ]);
 
-        Route::get('/surat-pengangkatan-print', [
-            'uses' => 'SuratKeluar\SuratPengangkatanController@print',
-            'as' => 'surpengang-print'
-        ]);
-
         Route::get('/surat-pengangkatan-print-all', [
             'uses' => 'SuratKeluar\SuratPengangkatanController@print_all',
             'as' => 'surpengang-print-all'
@@ -650,24 +511,9 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
 
     Route::group(['prefix' => 'surat-peringatan'], function (){
 
-        Route::get('/', [
-            'uses' => 'SuratKeluar\SuratPeringatanController@index',
-            'as' => 'surper-home'
-        ]);
-
-        Route::get('/data-surat-peringatan-tambah', [
-            'uses' => 'SuratKeluar\SuratPeringatanController@create',
-            'as' => 'surper-tambah'
-        ]);
-
         Route::post('/tambah-surat-peringatan', [
             'uses' => 'SuratKeluar\SuratPeringatanController@store',
             'as' => 'surper-tambah-selesai'
-        ]);
-
-        Route::get('/surat-peringatan-edit', [
-            'uses' => 'SuratKeluar\SuratPeringatanController@edit',
-            'as' => 'surper-edit'
         ]);
 
         Route::post('/update-surat-peringatan/{id}', [
@@ -680,11 +526,6 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'surper-hapus'
         ]);
 
-        Route::get('/surat-peringatan-print', [
-            'uses' => 'SuratKeluar\SuratPeringatanController@print',
-            'as' => 'surper-print'
-        ]);
-
         Route::get('/surat-peringatan-print-all', [
             'uses' => 'SuratKeluar\SuratPeringatanController@print_all',
             'as' => 'surper-print-all'
@@ -694,24 +535,9 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
 
     Route::group(['prefix' => 'surat-rpp'], function (){
 
-        Route::get('/', [
-            'uses' => 'SuratKeluar\SuratRppController@index',
-            'as' => 'surpp-home'
-        ]);
-
-        Route::get('/data-surat-rpp-tambah', [
-            'uses' => 'SuratKeluar\SuratRppController@create',
-            'as' => 'surpp-tambah'
-        ]);
-
         Route::post('/tambah-surat-rpp', [
             'uses' => 'SuratKeluar\SuratRppController@store',
             'as' => 'surpp-tambah-selesai'
-        ]);
-
-        Route::get('/surat-rpp-edit', [
-            'uses' => 'SuratKeluar\SuratRppController@edit',
-            'as' => 'surpp-edit'
         ]);
 
         Route::post('/update-surat-rpp/{id}', [
@@ -724,11 +550,6 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'surpp-hapus'
         ]);
 
-        Route::get('/surat-rpp-print', [
-            'uses' => 'SuratKeluar\SuratRppController@print',
-            'as' => 'surpp-print'
-        ]);
-
         Route::get('/surat-rpp-print-all', [
             'uses' => 'SuratKeluar\SuratRppController@print_all',
             'as' => 'surpp-print-all'
@@ -738,24 +559,9 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
 
     Route::group(['prefix' => 'surat-sylabus'], function (){
 
-        Route::get('/', [
-            'uses' => 'SuratKeluar\SuratSylabusController@index',
-            'as' => 'sursy-home'
-        ]);
-
-        Route::get('/data-surat-sylabus-tambah', [
-            'uses' => 'SuratKeluar\SuratSylabusController@create',
-            'as' => 'sursy-tambah'
-        ]);
-
         Route::post('/tambah-surat-sylabus', [
             'uses' => 'SuratKeluar\SuratSylabusController@store',
             'as' => 'sursy-tambah-selesai'
-        ]);
-
-        Route::get('/surat-sylabus-edit', [
-            'uses' => 'SuratKeluar\SuratSylabusController@edit',
-            'as' => 'sursy-edit'
         ]);
 
         Route::post('/update-surat-sylabus/{id}', [
@@ -766,11 +572,6 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
         Route::delete('/hapus-sylabus-masuk/{id}', [
             'uses' => 'SuratKeluar\SuratSylabusController@destroy',
             'as' => 'sursy-hapus'
-        ]);
-
-        Route::get('/surat-sylabus-print', [
-            'uses' => 'SuratKeluar\SuratSylabusController@print',
-            'as' => 'sursy-print'
         ]);
 
         Route::get('/surat-sylabus-print-all', [
@@ -955,14 +756,5 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
         ]);
 
     });
-
-//    Route::group(['prefix' => 'data-pegawai', 'namespace' => 'Data-Pegawai', 'middleware' => 'pegawai'], function (){
-//        Route::resource('/proses-tambah-data-pegawai-selesai',[
-//            'user' => 'DataPegawaiController',
-//            'as' => 'd-p-proses'
-//        ]);
-//    });
-
-    //Route::resource('d-p-proses', 'PegawaiController');
 
 });
