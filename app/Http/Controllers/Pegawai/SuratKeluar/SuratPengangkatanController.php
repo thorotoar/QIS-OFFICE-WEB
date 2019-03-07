@@ -25,14 +25,14 @@ class SuratPengangkatanController extends Controller
 
     public function store(Request $request){
         $pegawai = Pegawai::find($request->nama_pegawai);
-        $riwaPegawai = RiwayatPendidikan::where('pegawai_id', $pegawai->id)->firstOrFail();
-        $jurusan = JurusanPendidikan::where('id', $riwaPegawai->jurusan_id)->firstOrFail();
-        $jenjang = Jenjang::where('id', $riwaPegawai->jenjang_id)->firstOrFail();
+//        $riwaPegawai = RiwayatPendidikan::where('pegawai_id', $pegawai->id)->firstOrFail();
+        $jurusan = JurusanPendidikan::where('id', $pegawai->jurusan_id)->firstOrFail();
+        $jenjang = Jenjang::where('id', $pegawai->jenjang_id)->firstOrFail();
         $jenisur = JenisSurat::find($request->id);
         $lembaga = Lembaga::find($request->lembaga);
         $jabatan = Jabatan::find($request->jabatan_lembaga);
 
-        dd($request->all());
+//        dd($request->all());
 
         $suratK = SuratKeluar::create([
             'user_id' => Auth::user()->id,
@@ -53,8 +53,8 @@ class SuratPengangkatanController extends Controller
                 'tanggal_lahir_pegawai' => $pegawai->tgl_lahir,
                 'jurusan_pegawai' => $jurusan->nama_jurusan_pendidikan,
                 'jenjang_pegawai' => $jenjang->nama_jenjang,
-                'institur_pegawai' => $riwaPegawai->instansi,
-                'tahun_lulus_pegawai' => $riwaPegawai->thn_lulus,
+                'institur_pegawai' => $pegawai->instansi,
+                'tahun_lulus_pegawai' => $pegawai->thn_lulus,
                 'hari_tanggal_1' => $request->tgl_rapat,
                 'lembaga' => $lembaga->nama_lembaga,
                 'jabatan' => $jabatan->nama_jabatan,
@@ -68,9 +68,9 @@ class SuratPengangkatanController extends Controller
 
     public function update(Request $request, $id){
         $pegawai = Pegawai::find($request->nama_pegawai);
-        $riwaPegawai = RiwayatPendidikan::where('pegawai_id', $pegawai->id)->firstOrFail();
-        $jurusan = JurusanPendidikan::where('id', $riwaPegawai->jurusan_id)->firstOrFail();
-        $jenjang = Jenjang::where('id', $riwaPegawai->jenjang_id)->firstOrFail();
+//        $riwaPegawai = RiwayatPendidikan::where('pegawai_id', $pegawai->id)->firstOrFail();
+        $jurusan = JurusanPendidikan::where('id', $pegawai->jurusan_id)->firstOrFail();
+        $jenjang = Jenjang::where('id', $pegawai->jenjang_id)->firstOrFail();
         $lembaga = Lembaga::find($request->lembaga);
         $jabatan = Jabatan::find($request->jabatan_lembaga);
 
@@ -100,8 +100,8 @@ class SuratPengangkatanController extends Controller
                 'tanggal_lahir_pegawai' => $pegawai->tgl_lahir,
                 'jurusan_pegawai' => $jurusan->nama_jurusan_pendidikan,
                 'jenjang_pegawai' => $jenjang->nama_jenjang,
-                'institur_pegawai' => $riwaPegawai->instansi,
-                'tahun_lulus_pegawai' => $riwaPegawai->thn_lulus,
+                'institur_pegawai' => $pegawai->instansi,
+                'tahun_lulus_pegawai' => $pegawai->thn_lulus,
                 'hari_tanggal_1' => $request->tgl_rapat,
                 'lembaga' => $lembaga->nama_lembaga,
                 'jabatan' => $jabatan->nama_jabatan,

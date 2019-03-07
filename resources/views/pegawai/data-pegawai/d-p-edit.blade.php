@@ -61,7 +61,12 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Tanggal Lahir <span class="text-danger">*</span></label>
-                                                <input type="date" class="form-control" name="tanggal_lahir" value="{{ $pegawai->tgl_lahir  }}" required>
+                                                <div class="input-group date datepicker">
+                                                    <input type="text" class="form-control" name="tanggal_lahir" value="{{ $pegawai->tgl_lahir  }}" placeholder="tanggal/bulan/tahun" required>
+                                                    <div class="input-group-addon">
+                                                        &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="jenis-kelamin">Jenis Kelamin <span class="text-danger">*</span></label>
@@ -149,7 +154,7 @@
                                     {{--Pendidikan Info--}}
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <h3 class="card-title m-t-15">Info Riwayat Pendidikan</h3>
+                                            <h3 class="card-title m-t-15">Info Pendidikan Terakhir</h3>
                                             <hr>
                                         </div>
                                     </div>
@@ -294,7 +299,12 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Tanggal Masuk <span class="text-danger">*</span></label>
-                                                <input type="date" class="form-control" name="tanggal_masuk" value="{{ $pegawai->tgl_masuk  }}" required>
+                                                <div class="input-group date datepicker">
+                                                    <input type="text" class="form-control" name="tanggal_lahir" value="{{ $pegawai->tgl_masuk  }}" placeholder="tanggal/bulan/tahun" required>
+                                                    <div class="input-group-addon">
+                                                        &nbsp;<button class="btn btn-flat btn-sm btn-outline-dark" disabled><span class="fa fa-calendar"></span></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="lembaga">Lembaga <span class="text-danger">*</span></label>
@@ -374,6 +384,7 @@
     </div>
     <!-- End Page wrapper  -->
     <script src="{{asset('js/lib/jquery/jquery.min.js')}}"></script>
+    <script src="{{asset('js/lib/datepicker/bootstrap-datepicker.min.js')}}"></script>
 
     <script>
         $('#lembaga').on('change', function(e){
@@ -409,6 +420,10 @@
                 function(){
                     fForm.submit();
                 });
-        })
+        });
+
+        $('.datepicker').datepicker({
+            format: "dd MM yyyy"
+        });
     </script>
 @endsection

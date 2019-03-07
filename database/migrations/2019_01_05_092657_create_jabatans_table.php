@@ -17,7 +17,7 @@ class CreateJabatansTable extends Migration
             $table->increments('id');
             $table->string('nama_jabatan');
             $table->integer('lembaga_id')->unsigned()->nullable();
-            $table->foreign('lembaga_id')->references('id')->on('lembagas')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('lembaga_id')->references('id')->on('lembagas')->onDelete('SET NULL')->onUpdate('CASCADE');
             $table->string('created_by');
             $table->string('updated_by');
             $table->timestamps();

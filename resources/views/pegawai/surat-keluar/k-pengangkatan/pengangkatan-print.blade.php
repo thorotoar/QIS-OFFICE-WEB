@@ -65,14 +65,14 @@
         <tr>
             <td align="center" style="width: 100%;">
                 <p><u><b><font size="16">SURAT KEPUTUSAN MANAGER</font></b></u>
-                    <br><small><b>{{$data->no_surat}}{{$data->kode_surat}}</b></small></p>
+                    <br><small><b>{{$sKeluar->no_surat}}{{$sKeluar->kode_surat}}</b></small></p>
             </td>
         </tr>
     </table>
     {{--isi dan penutup--}}
     <table width="84%" style="margin-top: 20px" class="text margin-left margin-right">
         <tr>
-            <td class="clean" align="justify">Berdasarkan rapat yang dilaksanakan pada hari Rabu, tanggal 02 Januari 2013, saya yang bertanda tangan di bawah ini
+            <td class="clean" align="justify">Berdasarkan rapat yang dilaksanakan pada hari {{$iKeluar->hari_tanggal_1}}, saya yang bertanda tangan di bawah ini
             </td>
         </tr>
         <tr><td></td></tr>
@@ -83,7 +83,7 @@
         <tr>
             <td style="width: 30%;">Nama</td>
             <td>:</td>
-            <td style="width: 90%;">Ir. Akhmad Mujib</td>
+            <td style="width: 90%;">{{ $direktur->nama }}</td>
         </tr>
         <tr style="width: 40%">
             <td style="width: 30%;">Jabatan</td>
@@ -102,23 +102,23 @@
         <tr>
             <td style="width: 30%;">Nama </td>
             <td>:</td>
-            <td style="width: 90%;">Lili Musyafa’ah, S.Pd</td>
+            <td style="width: 90%;">{{$iKeluar->nama_pegawai}}</td>
         </tr>
         <tr>
             <td style="width: 30%;">Tempat Tanggal Lahir </td>
             <td>:</td>
-            <td style="width: 90%;">Jakarta, 12 Maret 1970</td>
+            <td style="width: 90%;">{{$iKeluar->tempat_lahir_pegawai}}, {{$iKeluar->tanggal_lahir_pegawai}}</td>
         </tr>
         <tr style="width: 40%">
             <td style="width: 30%;">Pendidikan terakhir </td>
             <td>:</td>
-            <td style="width: 90%;">S1 Bahasa Inggris tahun 1994</td>
+            <td style="width: 90%;">{{$iKeluar->jenjang_pegawai}} {{$iKeluar->jurusan_pegawai}} tahun {{$iKeluar->tahun_lulus_pegawai}}</td>
         </tr>
     </table>
     {{--penutup--}}
     <table width="84%" style="margin-top: 15px" class="text margin-left margin-right">
         <tr>
-            <td class="clean" align="justify"><b>Memutuskan</b>, nama tersebut di atas diangkat sebagai <b>Manager</b> di Quali International cabang Surabaya.</td>
+            <td class="clean" align="justify"><b>Memutuskan</b>, nama tersebut di atas diangkat sebagai <b>{{$iKeluar->jabatan}}</b> di {{$iKeluar->lembaga}}.</td>
         </tr>
         <tr><td></td></tr>
         <tr><td></td></tr>
@@ -152,7 +152,7 @@
     <table width="84%" class="margin-left margin-right">
         <tr>
             <td align="left" style="width: 100%;">
-                <p><u>Ir. Akhmad Mujib</u>
+                <p><u>{{ $direktur->nama }}</u>
                     <br><small>Direktur Quali International</small></p>
             </td>
         </tr>

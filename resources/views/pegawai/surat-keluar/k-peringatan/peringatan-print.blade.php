@@ -64,24 +64,27 @@
                     <tr style="font-family: Calibri">
                         <td>Nomor</td>
                         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
-                        <td>{{$data->no_surat}}{{$data->kode_surat}}</td>
-                    </tr>
-                    <tr style="font-family: Calibri">
-                        <td>Lampiran</td>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
-                        <td>&nbsp;-</td>
+                        <td>{{$sKeluar->no_surat}}{{$sKeluar->kode_surat}}</td>
                     </tr>
                     <tr style="font-family: Calibri">
                         <td>Perihal</td>
                         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
-                        <td>{{$data->perihal}}</td>
+                        <td>{{$sKeluar->perihal}}</td>
+                    </tr>
+                    <tr style="font-family: Calibri">
+                        <td>Lampiran</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
+                        <td>@if($sKeluar->laprian == null)
+                                &nbsp;-
+                            @endif
+                            {{$sKeluar->lampiran}}</td>
                     </tr>
                 </table>
             </td>
             <td align="center">
             </td>
             <td align="left" style="width: 40%;">
-                {{$data->tempat}}, {{$data->tgl_dicaat}}
+                {{$sKeluar->tempat}}, {{$sKeluar->tgl_dicatat}}
             </td>
         </tr>
     </table>
@@ -91,7 +94,7 @@
             <td>Kepada Yth,</td>
         </tr>
         <tr>
-            <td>Bapak/ibu orang tua murid dari : <b>{{$data->nama_peserta}}</b></td>
+            <td>Bapak/ibu orang tua murid dari : <b>{{$iKeluar->nama_peserta}}</b></td>
         </tr>
         <tr>
             <td>Di tempat,</td>
@@ -133,7 +136,7 @@
             <td></td>
         </tr>
         <tr>
-            <td class="clean" align="justify">Dengan datangnya surat ini kepada orang tua murid, dari kami pihak manajemen Lembaga Pendidikan Bahasa Inggris Quali International Surabaya (QIS) berdasarkan hasil rapat pada hari, tanggal <b>Senin, 23 Oktober 2017</b> memutuskan bahwa :</td>
+            <td class="clean" align="justify">Dengan datangnya surat ini kepada orang tua murid, dari kami pihak manajemen Lembaga Pendidikan Bahasa Inggris Quali International Surabaya (QIS) berdasarkan hasil rapat pada hari <b>{{$iKeluar->hari_tanggal_1}}</b> memutuskan bahwa :</td>
         </tr>
     </table>
     {{--table konten--}}
@@ -141,12 +144,12 @@
         <tr id="konten">
             <td id="konten" style="width: 25%;">Nama Lengkap</td>
             <td id="konten" style="width: 10%;">&nbsp;:</td>
-            <td id="konten" style="width: 65%;">{{$data->nama_peserta}}</td>
+            <td id="konten" style="width: 65%;">{{$iKeluar->nama_peserta}}</td>
         </tr>
         <tr style="width: 40%">
             <td id="konten" style="width: 25%;">Asal</td>
             <td id="konten" style="width: 10%;">&nbsp;:</td>
-            <td id="konten" style="width: 65%;">Bandung, Jawa Barat.</td>
+            <td id="konten" style="width: 65%;">{{$iKeluar->kabupaten_peserta}}, {{$iKeluar->provinsi_peserta}}.</td>
         </tr>
     </table>
     {{--penutup--}}
@@ -160,7 +163,7 @@
                     <li>Tidak diperkenankan untuk membawa atau mengakses ATM selama masa pendidikan berlangsung.</li>
                     <li>Diharuskan meminta izin terlebih dahulu sebelum menggunakan sarana & prasarana lembaga.</li>
                     <li>Sanggup mentaati segala peraturan yang berlaku di Lembaga Pendidikan Bahasa Inggris Quali International Surabaya (QIS).</li>
-                    <li>Diharapkan bisa kembali ke tempat Pendidikan selambat lambatnya pada hari ahad, tanggal 29 Oktober, pukul : 18.00 WIB. Dengan tidak diantarkan oleh orang tua murid.</li>
+                    <li>Diharapkan bisa kembali ke tempat Pendidikan selambat lambatnya pada hari {{$iKeluar->hari_tanggal_2}}, pukul {{$iKeluar->jam_kembali}}. Dengan tidak diantarkan oleh orang tua murid.</li>
                 </ol></td>
         </tr>
         <tr><td></td></tr>
@@ -191,7 +194,7 @@
             <td align="left" style="width: 40%;"></td>
             <td align="center"></td>
             <td align="center" style="width: 40%;">
-                <b>Ahmad Mustafid</b>
+                <b>{{$manager->nama}}</b>
             </td>
         </tr>
     </table>

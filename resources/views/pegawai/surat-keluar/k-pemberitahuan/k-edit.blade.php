@@ -135,12 +135,12 @@
                                                 <label for="peserta_didik">Instruktur Kelas <span class="text-danger">*</span></label>
                                                 <select class="form-control form-control-sm custom-select" id="peserta_didik" name="instruktur_kelas" required>
                                                     <option value="" disabled readonly selected>Pilih Instruktur</option>
-                                                    @foreach(\App\RiwayatPendidikan::all() as $pegawais)
+                                                    @foreach(\App\Pegawai::all() as $pegawais)
                                                         <option value="{{$item->id}}"
-                                                                @if($iKeluar->instruktur == $pegawais->pegawai->nama)
+                                                                @if($iKeluar->instruktur == $pegawais->nama)
                                                                 selected
                                                                 @endif
-                                                        >{{$pegawais->pegawai->nama}}</option>
+                                                        >{{$pegawais->nama}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

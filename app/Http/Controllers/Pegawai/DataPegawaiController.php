@@ -29,7 +29,7 @@ class DataPegawaiController extends Controller
     }
 
     public function index(){
-        $pegawai_view = RiwayatPendidikan::orderBy('created_at', 'ASC')->get();
+        $pegawai_view = Pegawai::orderBy('created_at', 'ASC')->get();
         return view('pegawai.data-pegawai.d-p-home', compact('pegawai_view'));
     }
 
@@ -168,7 +168,7 @@ class DataPegawaiController extends Controller
         $jenjang = Jenjang::whereIn('id', [8,9,10,11,12,13,14,15,16,17,18,19,20])->get();
         $jurusan = JurusanPendidikan::all();
 
-        return view('pegawai.data-pegawai.d-p-edit', compact('pegawai', 'rpegawai', 'jabatan', 'kewarganegaraan', 'agama', 'bank', 'lembaga', 'jabaya', 'jenjang', 'jurusan',));
+        return view('pegawai.data-pegawai.d-p-edit', compact('pegawai', 'rpegawai', 'jabatan', 'kewarganegaraan', 'agama', 'bank', 'lembaga', 'jabaya', 'jenjang', 'jurusan'));
     }
 
     public function edit_r(Request $request, RiwayatPendidikan $pegawai){

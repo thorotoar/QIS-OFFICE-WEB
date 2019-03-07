@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Pegawai\SuratKeluar;
 
 use App\IsiSurat;
 Use App\JenisSurat;
+use App\Kabupaten;
 use App\PesertaDidik;
+use App\Provinsi;
 use App\SuratKeluar;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -22,7 +24,10 @@ class SuratPeringatanController extends Controller
         $peserta = PesertaDidik::find($request->peserta_didik);
         $jenisur = JenisSurat::find($request->id);
 
-        //dd($jenisur->id);
+        $provinsi = Provinsi::where('id', $peserta->provinsi_id)->firstOrFail();
+        $kabupaten = Kabupaten::where('id', $peserta->kabupaten_id)->firstOrFail();
+
+//        dd($provinsi['nama_provinsi']);
 
         $suratK = SuratKeluar::create([
             'user_id' => Auth::user()->id,
@@ -42,8 +47,8 @@ class SuratPeringatanController extends Controller
             IsiSurat::create([
                 'surat_keluar_id' => $suratK->id,
                 'nama_peserta' => $peserta->nama,
-                'provinsi_peserta' => $peserta->provinsi,
-                'kabupaten_peserta' => $peserta->kabupaten,
+                'provinsi_peserta' => $provinsi->nama_provinsi,
+                'kabupaten_peserta' => $kabupaten->nama_kabupaten,
                 'hari_tanggal_1' => $request->tgl_rapat,
                 'hari_tanggal_2' => $request->tgl_kembali,
                 'jam_kembali' => $request->jam_kembali,
@@ -61,6 +66,8 @@ class SuratPeringatanController extends Controller
         $sKeluar = SuratKeluar::find($id);
         $iKeluar = IsiSurat::where('surat_keluar_id', $sKeluar->id)->firstOrFail();
 
+        $provinsi = Provinsi::where('id', $peserta->provinsi_id)->firstOrFail();
+        $kabupaten = Kabupaten::where('id', $peserta->kabupaten_id)->firstOrFail();
         $jenis = JenisSurat::where('id', $sKeluar->jenis_id)->firstOrFail();
 
 //        dd($kKeluar->isi_id);
@@ -81,8 +88,8 @@ class SuratPeringatanController extends Controller
         if (Input::has('peserta_didik')) {
             $iKeluar->update([
                 'nama_peserta' => $peserta->nama,
-                'provinsi_peserta' => $peserta->provinsi,
-                'kabupaten_peserta' => $peserta->kabupaten,
+                'provinsi_peserta' => $provinsi->nama_provinsi,
+                'kabupaten_peserta' => $kabupaten->nama_kabupaten,
                 'hari_tanggal_1' => $request->tgl_rapat,
                 'hari_tanggal_2' => $request->tgl_kembali,
                 'jam_kembali' => $request->jam_kembali,

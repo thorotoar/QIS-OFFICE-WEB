@@ -68,24 +68,27 @@
                     <tr style="font-family: Calibri">
                         <td>Nomor</td>
                         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
-                        <td>{{$data->no_surat}}{{$data->kode_surat}}</td>
-                    </tr>
-                    <tr style="font-family: Calibri">
-                        <td>Lampiran</td>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
-                        <td>&nbsp;-</td>
+                        <td>{{$sKeluar->no_surat}}{{$sKeluar->kode_surat}}</td>
                     </tr>
                     <tr style="font-family: Calibri">
                         <td>Perihal</td>
                         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
-                        <td>{{$data->perihal}}</td>
+                        <td>{{$sKeluar->perihal}}</td>
+                    </tr>
+                    <tr style="font-family: Calibri">
+                        <td>Lampiran</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</td>
+                        <td>@if($sKeluar->laprian == null)
+                                &nbsp;-
+                            @endif
+                            {{$sKeluar->lampiran}}</td>
                     </tr>
                 </table>
             </td>
             <td align="center">
             </td>
             <td align="left" style="width: 40%;">
-                {{$data->tempat}}, {{$data->tgl_dicaat}}
+                {{$sKeluar->tempat}}, {{$sKeluar->tgl_dicatat}}
             </td>
         </tr>
     </table>
@@ -111,30 +114,14 @@
             <td id="konten" style="width: 20%;" align="center">&nbsp;<b>Frek</b></td>
             <td id="konten" style="width: 37%;" align="center">&nbsp;<b>Harga</b></td>
         </tr>
-        <tr>
-            <td id="konten" style="width: 8%;">&nbsp;1</td>
-            <td id="konten" style="width: 50%;">&nbsp;Tinta Kuning EPSON Y664</td>
-            <td id="konten" style="width: 20%;" align="center">&nbsp;1 buah</td>
-            <td id="konten" style="width: 37%;" align="center">&nbsp;Rp. 85.000,.-</td>
-        </tr>
-        <tr>
-            <td id="konten" style="width: 8%;">&nbsp;2</td>
-            <td id="konten" style="width: 50%;">&nbsp;Tinta Kuning EPSON Y664</td>
-            <td id="konten" style="width: 20%;" align="center">&nbsp;1 buah</td>
-            <td id="konten" style="width: 37%;" align="center">&nbsp;Rp. 85.000,.-</td>
-        </tr>
-        <tr>
-            <td id="konten" style="width: 8%;">&nbsp;3</td>
-            <td id="konten" style="width: 50%;">&nbsp;Tinta Kuning EPSON Y664</td>
-            <td id="konten" style="width: 20%;" align="center">&nbsp;1 buah</td>
-            <td id="konten" style="width: 37%;" align="center">&nbsp;Rp. 10.000,.--</td>
-        </tr>
-        <tr>
-            <td id="konten" style="width: 8%;">&nbsp;4</td>
-            <td id="konten" style="width: 50%;">&nbsp;Tinta Kuning EPSON Y664</td>
-            <td id="konten" style="width: 20%;" align="center">&nbsp;</td>
-            <td id="konten" style="width: 37%;" align="center">&nbsp;Rp. 10.000,.-</td>
-        </tr>
+        @foreach($kKeluar as $index => $value)
+            <tr>
+                <td id="konten" style="width: 8%;">&nbsp;{{ $index +1 }}</td>
+                <td id="konten" style="width: 50%;">&nbsp;{{$value['nama_barang']}}</td>
+                <td id="konten" style="width: 20%;" align="center">&nbsp;{{$value['jumlah_barang']}} buah</td>
+                <td id="konten" style="width: 37%;" align="center">&nbsp;Rp. {{number_format ( $value['harga_barang'], 0, ",", ".")}},.-</td>
+            </tr>
+        @endforeach
         <tr>
             <td id="konten"  colspan="2">&nbsp;<b>Jumlah Total</b></td>
             <td id="konten" style="width: 20%;">&nbsp;</td>

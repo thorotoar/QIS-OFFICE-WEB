@@ -114,8 +114,8 @@
                                                 <label for="peserta_didik">Instruktur Kelas <span class="text-danger">*</span></label>
                                                 <select class="form-control form-control-sm custom-select" id="peserta_didik" name="instruktur_kelas" required>
                                                     <option value="" disabled readonly selected>Pilih Instruktur</option>
-                                                    @foreach(\App\RiwayatPendidikan::all() as $pegawais)
-                                                        <option value="{{$pegawais->pegawai->id}}">{{$pegawais->pegawai->nama}}</option>
+                                                    @foreach(\App\Pegawai::all() as $pegawais)
+                                                        <option value="{{$pegawais->id}}">{{$pegawais->nama}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

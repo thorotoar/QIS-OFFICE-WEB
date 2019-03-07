@@ -83,21 +83,21 @@
                                     </thead>
                                     <tbody>
                                     @foreach($pegawai_view as $index => $value)
-                                        @php
-                                            $pegawai = App\Pegawai::find($value->pegawai_id); //$pegawai->foto
-                                        @endphp
+                                        {{--@php--}}
+                                            {{--$pegawai = App\Pegawai::find($value->pegawai_id); //$pegawai->foto--}}
+                                        {{--@endphp--}}
                                         <tr>
                                             <th>{{ $index +1 }}</th>
-                                            <th>@if($value->pegawai->foto === null)
+                                            <th>@if($value->foto == null)
                                                     <img src="{{asset('images/icon/no3x4.png')}}" width="84" height="112">
                                                 @else
-                                                    <img src="{{asset($value->pegawai->foto)}}" width="84" height="112">
+                                                    <img src="{{asset($value->foto)}}" width="84" height="112">
                                                 @endif</th>
-                                            <th>{{ $value->pegawai->nik }} </th>
-                                            <th>{{ $value->pegawai->nama }}</th>
-                                            <th>{{ $value->pegawai->kelamin }}</th>
-                                            <th>{{ $value->pegawai->tempat_lahir }}, {{ $value->pegawai->tgl_lahir }}</th>
-                                            <th>{{ $value->pegawai->lembaga->nama_lembaga }}</th>
+                                            <th>{{ $value->nik }} </th>
+                                            <th>{{ $value->nama }}</th>
+                                            <th>{{ $value->kelamin }}</th>
+                                            <th>{{ $value->tempat_lahir }}, {{ $value->tgl_lahir }}</th>
+                                            <th>{{ $value->lembaga->nama_lembaga }}</th>
                                             <th>
                                                 <div class="table-data-feature">
                                                     <form id="form-deletePegawai-{{$value->id}}" class="form-group pull-left" action="" method="post" hidden>

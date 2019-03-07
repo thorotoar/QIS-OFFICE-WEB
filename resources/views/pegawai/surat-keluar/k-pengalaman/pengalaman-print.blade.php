@@ -73,7 +73,7 @@
         <tr>
             <td align="center" style="width: 100%;">
                 <p><u><b><font size="16">SURAT KETERANGAN</font></b></u>
-                    <br><small><b>{{$data->no_surat}}{{$data->kode_surat}}</b></small></p>
+                    <br><small><b>{{$sKeluar->no_surat}}{{$sKeluar->kode_surat}}</b></small></p>
             </td>
         </tr>
     </table>
@@ -109,12 +109,12 @@
         <tr>
             <td style="width: 30%;">Nama Lengkap</td>
             <td>:</td>
-            <td style="width: 90%;">Siti Sri Lestari</td>
+            <td style="width: 90%;">{{ $iKeluar->nama_pegawai }}</td>
         </tr>
         <tr>
-            <td style="width: 30%;">Jabatan</td>
+            <td style="width: 30%;">{{ $iKeluar->jabatan}}</td>
             <td>:</td>
-            <td style="width: 90%;">Instruktur LPBI Quali International Surabaya (QIS)</td>
+            <td style="width: 90%;">{{ $iKeluar->lembaga}}</td>
         </tr>
         <tr style="width: 40%">
             <td style="width: 30%;">Periode</td>

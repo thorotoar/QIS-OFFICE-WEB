@@ -308,7 +308,7 @@ Route::group(['prefix' => 'pegawai', 'namespace' => 'Pegawai', 'middleware' => '
             'as' => 'surk-hapus'
         ]);
 
-        Route::get('/surat-keputusan-print', [
+        Route::get('/surat-keluar-print', [
             'uses' => 'SuratKeluarController@print',
             'as' => 'surk-print'
         ]);

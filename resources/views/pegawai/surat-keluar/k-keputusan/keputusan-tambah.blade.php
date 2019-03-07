@@ -88,8 +88,8 @@
                                                 <label>Nama Pegawai <span class="text-danger">*</span></label>
                                                 <select class="form-control custom-select form-control-sm" id="lembaga" name="nama_pegawai"  required>
                                                     <option readonly="true" selected>Pilih Pegawai</option>
-                                                    @foreach(\App\RiwayatPendidikan::all() as $pegawais)
-                                                        <option value="{{$pegawais->pegawai->id}}">{{$pegawais->pegawai->nama}}</option>
+                                                    @foreach(\App\Pegawai::all() as $pegawais)
+                                                        <option value="{{$pegawais->id}}">{{$pegawais->nama}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
